@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
 import { Flash } from "@/components/site";
 import { deleteResource, saveResource } from "@/lib/actions/admin";
@@ -17,6 +17,7 @@ export default async function EditResource({ params, searchParams }: { params: P
   const r = isNew ? null : await db.query.resources.findFirst({ where: eq(s.resources.id, Number(id)) });
   if (!isNew && !r) notFound();
   const type = r?.type ?? (sp.type === "document" || sp.type === "insight" ? sp.type : "blog");
+  const products = await db.select().from(s.products).where(eq(s.products.active, true)).orderBy(asc(s.products.sortOrder));
   const pub = r?.publishedAt ? new Date(r.publishedAt).toISOString().slice(0, 10) : "";
   return (
     <>
@@ -34,6 +35,7 @@ export default async function EditResource({ params, searchParams }: { params: P
           <label className="field"><span>Publish date</span><input className="input" type="date" name="publishedAt" defaultValue={pub} /><small>Leave empty to use today when published.</small></label>
           <label className="field"><span>Category</span><input className="input" name="category" defaultValue={r?.category ?? ""} placeholder="Product Management · AI · ServiceNow" /></label>
           <label className="field"><span>Hero image URL</span><input className="input" name="heroImage" defaultValue={r?.heroImage ?? ""} placeholder="/assets/blog-new-product-bottleneck.jpg" /></label>
+          <label className="field full"><span>Featured product</span><select className="select" name="productId" defaultValue={r?.productId ?? ""}><option value="">None: promote the full product suite</option>{products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select><small>Sets the “Ready to see it in action?” call to action and the sidebar promo.</small></label>
           <label className="field"><span>Author name</span><input className="input" name="authorName" defaultValue={r?.authorName ?? "Kit Corry"} /></label>
           <label className="field"><span>Author title</span><input className="input" name="authorTitle" defaultValue={r?.authorTitle ?? "CEO, IC5 Labs"} /></label>
           <label className="field full"><span>Summary</span><textarea className="textarea" name="summary" defaultValue={r?.summary ?? ""} style={{ minHeight: 80 }} /><small>Shown on cards and as the article lead.</small></label>

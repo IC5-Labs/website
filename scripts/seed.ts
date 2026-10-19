@@ -4,7 +4,7 @@
  */
 import { readFileSync } from "node:fs";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { and, eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { Pool } from "pg";
 import * as s from "../src/db/schema";
 
@@ -96,22 +96,36 @@ async function main() {
       category: "Product Management · AI · ServiceNow",
       authorName: "Kit Corry", authorTitle: "CEO, IC5 Labs",
       heroImage: "/assets/blog-new-product-bottleneck.jpg",
+      productId: prod["customer-signals-agent"]?.id ?? null,
       body: readFileSync("content/blog/new-product-bottleneck.md", "utf8"),
       publishedAt: new Date("2026-10-15T12:00:00Z"), createdById: admin?.id,
     });
   }
 
   // Blog posts carried over from the previous ic5labs.com/blog
-  const posts = JSON.parse(readFileSync("content/blog/posts.json", "utf8")) as { slug: string; title: string; summary: string; category: string; publishedAt: string }[];
+  const posts = JSON.parse(readFileSync("content/blog/posts.json", "utf8")) as { slug: string; title: string; summary: string; category: string; publishedAt: string; product: string }[];
   for (const p of posts) {
     if (await db.query.resources.findFirst({ where: eq(s.resources.slug, p.slug) })) continue;
     await db.insert(s.resources).values({
       type: "blog", slug: p.slug, status: "published", title: p.title, summary: p.summary, category: p.category,
       authorName: "Kit Corry", authorTitle: "CEO, IC5 Labs",
       heroImage: `/assets/blog-${p.slug}.jpg`,
+      productId: prod[p.product]?.id ?? null,
       body: readFileSync(`content/blog/${p.slug}.md`, "utf8"),
       publishedAt: new Date(p.publishedAt), createdById: admin?.id,
     });
+  }
+
+  // One-time: link existing blog posts to the product their call to action promotes.
+  // Recorded in seed_run so a product an admin later changes or clears is never overwritten.
+  const blogProducts = "blog-products-v1";
+  if (!(await db.query.seedRuns.findFirst({ where: eq(s.seedRuns.name, blogProducts) }))) {
+    const links: Record<string, string> = { [blogSlug]: "customer-signals-agent", ...Object.fromEntries(posts.map((p) => [p.slug, p.product])) };
+    for (const [slug, product] of Object.entries(links)) {
+      if (!prod[product]) continue;
+      await db.update(s.resources).set({ productId: prod[product].id }).where(and(eq(s.resources.slug, slug), isNull(s.resources.productId)));
+    }
+    await db.insert(s.seedRuns).values({ name: blogProducts }).onConflictDoNothing();
   }
 
   // State of Product insights

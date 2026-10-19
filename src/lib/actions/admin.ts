@@ -34,6 +34,7 @@ export async function saveResource(formData: FormData) {
     type: d.type, title: d.title, status: d.status, slug,
     summary: opt(formData.get("summary")), body: String(formData.get("body") ?? ""), category: opt(formData.get("category")),
     authorName: opt(formData.get("authorName")), authorTitle: opt(formData.get("authorTitle")), heroImage: opt(formData.get("heroImage")),
+    productId: Number(formData.get("productId")) || null,
     publishedAt: pub ? new Date(pub) : d.status === "published" ? existing?.publishedAt ?? new Date() : existing?.publishedAt ?? null,
     updatedAt: new Date(),
   };

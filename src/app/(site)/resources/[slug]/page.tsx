@@ -5,6 +5,9 @@ import { publishedResources, resourceBySlug } from "@/lib/content";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCurrentUser } from "@/lib/users";
 import { fmtDate } from "@/lib/format";
+import { productPromo } from "@/lib/promo";
+import { eq } from "drizzle-orm";
+import { db, schema as s } from "@/db";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +26,7 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
   const words = (r.body ?? "").split(/\s+/).length;
   const related = (await publishedResources(r.type)).filter((x) => x.id !== r.id).slice(0, 3);
   const isBlog = r.type === "blog";
+  const promo = productPromo(r.productId ? await db.query.products.findFirst({ where: eq(s.products.id, r.productId) }) : null);
   const label = r.type === "blog" ? "Blog" : r.type === "insight" ? "Insights" : "Documents";
   return (
     <>
@@ -50,13 +54,13 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
               {!isBlog && r.heroImage && <img className="insight-hero" src={r.heroImage} alt={r.title} />}
               {r.summary && isBlog && <p className="lead">{r.summary}</p>}
               <div dangerouslySetInnerHTML={{ __html: html }} />
-              <div className="inlinecta"><div><b>Ready to see it in action?</b><span>Learn how Customer Signals Agent turns customer conversations into evidence your whole team can build from.</span></div><Link className="btn btn-primary" href="/agents#csa">Explore Customer Signals Agent &nbsp;→</Link></div>
+              <div className="inlinecta"><div><b>Ready to see it in action?</b><span>{promo.ctaText}</span></div><Link className="btn btn-primary" href={promo.href}>{promo.ctaLabel} &nbsp;→</Link></div>
             </article>
             <aside className="side">
               {h2.length > 1 && (
                 <div className="toc"><h6>IN THIS ARTICLE</h6>{h2.map((t, i) => <a key={t.id} href={`#${t.id}`} className={i === 0 ? "on" : undefined}>{t.text}</a>)}</div>
               )}
-              <div className="promo"><div className="eyebrow">Live on the ServiceNow Store</div><h4>Customer Signals Agent</h4><p>Turn meeting transcripts into evidence-backed customer needs, inside your instance.</p><Link className="btn btn-primary" href="/demo">Book a demo</Link></div>
+              <div className="promo"><div className="eyebrow">{promo.eyebrow}</div><h4>{promo.name}</h4><p>{promo.blurb}</p><Link className="btn btn-primary" href={promo.demoHref}>Book a demo</Link></div>
               <div className="share"><h6>SHARE</h6><Social /></div>
             </aside>
           </div>

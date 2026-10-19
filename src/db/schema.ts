@@ -93,6 +93,8 @@ export const resources = pgTable("resource", {
   authorName: text("author_name"),
   authorTitle: text("author_title"),
   heroImage: text("hero_image"),
+  /** Product promoted in the article's call to action and sidebar. */
+  productId: integer("product_id").references(() => products.id, { onDelete: "set null" }),
   status: publishStatus("status").default("draft").notNull(),
   publishedAt: timestamp("published_at", { withTimezone: true }),
   createdById: integer("created_by_id").references(() => users.id, { onDelete: "set null" }),
@@ -184,3 +186,9 @@ export type Resource = typeof resources.$inferSelect;
 export type Doc = typeof documentation.$inferSelect;
 export type Case = typeof cases.$inferSelect;
 export type License = typeof licenses.$inferSelect;
+
+/** One-time data steps the seed has already applied, so they never re-run over admin edits. */
+export const seedRuns = pgTable("seed_run", {
+  name: text("name").primaryKey(),
+  ranAt: timestamp("ran_at", { withTimezone: true }).defaultNow().notNull(),
+});

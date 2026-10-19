@@ -44,7 +44,7 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
                   <label className="fld"><span className="flbl">ServiceNow release</span><select className="select" name="release" defaultValue="Zurich"><option>Zurich</option><option>Australia</option><option>Yokohama</option><option>Other</option></select></label>
                   <label className="fld"><span className="flbl">Team size</span><select className="select" name="teamSize" defaultValue="10–50"><option>1–9</option><option>10–50</option><option>51–200</option><option>200+</option></select></label>
                   <div className="fld full"><span className="flbl">What would you like to see?</span>
-                    <div className="chks">{INTERESTS.map((i) => <label key={i} className="chk"><input type="checkbox" name="interests" value={i} defaultChecked={i === "Customer Signals"} />{i}</label>)}</div>
+                    <div className="chks">{INTERESTS.map((i) => <label key={i} className="chk"><input type="checkbox" name="interests" value={i} defaultChecked={i === (INTERESTS.includes(sp.interest ?? "") ? sp.interest : "Customer Signals")} />{i}</label>)}</div>
                   </div>
                   <label className="fld full"><span className="flbl">Anything else we should know? (optional)</span><textarea className="textarea" name="message" style={{ minHeight: 90 }} /></label>
                 </div>

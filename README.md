@@ -22,13 +22,14 @@ Defined in `src/db/schema.ts`; migrations in `drizzle/`.
 - `user`: individual person, unique by email; platform role (`admin` or `user`), company account, and account role (`account_admin` or `member`)
 - `account`: company account; many users belong to one account
 - `invite`: pending email invitation to join an account
-- `resource`: blog post, document, or insight (Markdown body, draft or published)
+- `resource`: blog post, document, or insight (Markdown body, draft or published); a blog post's featured product sets its call to action and sidebar promo, or the full product suite when none is set
 - `product`: products and plans for sale
 - `agent`: AI agents for sale, linked to a product
 - `documentation`: versioned product docs, one row per page per version; each version is `latest`, `supported`, `deprecated`, or `draft`
 - `case` and `case_comment`: customer support cases and their conversation, including support-only internal notes
 - `request`: demo requests, information requests, license change requests, and newsletter signups
 - `license`: a license for an account to use a product (plan, seats, instance, version, term, status)
+- `seed_run`: one-time data steps the seed has applied, so they never overwrite later admin edits
 
 ## Running it
 
