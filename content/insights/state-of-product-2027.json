@@ -1,0 +1,42 @@
+[
+ {
+  "title": "The 4% problem",
+  "image": "/assets/the-4-percent-problem.png",
+  "body": "Only 4% of product teams can trace every roadmap decision back to customer feedback or evidence.\n\nFewer than half can do it most of the time.\n\nWhen someone asks \"why are we building this?\", most teams can't point to the customers who asked for it. Traceability shouldn't be a heroic effort. It should be built into how evidence is captured: each signal linked to a need, each need linked to the work.\n\nThat's what Customer Signals Agent does."
+ },
+ {
+  "title": "Logged isn't used",
+  "image": "/assets/logged-isnt-used.png",
+  "body": "77% of product teams formally log customer feedback.  \n64% say it isn't consistently used in decisions.\n\nCollection was never the hard part. Teams have tickets, survey responses, call notes, and feature requests piling up.\n\nThe gap is between where feedback lands and where decisions get made. If evidence sits in a backlog nobody reads, it might as well not exist.\n\nFeedback becomes signal only when it's connected to a need, weighted by who's asking, and visible at the moment of prioritization."
+ },
+ {
+  "title": "Faster shipping, same slow decisions",
+  "image": "/assets/faster-shipping-same-slow-decisions.png",
+  "body": "80% of product teams say AI helps them ship faster.  \nBut customers aren't seeing value any sooner.\n\nWhy? 69% say decision-making hasn't sped up, even with AI. And 86% agree that as shipping gets easier, deciding what to build matters more.\n\nAI moved the bottleneck from building to choosing.\n\nYou don't fix a decision bottleneck with more shipping capacity. You fix it with better inputs: customer evidence that's already organized, linked, and ready when the prioritization conversation starts."
+ },
+ {
+  "title": "The HiPPO is still in the room",
+  "image": "/assets/the-hippo-is-still-in-the-room.png",
+  "body": "77% of product teams say executive gut instinct overrides data-driven decisions at least some of the time.\n\nEven Atlassian's report tells the C-suite to get out of its own way.\n\nBut here's the uncomfortable part. Instinct wins most often when the evidence is weak. If customer data is anecdotal, scattered, or hard to defend, the most senior opinion fills the gap.\n\nWant leaders to change their minds? Give them evidence strong enough to change it: real customers, real records, real counts."
+ },
+ {
+  "title": "Too many places to look",
+  "image": "/assets/too-many-places-to-look.png",
+  "body": "What's the hardest part of using feedback in roadmap decisions? For 41% of product teams, it's that feedback is spread across too many tools and channels.\n\nFor ServiceNow customers, much of the most valuable signal is already in one place: cases, incidents, requests, and surveys. It just isn't connected to product decisions.\n\nCustomer Signals Agent works natively on the Now Platform. It turns what customers are already telling you into evidence linked to product needs, with no export and no new silo."
+ },
+ {
+  "title": "Anecdotes don't win arguments",
+  "image": "/assets/anecdotes-dont-win-arguments.png",
+  "body": "From State of Product 2027, the hardest parts of using feedback:\n\n- 43% have no standardized process\n- 39% struggle to identify the biggest opportunity\n- 37% say feedback is anecdotal or not tied to evidence\n\nOne loud customer is an anecdote. Forty customers describing the same problem, linked to their actual cases, is a priority.\n\nThe difference is structure: capture consistently, cluster related signals into needs, and keep the source attached."
+ },
+ {
+  "title": "Your moat is what your customers tell you",
+  "image": "/assets/your-moat-is-what-your-customers-tell-you.png",
+  "body": "89% of product professionals worry that AI-native competitors will quickly match their product's capabilities.\n\nThey're right to. Features are easier to copy than ever.\n\nWhat's hard to copy is knowing your customers: which problems hurt most, for whom, and why. That knowledge comes from the signals customers send you every day.\n\nWhen anyone can build fast, the teams that win are the ones that know what to build."
+ },
+ {
+  "title": "AI suggests, humans decide",
+  "image": "/assets/ai-suggests-humans-decide.png",
+  "body": "41% of product teams use AI to summarize customer feedback. But only 28% say it's as good as a human at it.\n\nMeanwhile 82% report low-effort AI work getting passed around, and about half spend time babysitting agents.\n\nThe answer isn't less AI. It's AI you can check. Customer Signals Agent suggests which need a piece of evidence belongs to. A human confirms it, and the link back to the original record stays attached.\n\nSpeed from the agent, judgment from the team, an audit trail for everyone."
+ }
+]

@@ -1,0 +1,56 @@
+<section class="blk dark2"><div class="wrap">
+  <div class="eyebrow">The agents</div>
+  <h2>Each one does the clerical work.<br>Your team keeps the judgment.</h2>
+  <div class="grid3 mt">
+    <div class="acard live"><span class="tier">Live on the Store</span><div class="app">CUSTOMER SIGNALS</div><h3>Customer Signals Agent</h3><p>Reads meeting transcripts and proposes candidate needs, pain points, feature opportunities, and personas, with customer quotes attached as evidence.</p></div>
+    <div class="acard"><span class="tier">Team</span><div class="app">CUSTOMER SIGNALS</div><h3>Signals Discovery Agent</h3><p>Finds customer signals across conversations and records, and matches new evidence to the needs that already exist.</p></div>
+    <div class="acard"><span class="tier">Team</span><div class="app">CUSTOMER SIGNALS</div><h3>Signals Priority Agent</h3><p>Weighs needs by who is asking and how often, so the prioritization conversation starts from evidence.</p></div>
+    <div class="acard"><span class="tier">Pro</span><div class="app">PRODUCT MODEL</div><h3>Requirements Generation Agent</h3><p>Drafts requirements and acceptance criteria from a feature definition, its linked customer needs, and the evidence behind them.</p></div>
+    <div class="acard"><span class="tier">Pro</span><div class="app">PRODUCT MODEL</div><h3>Build Orchestration Agent</h3><p>Takes approved requirements and supervises the build using ServiceNow Build Agent.</p></div>
+    <div class="acard"><span class="tier">Max</span><div class="app">RELEASE INTELLIGENCE</div><h3>Release Notes Agent</h3><p>Writes evidence-backed release notes, identifies impacted users, and summarizes customer value.</p></div>
+    <div class="acard"><span class="tier">Max</span><div class="app">RELEASE INTELLIGENCE</div><h3>Release Manager Agent</h3><p>Tracks phase gates and release state, and flags a release in jeopardy before it slips.</p></div>
+    <div class="acard" style="grid-column:span 2;display:flex;align-items:center;justify-content:space-between;gap:24px"><div><div class="app">ALL AGENTS</div><h3>Built on ServiceNow AI Agent Studio and Now Assist Skill Kit</h3><p>Agents run in your instance, use the model provider your administrator approved, and stage every suggestion for human review.</p></div><a class="btn btn-ghost" href="#governance" style="flex:0 0 auto">How we govern AI</a></div>
+  </div>
+</div></section>
+
+<section class="blk light" id="csa"><div class="wrap">
+  <div class="grid2" style="align-items:start">
+    <div>
+      <div class="eyebrow">Featured · Customer Signals Agent</div>
+      <h2>Transcript in. Evidence-backed needs out.</h2>
+      <p class="sub">Attach a meeting transcript and the agent reads the whole conversation, not just the parts someone happened to write down. If a need already exists, new evidence strengthens it instead of creating a duplicate.</p>
+      <ul class="blist"><li><b>Transcript to structured signal.</b> Candidate needs, pain points, feature opportunities, and personas, automatically.</li><li><b>Traceability through build and release.</b> Evidence keeps its extraction run, prompt version, model provider, and source.</li><li><b>Runs in your instance.</b> No MID Server, no inbound endpoint, no IC5 Labs-hosted component.</li></ul>
+    </div>
+    <div class="req" style="color:#fff">
+      <h4>SYSTEM REQUIREMENTS</h4>
+      <div class="row"><span class="k">ServiceNow Platform</span><span>Australia Patch 5+ or Zurich Patch 12+</span></div>
+      <div class="row"><span class="k">ServiceNow Otto for Platform</span><span>12.2.0+</span></div>
+      <div class="row"><span class="k">License</span><span>A licensed ServiceNow Otto product, such as Platform, ITSM, or App Creator</span></div>
+      <div class="row"><span class="k">LLM provider</span><span>An approved provider configured by your instance administrator: Azure OpenAI, AWS Claude, or Google Gemini</span></div>
+      <div class="row"><span class="k">Interface</span><span>ServiceNow Otto (Now Assist) Panel enabled</span></div>
+      <div class="row"><span class="k">Roles</span><span><code>now_assist_panel_user</code> · <code>x_ic5l_csa.user</code></span></div>
+    </div>
+  </div>
+  <div class="steps mt">
+    <div class="step"><div class="n">01</div><h4>Create a conversation</h4><p>Track the customer, date, owner, and primary contact for the meeting.</p></div>
+    <div class="step"><div class="n">02</div><h4>Add the transcript</h4><p>Paste or attach the plain-text transcript from your meeting recording.</p></div>
+    <div class="step"><div class="n">03</div><h4>Hit Analyze</h4><p>The agent extracts personas, needs, and evidence with sentiment and timestamps.</p></div>
+    <div class="step"><div class="n">04</div><h4>Review and confirm</h4><p>Confirm or reject each suggestion, then relate needs to work items.</p></div>
+  </div>
+</div></section>
+
+<section class="blk native" id="governance"><div class="wrap">
+  <div class="eyebrow">Governance</div>
+  <h2>AI your administrators already know how to govern.</h2>
+  <p class="sub">IC5 Labs agents use the controls ServiceNow already gives you. Nothing to bolt on, nothing new to audit.</p>
+  <div class="grid3 mt">
+    <div class="dcard"><div class="ico">1</div><h3>Your approved model</h3><p>Agents use the LLM provider configured in AI Admin Hub. The app embeds no model credentials.</p></div>
+    <div class="dcard"><div class="ico">2</div><h3>AI Guardian guardrails</h3><p>Prompt injection, offensiveness, and sensitive topic filters apply to every agent run.</p></div>
+    <div class="dcard"><div class="ico">3</div><h3>PII anonymization</h3><p>Mask personally identifiable information with Data Privacy policies on the Now Assist channel before anything reaches the model.</p></div>
+    <div class="dcard"><div class="ico">4</div><h3>Human review by design</h3><p>Every suggestion lands in a staging field for confirmation. Nothing is committed silently.</p></div>
+    <div class="dcard"><div class="ico">5</div><h3>Full provenance</h3><p>Each piece of evidence records its source, extraction run, prompt version, and model provider.</p></div>
+    <div class="dcard"><div class="ico">6</div><h3>Clean scoped apps</h3><p>No extended out-of-the-box tables, no modified ServiceNow logic, no Global-scope artifacts.</p></div>
+  </div>
+</div></section>
+<section class="final" style="padding-top:110px"><div class="wrap"><div class="cta-box"><div><h2>Watch an agent read one of your calls.</h2><p>Bring a transcript to your demo and see Customer Signals Agent turn it into evidence-backed needs in minutes.</p></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:stretch"><a class="btn btn-primary" style="justify-content:center" href="/demo">Book a demo &nbsp;→</a><a class="btn btn-ghost" style="justify-content:center" href="/agents#csa">View on the ServiceNow Store</a></div></div></div></section>
