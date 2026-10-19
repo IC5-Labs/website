@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The New Product Bottleneck · IC5 Labs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-code@5.3.2/400.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero page">
+  <div class="dots"></div>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="index.html"><img src="assets/logo-rev.png" alt="IC5 Labs"></a>
+      <div class="links"><a href="products.html">Products</a><a href="agents.html">AI Agents</a><a href="how-it-works.html">How it works</a><a href="pricing.html">Pricing</a><a href="resources.html" class="on">Resources</a><a href="company.html">Company</a></div>
+      <div class="navcta"><a class="signin" href="signin.html">Sign in</a><a class="btn btn-primary" href="demo.html">Book a demo</a></div>
+    </nav>
+    <div class="phero" style="max-width:1000px;margin-top:64px">
+  <div class="crumbs"><a href="resources.html">Resources</a> &nbsp;/&nbsp; <a href="resources.html">Blog</a> &nbsp;/&nbsp; <b>The New Product Bottleneck</b></div>
+  <div class="eyebrow" style="margin-top:30px">Product Management · AI · ServiceNow</div>
+  <h1 style="font-size:54px;line-height:1.06">The New Product Bottleneck: What Happens When One PM Can No Longer Keep Up With What Their Team Can Build</h1>
+  <div class="byline"><img src="assets/kit-corry.jpg" alt=""><div><b>Kit Corry</b><span>CEO, IC5 Labs</span></div><i></i><span>October 2026</span><i></i><span>7 min read</span></div>
+</div>
+  </div>
+</header>
+
+<section class="artwrap">
+  <div class="wrap">
+    <figure class="arthero"><img src="assets/blog-new-product-bottleneck.jpg" alt="One product manager receiving streams of work from twenty AI-assisted engineers"><figcaption>One product manager, twenty AI-assisted engineers. The constraint has moved from building to deciding.</figcaption></figure>
+    <div class="artgrid">
+      <article class="prose">
+        <p class="lead">For most of the history of software, the scarce resource was engineering capacity. Product managers kept a backlog longer than the team could ever finish, and “what should we build next?” was a question with a comfortable answer: whatever fits in the sprint.</p>
+        <p>That comfort is gone. When an engineer with an AI coding assistant can ship in a day what used to take a week, the backlog stops being the thing that protects the product manager. The team runs out of well-understood work to do, and the person who has to supply more of it is the same PM who was already stretched thin.</p>
+        <p>This post is about what happens next: what breaks when the constraint moves from building to deciding, and what a team can do about it.</p>
+
+        <h2 id="ratio">The ratio nobody planned for</h2>
+        <p>Traditional staffing put roughly one product manager alongside eight engineers. According to a June 2026 VentureBeat guest post by Amazon software engineer Ishan Gupta, that ratio has effectively slid to about 1:20, not because companies hired fewer PMs, but because each engineer now ships so much more per day.</p>
+        <div class="ratiobox">
+          <div><span class="k">TRADITIONAL</span><span class="v">1:8</span><span class="d">PM to engineers</span></div>
+          <div class="arr">→</div>
+          <div><span class="k">WITH AI-ASSISTED DELIVERY</span><span class="v grad">1:20</span><span class="d">effective PM to engineers</span></div>
+        </div>
+        <p>Do the arithmetic. That is at least two and a half times as many engineers per PM, and each of those engineers produces more than before. The volume of decisions the team can act on has multiplied. The number of people making those decisions has not.</p>
+        <p>The same piece describes how companies are responding. LinkedIn replaced its associate product manager track with a “Product Builder” program that trains generalists across product, design, and engineering. Anthropic, after rolling out Claude Code across its engineering organization, went the other direction and asked its growth team to hire more product managers. The specific moves differ, but the diagnosis is the same.</p>
+        <blockquote>The bottleneck in software is no longer typing. It is deciding what to type.</blockquote>
+
+        <h2 id="breaks">What breaks first</h2>
+        <p>A product manager’s day was already a juggling act. In a single afternoon, a PM might brief leadership, sit in a customer call, negotiate priorities with stakeholders, answer a developer’s question about a half-built feature, respond to a last-minute change, and write requirements for the next release. Add an engineering team that finishes work faster than the PM can define it, and four things start to fail, usually in this order.</p>
+        <div class="fails">
+          <div><span class="n">01</span><h4>Customer evidence capture falls behind.</h4><p>The customer call happens on Tuesday. The notes get written Thursday, if they get written. By the time the insight reaches a backlog item, it has been summarized, paraphrased, and stripped of the sentence the customer actually said. PMs who spend as much time re-keying feedback into a system as they do talking to customers are spending their scarcest hours on clerical work.</p></div>
+          <div><span class="n">02</span><h4>Requirements lose their context.</h4><p>Builders receive a ticket that says what to build but not who asked for it, or why, or in what words. A requirement without the customer’s own statement behind it is an instruction, not an explanation. Engineers can implement it, but they can’t push back on it, improve on it, or notice when it doesn’t fit the problem.</p></div>
+          <div><span class="n">03</span><h4>The roadmap fills with guesses.</h4><p>When the demand for decisions outruns the supply of evidence, something has to fill the gap. Usually it is the loudest voice in the room, the most recent escalation, or the assumption that has been repeated often enough to sound like a fact. Now those guesses ship at 20-engineer velocity.</p></div>
+          <div><span class="n">04</span><h4>Traceability disappears.</h4><p>Six weeks after release, someone asks which customer wanted this feature and what they said. Most teams cannot answer. That isn’t a documentation failure. It is a structural one: the link between the conversation and the feature was never captured, so there is nothing to recover.</p></div>
+        </div>
+        <p>Notice that none of these are engineering problems. Faster coding did not cause them, but it exposed them, because the slack that used to hide them is gone.</p>
+
+        <h2 id="hiring">Hiring more PMs helps, but it is not the whole answer</h2>
+        <p>Adding product managers, or retraining generalists into product builders, addresses the people side of the ratio. It does not address the work side. A larger group of PMs still has to capture, synthesize, and route customer evidence by hand, and manual capture does not scale any better across ten PMs than it did across three.</p>
+        <p>The more durable fix is to change what the PM’s time is spent on. Judgment (weighing tradeoffs, choosing what matters, deciding what to say no to) is the part of the job only a person can do. Transcribing, tagging, de-duplicating, and re-typing are not. If those parts can be handled automatically, the PM’s capacity goes to the decisions that the faster team now needs.</p>
+        <p>Three principles follow from that.</p>
+        <div class="princ">
+          <div><span class="ico">1</span><h4>Capture evidence where it originates.</h4><p>The conversation itself, not someone’s memory of it, should be the source of record.</p></div>
+          <div><span class="ico">2</span><h4>Keep the evidence attached to the need.</h4><p>A customer need should carry the customer’s own words, so that anyone who touches it later can read what was actually said.</p></div>
+          <div><span class="ico">3</span><h4>Make traceability the default, not a project.</h4><p>If the path from a spoken sentence to a shipped feature is recorded as a byproduct of the work, “who asked for this?” becomes a one-click question.</p></div>
+        </div>
+
+        <h2 id="csa">Where Customer Signals Agent fits</h2>
+        <p><a href="agents.html#csa">Customer Signals Agent</a> was built around exactly this problem. It runs inside your ServiceNow instance, on the AI Agent framework and Now Assist, and turns customer meeting transcripts into structured, evidence-backed input for your product work.</p>
+        <div class="flowmini"><span>Create a conversation</span><i>→</i><span>Add the transcript</span><i>→</i><span>Analyze</span><i>→</i><span>Review candidate needs</span></div>
+        <p>The workflow is short. You create a conversation record to track the high-level details of the call, add the transcript, and click Analyze. The agent reads the entire conversation, not just the parts someone happened to write down, and proposes candidate customer needs, pain points, and personas. Customer comments and sentiment are attached to each need automatically as evidence. When a comment supports a need that already exists, the evidence is added to that need instead of spawning a duplicate, so the case for a real need strengthens over time.</p>
+        <p>Two design choices matter for the bottleneck problem in particular. First, the PM stays in charge of the decision. The agent proposes candidates; builders and product managers evaluate them, prioritize them, and relate them to work items. The judgment is still human. What changes is that it starts from a structured, evidence-backed view instead of a blank page and a stack of notes. Second, every candidate keeps its history: the extraction run, the prompt version, the model provider, the source segment, and the reviewer’s decisions. When someone asks why a feature was built, the answer is one click away.</p>
+        <p>It also fits the way ServiceNow teams already work. The agent uses the model provider your administrator has approved, and it is designed so that no customer data goes to IC5 Labs and none is used to train a model.</p>
+
+        <h2 id="questions">A few questions to ask your team this week</h2>
+        <p>You don’t need new software to see whether the bottleneck has already moved on your team. Try these:</p>
+        <div class="qbox">
+          <div><i></i>If your engineering output doubled tomorrow, how long before the backlog of well-understood work ran out?</div>
+          <div><i></i>Pick the last feature you shipped. Can you name the customer who motivated it, and quote what they said?</div>
+          <div><i></i>How many hours last week did your product managers spend writing up calls versus having them?</div>
+          <div><i></i>When a developer asks why a requirement exists, where do they go for the answer?</div>
+        </div>
+        <p>If the answers are uncomfortable, that is useful information. The teams that pull ahead in the next few years will not be the ones that build the fastest. They will be the ones that know what to build, can prove it, and can show every builder the customer behind the ticket.</p>
+        <div class="inlinecta"><div><b>Ready to see it in action?</b><span>Learn more about Customer Signals Agent and how it turns customer conversations into evidence your whole team can build from.</span></div><a class="btn btn-primary" href="agents.html#csa">Explore Customer Signals Agent &nbsp;→</a></div>
+        <p class="srcnote">Source: Ishan Gupta, “Claude Code turned every engineer into three. Now companies need more product thinkers,” VentureBeat, June 27, 2026.</p>
+      </article>
+
+      <aside class="side">
+        <div class="toc"><h6>IN THIS ARTICLE</h6>
+          <a href="#ratio" class="on">The ratio nobody planned for</a><a href="#breaks">What breaks first</a><a href="#hiring">Hiring more PMs helps</a><a href="#csa">Where Customer Signals Agent fits</a><a href="#questions">Questions for your team</a></div>
+        <div class="promo"><div class="eyebrow">Live on the ServiceNow Store</div><h4>Customer Signals Agent</h4><p>Turn meeting transcripts into evidence-backed customer needs, inside your instance.</p><a class="btn btn-primary" href="demo.html">Book a demo</a></div>
+        <div class="share"><h6>SHARE</h6><span class="social"><a aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.6h-4v-4.96c0-1.18-.02-2.7-1.7-2.7-1.7 0-1.96 1.27-1.96 2.6v5.06h-4z"/></svg></a><a aria-label="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg></a></span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="blk light" style="padding-top:90px"><div class="wrap">
+  <div class="eyebrow">Keep reading</div>
+  <h2>More on building what customers need</h2>
+  <div class="grid3 mt"><div class="post"><div class="th"><span>SERVICENOW</span></div><div class="b"><h4>ServiceNow’s Build Agent Can Write 80% of Your App. It Still Can’t Tell You What to Build.</h4><p>Build Agent makes code cheap. Knowing what to build is now the scarce skill.</p><div class="meta">Aug 2026</div></div></div><div class="post"><div class="th"><span>PRODUCT MANAGEMENT</span></div><div class="b"><h4>You’re the PM, the Dev, and the Support Team</h4><p>What happens when one ServiceNow builder wears every hat, and how to keep the customer in view.</p><div class="meta">Article</div></div></div><div class="post"><div class="th"><span>CUSTOMER INTELLIGENCE</span></div><div class="b"><h4>Teams Need Customer Intelligence</h4><p>Why platform teams need the same customer signal that product companies rely on.</p><div class="meta">Article</div></div></div></div>
+</div></section>
+<section class="final" style="padding-top:110px"><div class="wrap"><div class="cta-box"><div><h2>See the bottleneck move on your own team.</h2><p>Bring a customer transcript to a 30-minute demo and watch Customer Signals Agent turn it into evidence-backed needs.</p></div>
+<div style="display:flex;flex-direction:column;gap:12px;align-items:stretch"><a class="btn btn-primary" style="justify-content:center" href="demo.html">Book a demo &nbsp;→</a><a class="btn btn-ghost" style="justify-content:center" href="#">View on the ServiceNow Store</a></div></div></div></section>
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><div class="brand"><img src="assets/logo-rev.png" alt="IC5 Labs"></div><p class="ftag">Built by customer-focused product builders with deep ServiceNow experience in a culture of continuous care for products, people, and customers.</p></div>
+      <div class="fcol"><h6>PRODUCTS</h6><a href="products.html#customer-signals">Customer Signals</a><a href="products.html#product-model">Product Model</a><a href="products.html#release-intelligence">Release Intelligence</a><a href="agents.html">Customer Signals Agent</a></div>
+      <div class="fcol"><h6>RESOURCES</h6><a href="resources.html">Blog</a><a href="resources.html#insights">State of Product insights</a><a href="docs.html">Documentation</a><a href="docs-csa-1.1-installation.html">Installation guide</a></div>
+      <div class="fcol"><h6>COMPANY</h6><a href="company.html">About</a><a href="company.html#leadership">Leadership</a><a href="company.html#partners">Partners</a><a href="company.html#contact">Contact</a></div>
+      <div class="fcol"><h6>TRUST</h6><a href="resources.html#docs">Privacy policy</a><a href="pricing.html#support">Service level agreements</a><a href="agents.html#governance">Security</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 IC5 Labs, Inc. ServiceNow is a trademark of ServiceNow, Inc. IC5 Labs is an independent ServiceNow Store partner.</span><span class="social"><a aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.6h-4v-4.96c0-1.18-.02-2.7-1.7-2.7-1.7 0-1.96 1.27-1.96 2.6v5.06h-4z"/></svg></a><a aria-label="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6z"/></svg></a></span></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installation and configuration · Customer Signals Agent v1.1 · IC5 Labs Docs</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-flex@5.3.2/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/google-sans-code@5.3.2/400.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="appbody docsbody">
+<header class="appbar"><div class="wrap"><nav>
+      <a class="brand" href="index.html"><img src="assets/logo-rev.png" alt="IC5 Labs"></a>
+      <div class="links"><a href="products.html">Products</a><a href="agents.html">AI Agents</a><a href="how-it-works.html">How it works</a><a href="pricing.html">Pricing</a><a href="resources.html" class="on">Resources</a><a href="company.html">Company</a></div>
+      <div class="navcta"><a class="signin" href="signin.html">Sign in</a><a class="btn btn-primary" href="demo.html">Book a demo</a></div>
+    </nav></div></header>
+<div class="docbar"><div class="wrap dbin">
+  <a class="dhome" href="docs.html"><b>Docs</b></a><span class="dsep">/</span>
+  <div class="dd " data-dd><button class="ddbtn"><span class="pm">CSA</span>Customer Signals Agent<i>▾</i></button><div class="ddmenu prodmenu"><h6>PRODUCTS</h6><a class="on " href="docs-csa-1.1-installation.html"><span class="pm">CSA</span><span><b>Customer Signals Agent</b><small>v1.1 latest</small></span></a><a class=" soon" href="docs.html"><span class="pm">CS</span><span><b>Customer Signals</b><small>Docs available at release</small></span></a><a class=" soon" href="docs.html"><span class="pm">PM</span><span><b>Product Model</b><small>Docs available at release</small></span></a><a class=" soon" href="docs.html"><span class="pm">RI</span><span><b>Release Intelligence</b><small>Docs available at release</small></span></a></div></div>
+  <div class="dd " data-dd><button class="ddbtn ver">v1.1<span class="vtag lt">Latest</span><i>▾</i></button><div class="ddmenu vermenu"><h6>VERSIONS</h6><a href="docs-csa-1.1-installation.html" class="on"><b>v1.1</b><span class="vtag lt">Latest</span><i>✓</i></a><a href="docs-csa-1.0-installation.html" class=""><b>v1.0</b><span class="vtag ">Supported</span></a><div class="ddfoot"><a href="docs.html#versions">Version support policy →</a></div></div></div>
+  <div class="dsearch">⌕ Search Customer Signals Agent v1.1 docs<kbd>/</kbd></div>
+  <a class="dcase" href="new-case.html">Open a support case</a>
+</div></div>
+<div class="docgrid wrap">
+  <aside class="dnav"><div class="dnavver">Customer Signals Agent <b>v1.1</b></div>
+      <h6>GET STARTED</h6><a href="#">Overview</a><a href="#">System requirements</a>
+      <h6>INSTALL AND CONFIGURE</h6><a href="docs-csa-1.1-installation.html" class="on">Installation and configuration</a><div class="subnav"><a href="#overview">Overview</a><a href="#application-dependencies">Application Dependencies</a><a href="#configuration-instructions">Configuration Instructions</a><a href="#external-systems-connection">External systems connection</a><a href="#testing-the-configuration">Testing the configuration</a><a href="#demo-data">Demo Data</a><a href="#support-and-troubleshooting">Support and Troubleshooting</a></div>
+      <h6>REFERENCE</h6><a href="#">Release notes</a><a href="#">Privacy policy</a><a href="pricing.html#support">Service level agreements</a></aside>
+  <article class="docmain">
+    
+    <div class="dcrumb"><a href="docs.html">Docs</a> / <a href="docs-csa-1.1-installation.html">Customer Signals Agent</a> / <span class="mono">v1.1</span> / <b>Installation and configuration</b></div>
+    <h1>Installation and configuration</h1>
+    <div class="dmeta"><span class="vtag lt">v1.1 · Latest</span><span>Applies to Customer Signals Agent v1.1</span><span>Updated Oct 13, 2026</span><span>12 min read</span></div>
+    <p class="dlead">Install Customer Signals Agent from the ServiceNow Store, connect your approved model provider, apply guardrails, and confirm the agent can analyze a transcript.</p>
+    <div class="prose docprose"><h2 id="overview">Overview</h2>
+<p>Customer Signals Agent is distributed via the ServiceNow store. It can be installed with demo data on sub-production instances.</p>
+<h2 id="application-dependencies">Application Dependencies</h2>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Min Version</th>
+<th>App ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ServiceNow Platform</td>
+<td>[AP5+, ZP12+]</td>
+<td></td>
+</tr>
+<tr>
+<td>ServiceNow Otto for Platform</td>
+<td>[12.2.0+]</td>
+<td>sn_genai_platform</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>As this is an AI agent, to use it you must have a license for a ServiceNow Otto product (e.g. Platform, ITSM, App Creator, etc.) and the ServiceNow Otto (Now Assist) Panel enabled.</li>
+<li>Users must have the following roles to analyze transcripts: now_assist_panel_user, x_ic5l_csa.user</li>
+</ul>
+<h2 id="configuration-instructions">Configuration Instructions</h2>
+<ol>
+<li>Enable ServiceNow Otto (Now Assist) Panel</li>
+<li>Set Otto as the platform assistant</li>
+<li>Setup the LLM provider</li>
+<li>Setup guardrails via AI Guardian</li>
+<li>Anonymize fields containing Personally Identifiable Information (PII)</li>
+<li>Grant roles to users</li>
+<li>Test agent</li>
+</ol>
+<h4 id="enable-servicenow-otto-formerly-now-assist-panel">Enable ServiceNow Otto (formerly Now Assist) Panel</h4>
+<ol>
+<li>Navigate to <strong>Admin Center -&gt; AI Admin Hub -&gt; AI Experiences -&gt; ServiceNow Otto Panel</strong></li>
+<li>Ensure the Panel is turned on.
+<ol>
+<li>Hit 'Turn on' then confirm.
+<span class="shot"><img src="assets/docs/csa-1008174656.png" alt=""></span></li>
+</ol>
+</li>
+</ol>
+<h4 id="activate-servicenow-otto-panel-platform">Activate ServiceNow Otto Panel - Platform</h4>
+<ol>
+<li>
+<p>Conversational Interfaces -&gt; Assistant Designer</p>
+</li>
+<li>
+<p>Edit ServiceNow Otto panel - Platform
+<span class="shot"><img src="assets/docs/csa-1008185512.png" alt=""></span></p>
+</li>
+<li>
+<p>Edit, test, and activate the panel.</p>
+<ol>
+<li>Navigate to <strong>Assistant Designer -&gt; Assistants</strong> and activate the <strong>ServiceNow Otto panel - Platform</strong> assistant
+<span class="shot"><img src="assets/docs/csa-1008185557.png" alt=""></span></li>
+</ol>
+</li>
+</ol>
+<h4 id="setup-the-llm-and-provider">Setup the LLM and Provider</h4>
+<p>An approved large language model (LLM) provider should be configured and enabled by the instance administrator. The Solution is validated against the Now LLM Service and as well as the third-party providers ServiceNow supports for Now Assist, currently Azure OpenAI, AWS Claude, and Google Gemini. At least one must be approved and available; this application does not provide this or any credentials.</p>
+<ol>
+<li>Go to <strong>AI Admin Hub -&gt; Settings -&gt; Instance level configuration</strong> and ensure there is a configured LLM (example using AWS Claude shown  below)</li>
+</ol>
+<p><span class="shot"><img src="assets/docs/csa-1006153155.png" alt=""></span></p>
+<h4 id="setup-guardrails-via-ai-guardian">Setup guardrails via AI Guardian</h4>
+<ol>
+<li>Navigate to <strong>Admin Center -&gt; AI Admin Hub -&gt; Settings -&gt; AI Guardian</strong> to set the following settings:
+<ul>
+<li><strong>Prompt Injection</strong>: Applies instance-wide security against prompt manipulation. It can be configured to log attempts or block and log them.</li>
+<li><strong>Offensiveness</strong>: Activates filtering for offensive content at the workflow level. If you want you can activate <strong>Offensiveness for Other</strong>. You can set detection impact to either <strong>Log only</strong> or <strong>Block and log</strong>.</li>
+<li><strong>Sensitive Filters</strong>: Defines and restricts specific sensitive or out-of-policy subjects from being processed by generative AI models.</li>
+</ul>
+</li>
+</ol>
+<h4 id="anonymize-fields-containing-personally-identifiable-information-pii">Anonymize fields containing Personally Identifiable Information (PII)</h4>
+<p>You should anonymize fields containing Personally Identifiable Information (PII) and other restricted information before sending to the model provider. To do that:</p>
+<ol>
+<li>Navigate to <strong>All &gt; Data Privacy (Classic) &gt; Privacy Advanced Configuration</strong>.</li>
+<li>Select <strong>New</strong>, enter a <strong>Name</strong>, set the <strong>Channel</strong> to 'Now Assist', and <strong>Save</strong>.</li>
+<li>From the saved policy you can add data patterns then activate the policy.
+Full instructions here: <a href="https://www.servicenow.com/docs/r/yokohama/platform-security/data-privacy-classic/configure-now-assist-data-privacy.html">ServiceNow documentation: Configure Now Assist data privacy ↗</a></li>
+</ol>
+<h4 id="grant-roles-to-users">Grant roles to users</h4>
+<p>Users must have the following roles to analyze transcripts: now_assist_panel_user, x_ic5l_csa.user</p>
+<h4 id="test-application">Test application</h4>
+<ol>
+<li>Create a customer
+<ol>
+<li>Navigate to All &gt; Customer Signals Agent &gt; Customers</li>
+<li>Hit the New button</li>
+<li>Add details and save
+<span class="shot"><img src="assets/docs/csa-1013142817.png" alt=""></span></li>
+</ol>
+</li>
+<li>Add a new customer conversation
+<ol>
+<li>In the Conversation related list, hit the new button
+<span class="shot"><img src="assets/docs/csa-1013143004.png" alt=""></span></li>
+</ol>
+</li>
+<li>Add primary contact and transcript* and save
+*Ask an LLM to generate a zoom-like meeting transcript on any topic you like</li>
+<li>Analyze the transcript
+<ol>
+<li>On the conversation page, hit the Analyze button and open the ServiceNow Otto (Now Assist) Panel to watch the conversation. The Analysis should appear after the agent runs.</li>
+</ol>
+</li>
+<li>Validate
+<ol>
+<li>Ensure the Short description was filled out by the agent</li>
+<li>Ensure the Analysis is updated</li>
+<li>Ensure the state of the conversation is Analyzed</li>
+<li>Ensure evidences are created if identified</li>
+</ol>
+</li>
+</ol>
+<p><span class="shot"><img src="assets/docs/csa-1013144040.png" alt=""></span></p>
+<h2 id="external-systems-connection">External systems connection</h2>
+<p>Before you install the app, collect the account details, credentials and identifiers for every external system it calls. The app sends its generative AI requests through Now Assist to Anthropic Claude models hosted on Amazon Bedrock, so you need information from two owners: your AWS administrator and your ServiceNow platform administrator.</p>
+<h4 id="external-systems-in-scope">External systems in scope</h4>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th><strong>System</strong></th>
+<th><strong>Role in the app</strong></th>
+<th><strong>Typical owner</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amazon Bedrock (AWS)</td>
+<td>Hosts the Claude models that answer the app's prompts</td>
+<td>Cloud / AWS administrator</td>
+</tr>
+<tr>
+<td>AWS IAM</td>
+<td>Issues the identity and keys ServiceNow uses to call Bedrock</td>
+<td>Cloud security</td>
+</tr>
+<tr>
+<td>ServiceNow Now Assist / Generative AI Controller</td>
+<td>Routes the app's skills to the AWS Claude provider</td>
+<td>ServiceNow platform administrator</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="integration-overview">Integration overview</h3>
+<p>The app never calls AWS directly. Its skills hand prompts to Now Assist, the Generative AI Controller routes them to the AWS Claude provider, and the provider signs each call to Amazon Bedrock with the AWS credential stored behind a ServiceNow connection &amp; credential alias.</p>
+<p><span class="shot"><img src="assets/docs/csa-1006151510.png" alt=""></span></p>
+<p>Each box maps to items you collect below: the IAM identity and model IDs come from AWS, the controller, alias and credential from ServiceNow.</p>
+<h3 id="aws-information-to-collect">AWS information to collect</h3>
+<p>Your AWS administrator supplies these items. Use a dedicated AWS account or a dedicated IAM identity for ServiceNow so its usage and cost can be tracked and revoked on their own.</p>
+<ol>
+<li><strong>AWS account ID</strong> — the 12-digit account that owns the Bedrock usage and billing.</li>
+<li><strong>AWS Region</strong> — the Region where Claude is enabled in Bedrock (for example <code>us-east-1</code> or <code>us-west-2</code>). Pick one that meets your data-residency rules; requests and data stay in this Region unless you use a cross-Region inference profile.</li>
+<li><strong>Claude model access</strong> — confirm in the Bedrock console (Model access) that the Anthropic Claude models the app uses are granted for the account and Region. First-time Anthropic access may require submitting a use-case form, which can take time to approve.</li>
+<li><strong>Model ID or inference profile ID</strong> — copy the exact ID from the Bedrock console for each Claude model the app will call. Newer Claude models are often invoked through an inference profile ID (prefixed <code>us.</code>, <code>eu.</code> or <code>apac.</code>) rather than the base model ID.</li>
+<li><strong>IAM identity for ServiceNow</strong> — an IAM user (or role, if your ServiceNow release supports role assumption) with a policy that allows at minimum <code>bedrock:InvokeModel</code> and <code>bedrock:InvokeModelWithResponseStream</code>, scoped to the Claude model and inference-profile ARNs above.</li>
+<li><strong>Access key ID and secret access key</strong> — generated for that IAM identity. The secret is shown only once; send it through your secrets process, never by email or ticket comment.</li>
+<li><strong>Optional: Bedrock guardrail ID and version</strong> — if your organization requires an Amazon Bedrock guardrail on every call.</li>
+<li><strong>Optional: network controls</strong> — any AWS-side restriction (VPC endpoint policy, SCP, IP condition) that must allow traffic from your ServiceNow instance.</li>
+</ol>
+<p>Example least-privilege policy (replace the Region, account and model identifiers):</p>
+<div class="code"><div class="codebar"><span>JSON</span><span>Copy</span></div><pre><code>{
+  &quot;Version&quot;: &quot;2012-10-17&quot;,
+  &quot;Statement&quot;: [
+    {
+      &quot;Sid&quot;: &quot;InvokeClaudeForServiceNow&quot;,
+      &quot;Effect&quot;: &quot;Allow&quot;,
+      &quot;Action&quot;: [
+        &quot;bedrock:InvokeModel&quot;,
+        &quot;bedrock:InvokeModelWithResponseStream&quot;
+      ],
+      &quot;Resource&quot;: [
+        &quot;arn:aws:bedrock:&lt;region&gt;::foundation-model/&lt;claude-model-id&gt;&quot;,
+        &quot;arn:aws:bedrock:&lt;region&gt;:&lt;account-id&gt;:inference-profile/&lt;inference-profile-id&gt;&quot;
+      ]
+    }
+  ]
+}
+</code></pre></div>
+<p>Cross-Region inference profiles route to several Regions, so the foundation-model ARN may need to list each destination Region. Your AWS administrator should confirm against the profile's Region list.</p>
+<h3 id="servicenow-information-to-collect">ServiceNow information to collect</h3>
+<p>Your ServiceNow platform administrator supplies these items. Plugin names and menu paths vary by family release; confirm them against the ServiceNow documentation for your release.</p>
+<ol>
+<li><strong>Instance URL and family release with patch</strong> — for example <code>https://&lt;instance&gt;.service-now.com</code>, Yokohama Patch 6. Record the release so the right configuration steps are used.</li>
+<li><strong>Now Assist entitlement</strong> — confirm a Pro Plus or Enterprise Plus subscription that includes Now Assist and the Generative AI Controller.</li>
+<li><strong>Installed plugins</strong> — confirm Generative AI Controller, Now Assist Skill Kit and the Amazon Bedrock spoke (or the AWS Claude provider integration on your release) are installed and current.</li>
+<li><strong>Connection &amp; Credential alias for AWS Claude</strong> — the alias the Generative AI Controller uses for the AWS Claude provider. Record its exact name and whether a credential record already exists; the app's skills resolve the provider through this alias.</li>
+<li><strong>AWS credential record</strong> — the name of the ServiceNow credential record (AWS credentials type) that will hold the access key ID and secret from the AWS section. The administrator creates it during configuration; collect only the planned name now.</li>
+<li><strong>Provider selection</strong> — confirm that AWS Claude is enabled as a provider in the Generative AI Controller and selectable in Now Assist Skill Kit, and whether it is or should become the default provider for the app's skills.</li>
+<li><strong>Admin and runtime roles</strong> — the people who will hold <code>admin</code> (or the Now Assist admin role) during setup, and the user groups who will run the app's skills.</li>
+<li><strong>Outbound network rules</strong> — any instance-side allow list, MID Server requirement or proxy that applies to calls to <code>bedrock-runtime.&lt;region&gt;.amazonaws.com</code>.</li>
+<li><strong>Governance settings</strong> — whether Now Assist Guardian, data privacy masking or AI Control Tower policies are active, since they act on every prompt the app sends.</li>
+<li><strong>Non-production instance</strong> — the sub-production instance where configuration is tested first, and whether it uses a separate AWS identity.</li>
+</ol>
+<h2 id="testing-the-configuration">Testing the configuration</h2>
+<p>Create a new Conversation from <strong>Customer Signals Agent -&gt; Conversations -&gt; New</strong> add a transcript, and hit the <strong>Analyze</strong> button. Go to the <strong>Now Assist Panel</strong> to see the conversation and note that the identified evidence is listed in the <strong>Analysis</strong> field. If evidence shows up, the connection is successful.</p>
+<h2 id="demo-data">Demo Data</h2>
+<p>No demo data is required for application installation, but can be included during installation to a sub-production instance.</p>
+<h2 id="support-and-troubleshooting">Support and Troubleshooting</h2>
+<p>Service Level Agreement targets are for initial response, measured in support-portal business hours.</p>
+<ul>
+<li>Severity 1, production down or agent unable to process any transcript: four business hours to initial response, continuous effort thereafter, status update every business day.</li>
+<li>Severity 2, major function impaired with no reasonable workaround: one business day to initial response, status update every two business days.</li>
+<li>Severity 3, minor function impaired or a workaround exists: three business days to initial response.</li>
+<li>Severity 4, question, documentation issue, or enhancement request: five business days to initial response.</li>
+</ul>
+<p>Resolution targets are not offered as fixed commitments because time to resolve depends on defect class and on the customer's instance and upgrade posture. Severity is assigned by IC5 Labs in consultation with the customer, and disagreement is resolved in the customer's favor at the first escalation.</p>
+<h3 id="service-level-agreement-definition">Service Level Agreement Definition</h3>
+<p>Customers will be instructed to contact the integration provider (your organization) for technical support.  If a customer first contacts ServiceNow Customer Support, then ServiceNow Customer Support will isolate the problem and instruct the customer to resolve the issue with your organization.</p>
+<ul>
+<li>Support Hours of Operation: 9am - 5pm EST</li>
+<li>Support Days of Operation: Monday - Friday excluding US Holidays</li>
+<li>Promised Call Response Time: Within 8 hours of received support request</li>
+<li>Promised Call Resolution Time: Within 1-2 business days of response</li>
+<li>Contact Method: email: support@ic5labs.com</li>
+<li>Contact Details: <a href="mailto:support@ic5labs.com">support@ic5labs.com</a>, (689) 210-3900</li>
+</ul>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<h4 id="the-workflow-is-triggered-but-the-agent-never-runs-no-output-on-the-conversation-record">The workflow is triggered but the agent never runs (no output on the Conversation record).</h4>
+<p>This is almost always a permissions issue. Confirm the agent's &quot;Run as&quot; user holds the now_assist_panel_user role, and that the cross-scope privilege allowing the application to call the sn_aia runtime is active. Also verify all agent tools are set to Autonomous — tools left in Supervised mode prevent the workflow from firing.</p>
+<h4 id="the-analysis-step-returns-empty-or-the-transcript-quot-cannot-be-found-quot">The analysis step returns empty, or the transcript &quot;cannot be found.&quot;</h4>
+<p>The Transcript Analysis skill reads the transcript from the Conversation record using its conversationsysid input. Confirm the record has a non-empty transcript, that the input name in the skill's script exactly matches the input defined on the tool (case-sensitive), and that Now Assist is enabled and provisioned on the instance.</p>
+<h4 id="evidence-records-are-created-but-fields-are-blank-or-the-status-customer-does-not-update">Evidence records are created but fields are blank, or the status/customer does not update.</h4>
+<p>This indicates a field-name or access mismatch. Verify the field names referenced in the Evidence &amp; Analysis Builder script match the actual column names on the target instance, that the status choice values (new, Evidences created) exist in the choice list, and that Create/Update access is granted on the Conversation and Evidence tables.</p>
+<h4 id="re-running-analysis-on-the-same-record-fails-silently">Re-running analysis on the same record fails silently.</h4>
+<p>If an in-progress agent conversation already exists for a record, a second trigger will not fire. Ensure each run targets a record whose status permits triggering (the Analyze Transcript button is shown only when status is New), and that the prior run completed and sets its final status before re-triggering.</p>
+</div>
+    <div class="helpful"><span>Was this page helpful?</span><a>Yes</a><a>No</a><span class="muted" style="margin-left:auto">Found an issue in the docs? <a href="new-case.html">Open a Severity 4 case</a></span></div>
+    <div class="pn"><a href="#"><small>Previous</small>System requirements</a><a href="#" style="text-align:right"><small>Next</small>Release notes</a></div>
+  </article>
+  <aside class="dtoc"><h6>ON THIS PAGE</h6><a href="#overview" class=" on">Overview</a><a href="#application-dependencies" class="">Application Dependencies</a><a href="#configuration-instructions" class="">Configuration Instructions</a><a href="#external-systems-connection" class="">External systems connection</a><a href="#integration-overview" class="l2">Integration overview</a><a href="#aws-information-to-collect" class="l2">AWS information to collect</a><a href="#servicenow-information-to-collect" class="l2">ServiceNow information to collect</a><a href="#testing-the-configuration" class="">Testing the configuration</a><a href="#demo-data" class="">Demo Data</a><a href="#support-and-troubleshooting" class="">Support and Troubleshooting</a><a href="#service-level-agreement-definition" class="l2">Service Level Agreement Definition</a><a href="#troubleshooting" class="l2">Troubleshooting</a>
+    <div class="vbox"><h6>THIS PAGE IN OTHER VERSIONS</h6><a href="docs-csa-1.1-installation.html" class="on">v1.1 <span class="vtag lt">Latest</span></a><a href="docs-csa-1.0-installation.html" class="">v1.0 <span class="vtag ">Supported</span></a></div>
+    <div class="vbox"><h6>NEED HELP?</h6><a href="new-case.html" class="lnk">Open a support case</a><a href="account.html" class="lnk">Your licenses</a></div>
+  </aside>
+</div><script>
+document.querySelectorAll('[data-dd] .ddbtn').forEach(b=>b.addEventListener('click',e=>{const d=b.parentElement;const o=d.classList.contains('open');document.querySelectorAll('[data-dd]').forEach(x=>x.classList.remove('open'));if(!o)d.classList.add('open');e.stopPropagation();}));
+document.addEventListener('click',()=>document.querySelectorAll('[data-dd]').forEach(x=>x.classList.remove('open')));
+const m=new URLSearchParams(location.search).get('menu');if(m){const i={product:0,version:1}[m];const d=document.querySelectorAll('[data-dd]')[i];if(d)d.classList.add('open');}
+</script>
+<footer class="appfoot"><div class="wrap"><span>© 2026 IC5 Labs, Inc.</span><span><a href="docs.html">Documentation</a><a href="pricing.html#support">Service level agreements</a><a href="docs.html">Privacy policy</a><a href="company.html#contact">Contact</a></span></div></footer>
+</body>
+</html>
