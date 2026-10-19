@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "servicenow-build-agent-80-percent",
+    "title": "ServiceNow's Build Agent Can Write 80% of Your App. It Still Can't Tell You What to Build.",
+    "summary": "ServiceNow's Build Agent can create workflows, automate logic, and build interfaces at speed. But it still can't answer the most important product question: what should you build, and why?",
+    "category": "Product Strategy · AI · ServiceNow",
+    "publishedAt": "2026-08-16T12:00:00Z"
+  },
+  {
+    "slug": "youre-the-pm-the-dev-and-the-support-team",
+    "title": "You're the PM, the Dev, and the Support Team. Your Tools Should Treat You Like It.",
+    "summary": "Solo founders and small teams wear every hat in product development. Here's why your tools need to reflect that, and how a connected workflow changes everything.",
+    "category": "Product Strategy · Small Teams",
+    "publishedAt": "2026-08-16T11:00:00Z"
+  },
+  {
+    "slug": "teeams-need-customer-intelligence",
+    "title": "AI Makes Builders Faster. Customer Understanding Makes Them Better.",
+    "summary": "As AI helps engineering teams produce software faster, the bottleneck moves. The limiting factor is less about writing code and more about deciding what should be built in the first place.",
+    "category": "AI · Customer Intelligence",
+    "publishedAt": "2026-07-15T12:00:00Z"
+  },
+  {
+    "slug": "rise-of-the-servicenow-builder-persona",
+    "title": "Rise of the ServiceNow Builder Persona",
+    "summary": "Powered by Now Assist for Creator, a single person can now build applications and workflows that once required a full team. IC5 Labs' PBE answers the question that comes first: what should you build?",
+    "category": "Product Strategy · ServiceNow",
+    "publishedAt": "2026-05-17T12:00:00Z"
+  },
+  {
+    "slug": "knowledge-2026-recap",
+    "title": "Knowledge 2026 Recap: ServiceNow Bets Everything on the Agentic Era",
+    "summary": "ServiceNow's annual conference drew 25,000 to Las Vegas with a single message: the agentic era is not coming, it is already here. Here is everything product teams need to know.",
+    "category": "Platform News · ServiceNow",
+    "publishedAt": "2026-05-08T12:00:00Z"
+  },
+  {
+    "slug": "ai-first-product-development",
+    "title": "AI-First Product Development: A New Paradigm",
+    "summary": "How leading product teams are restructuring their entire development workflow around AI capabilities, and what it means for the future of software.",
+    "category": "Product Strategy · AI",
+    "publishedAt": "2025-04-27T12:00:00Z"
+  }
+]

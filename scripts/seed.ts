@@ -101,6 +101,19 @@ async function main() {
     });
   }
 
+  // Blog posts carried over from the previous ic5labs.com/blog
+  const posts = JSON.parse(readFileSync("content/blog/posts.json", "utf8")) as { slug: string; title: string; summary: string; category: string; publishedAt: string }[];
+  for (const p of posts) {
+    if (await db.query.resources.findFirst({ where: eq(s.resources.slug, p.slug) })) continue;
+    await db.insert(s.resources).values({
+      type: "blog", slug: p.slug, status: "published", title: p.title, summary: p.summary, category: p.category,
+      authorName: "Kit Corry", authorTitle: "CEO, IC5 Labs",
+      heroImage: `/assets/blog-${p.slug}.jpg`,
+      body: readFileSync(`content/blog/${p.slug}.md`, "utf8"),
+      publishedAt: new Date(p.publishedAt), createdById: admin?.id,
+    });
+  }
+
   // State of Product insights
   const insights = JSON.parse(readFileSync("content/insights/state-of-product-2027.json", "utf8")) as { title: string; image: string | null; body: string }[];
   for (const [i, it] of insights.entries()) {
