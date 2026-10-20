@@ -105,7 +105,7 @@ async function main() {
       title: "The New Product Bottleneck: What Happens When One PM Can No Longer Keep Up With What Their Team Can Build",
       summary: "AI has pushed the effective PM-to-engineer ratio from roughly 1:8 to 1:20. Here is what breaks in roadmapping and requirements when the constraint shifts from building to deciding, and how to fix the input side of the problem.",
       category: "Product Management · AI · ServiceNow",
-      authorName: "Kit Corry", authorTitle: "CEO, IC5 Labs",
+      authorName: "Kit Corry", authorTitle: "Founder & CEO, IC5 Labs",
       heroImage: "/assets/blog-new-product-bottleneck.jpg",
       productId: prod["customer-signals-agent"]?.id ?? null,
       body: readFileSync("content/blog/new-product-bottleneck.md", "utf8"),
@@ -119,7 +119,7 @@ async function main() {
     if (await db.query.resources.findFirst({ where: eq(s.resources.slug, p.slug) })) continue;
     await db.insert(s.resources).values({
       type: "blog", slug: p.slug, status: "published", title: p.title, summary: p.summary, category: p.category,
-      authorName: "Kit Corry", authorTitle: "CEO, IC5 Labs",
+      authorName: "Kit Corry", authorTitle: "Founder & CEO, IC5 Labs",
       heroImage: `/assets/blog-${p.slug}.jpg`,
       productId: prod[p.product]?.id ?? null,
       body: readFileSync(`content/blog/${p.slug}.md`, "utf8"),
@@ -162,6 +162,10 @@ async function main() {
     }
     await db.insert(s.seedRuns).values({ name: blogProducts }).onConflictDoNothing();
   }
+
+  // Kit's title changed to Founder & CEO; only rewrites the old value, so other edits are kept.
+  await db.update(s.resources).set({ authorTitle: "Founder & CEO, IC5 Labs" })
+    .where(and(eq(s.resources.authorName, "Kit Corry"), eq(s.resources.authorTitle, "CEO, IC5 Labs")));
 
   // State of Product insights
   const insights = JSON.parse(readFileSync("content/insights/state-of-product-2027.json", "utf8")) as { title: string; image: string | null; body: string }[];

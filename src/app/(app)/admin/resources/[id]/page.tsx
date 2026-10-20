@@ -38,7 +38,7 @@ export default async function EditResource({ params, searchParams }: { params: P
           <label className="field"><span>Hero image URL</span><input className="input" name="heroImage" defaultValue={r?.heroImage ?? ""} placeholder="/assets/blog-new-product-bottleneck.jpg" /></label>
           <label className="field full"><span>Featured product</span><select className="select" name="productId" defaultValue={r?.productId ?? ""}><option value="">None: promote the full product suite</option>{products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select><small>Sets the “Ready to see it in action?” call to action and the sidebar promo.</small></label>
           <label className="field"><span>Author name</span><input className="input" name="authorName" defaultValue={r?.authorName ?? "Kit Corry"} /></label>
-          <label className="field"><span>Author title</span><input className="input" name="authorTitle" defaultValue={r?.authorTitle ?? "CEO, IC5 Labs"} /></label>
+          <label className="field"><span>Author title</span><input className="input" name="authorTitle" defaultValue={r?.authorTitle ?? "Founder & CEO, IC5 Labs"} /></label>
           <label className="field full"><span>Summary</span><textarea className="textarea" name="summary" defaultValue={r?.summary ?? ""} style={{ minHeight: 80 }} /><small>Shown on cards and as the article lead.</small></label>
           <label className="field full"><span>Body (Markdown)</span><textarea className="textarea code" name="body" defaultValue={r?.body ?? ""} /><small>Use ## for section headings; they build the article’s table of contents.</small></label>
         </div>

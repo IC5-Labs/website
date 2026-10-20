@@ -360,7 +360,7 @@ a{color:inherit;text-decoration:none}
 .leader{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:center;border-radius:22px;padding:36px;background:rgba(0,57,76,.2);border:1px solid var(--line)}
 .leader img{width:300px;height:300px;object-fit:cover;border-radius:0;border:1.5px dashed rgba(255,255,255,.5);padding:8px}
 .leader h3{font-size:36px;font-weight:800;letter-spacing:-.02em}
-.leader .role{font-size:16px;color:var(--light);font-weight:700;margin-top:6px;letter-spacing:.06em}
+.leader .role{font-size:16px;color:var(--light);font-weight:700;margin-top:6px;letter-spacing:.06em;background:none;padding:0;border-radius:0}
 .leader p{font-size:17px;line-height:1.6;color:#B4C7D6;margin-top:18px;max-width:620px}
 .leader .social{margin-top:22px}
 .pers{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:40px}
