@@ -124,7 +124,7 @@ export function SiteFooter() {
           {col("PRODUCTS", [["/products/customer-signals", "Customer Signals"], ["/products/product-model", "Product Model"], ["/products/release-intelligence", "Release Intelligence"], ["/agents/customer-signals-agent", "Customer Signals Agent"]])}
           {col("RESOURCES", [["/resources", "Blog"], ["/resources#insights", "State of Product insights"], ["/docs", "Documentation"], ["/pricing#support", "Service Level Agreement"]])}
           {col("COMPANY", [["/company", "About"], ["/company#leadership", "Leadership"], ["/company#partners", "Partners"], ["/company#contact", "Contact"]])}
-          {col("TRUST", [["/resources#docs", "Privacy policy"], ["/pricing#support", "Service level agreements"], ["/agents#governance", "Security"]])}
+          {col("TRUST", [["/privacy", "Privacy policy"], ["/terms", "Terms of service"], ["/pricing#support", "Service level agreements"], ["/agents#governance", "Security"]])}
         </div>
         <div className="fbot"><span>© 2026 IC5 Labs, Inc. ServiceNow is a trademark of ServiceNow, Inc. IC5 Labs is an independent ServiceNow Store partner.</span><Social /></div>
       </div>
@@ -134,7 +134,7 @@ export function SiteFooter() {
 
 export function AppFooter() {
   return (
-    <footer className="appfoot"><div className="wrap"><span>© 2026 IC5 Labs, Inc.</span><span><Link href="/docs">Documentation</Link><Link href="/pricing#support">Service level agreements</Link><Link href="/resources#docs">Privacy policy</Link><Link href="/company#contact">Contact</Link></span></div></footer>
+    <footer className="appfoot"><div className="wrap"><span>© 2026 IC5 Labs, Inc.</span><span><Link href="/docs">Documentation</Link><Link href="/pricing#support">Service level agreements</Link><Link href="/privacy">Privacy policy</Link><Link href="/terms">Terms of service</Link><Link href="/company#contact">Contact</Link></span></div></footer>
   );
 }
 

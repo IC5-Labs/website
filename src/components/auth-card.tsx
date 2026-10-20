@@ -63,7 +63,7 @@ export function AuthCard({ mode, callbackUrl, error, notice }: { mode: "signin" 
           )}
           <div className="or"><span>Enterprise single sign-on</span></div>
           <Link className="sso" href="/company#contact">Need SAML SSO for your organization? Contact us</Link>
-          <p className="legal">By continuing, you agree to the IC5 Labs Terms of Service and Privacy Policy. We only request your name, email address, and profile photo from your provider.</p>
+          <p className="legal">By continuing, you agree to the IC5 Labs <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link>. We only request your name, email address, and profile photo from your provider.</p>
           {signin ? <p className="fine">New to IC5 Labs? <Link href={`/register${q}`}>Create an account</Link></p> : <p className="fine">Already have an account? <Link href={`/signin${q}`}>Sign in</Link></p>}
         </section>
       </div>

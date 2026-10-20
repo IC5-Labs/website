@@ -3,6 +3,7 @@ import { desc } from "drizzle-orm";
 import { db, schema as s } from "@/db";
 import { Flash } from "@/components/site";
 import { fmtDate } from "@/lib/format";
+import { resourceHref } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Resources admin" };
@@ -23,10 +24,10 @@ export default async function AdminResources({ searchParams }: { searchParams: P
       <section className="panel panel-tight" style={{ marginTop: 18 }}>
         {shown.length ? <div className="tblscroll"><table className="dtable"><thead><tr><th>Title</th><th>Type</th><th>Status</th><th>Published</th><th>Updated</th><th /></tr></thead><tbody>
           {shown.map((r) => (
-            <tr key={r.id}><td><Link href={`/admin/resources/${r.id}`}><b>{r.title}</b></Link><div className="muted mono" style={{ fontSize: 12 }}>/resources/{r.slug}</div></td><td>{TYPE[r.type]}</td>
+            <tr key={r.id}><td><Link href={`/admin/resources/${r.id}`}><b>{r.title}</b></Link><div className="muted mono" style={{ fontSize: 12 }}>{resourceHref(r)}</div></td><td>{TYPE[r.type]}</td>
               <td><i className={`st ${r.status === "published" ? "st-res" : "st-closed"}`}>{r.status === "published" ? "Published" : "Draft"}</i></td>
               <td>{fmtDate(r.publishedAt)}</td><td>{fmtDate(r.updatedAt)}</td>
-              <td><div className="actions"><Link className="btn btn-light btn-sm" href={`/resources/${r.slug}`}>View</Link><Link className="btn btn-light btn-sm" href={`/admin/resources/${r.id}`}>Edit</Link></div></td></tr>
+              <td><div className="actions"><Link className="btn btn-light btn-sm" href={resourceHref(r)}>View</Link><Link className="btn btn-light btn-sm" href={`/admin/resources/${r.id}`}>Edit</Link></div></td></tr>
           ))}
         </tbody></table></div> : <div style={{ padding: 28 }}><div className="empty">Nothing here yet.</div></div>}
       </section>

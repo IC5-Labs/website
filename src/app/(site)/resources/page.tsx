@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MarketingHeader, SiteFooter, Flash } from "@/components/site";
-import { publishedResources, docsCatalog } from "@/lib/content";
+import { publishedResources, docsCatalog, resourceHref } from "@/lib/content";
 import { subscribeNewsletter } from "@/lib/actions/public";
 import { fmtDate } from "@/lib/format";
 
@@ -69,7 +69,7 @@ export default async function ResourcesPage({ searchParams }: { searchParams: Pr
             <Link key={c.product.id} className="doc" href={`/docs/${c.product.slug}`}><div className="ico">↓</div><div><h4>{c.product.name} documentation</h4><p>Installation and configuration, versions {c.versions.map((v) => "v" + v.version).join(", ")}.</p></div></Link>
           ))}
           {documents.map((d) => (
-            <Link key={d.id} className="doc" href={`/resources/${d.slug}`}><div className="ico">≡</div><div><h4>{d.title}</h4><p>{d.summary}</p></div></Link>
+            <Link key={d.id} className="doc" href={resourceHref(d)}><div className="ico">≡</div><div><h4>{d.title}</h4><p>{d.summary}</p></div></Link>
           ))}
           <Link className="doc" href="/pricing#support"><div className="ico">⏱</div><div><h4>Service level agreements</h4><p>Severity definitions, response targets, and how to reach support.</p></div></Link>
         </div>

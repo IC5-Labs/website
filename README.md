@@ -60,6 +60,10 @@ Also set `AUTH_SECRET` (generate with `openssl rand -base64 32`) and `AUTH_URL` 
 
 Copy for `/products/<slug>` and `/agents/<slug>` lives in `content/catalog/products.json` and `content/catalog/agents.json`, written from the product strategy, design, and Store documents. The seed writes it to the database once per version: after editing either file, bump `catalog-pages-v1` in `scripts/seed.ts` so the next deploy applies the new copy. Product mockups in the page hero come from the matching section of the products page markup.
 
+## Legal pages
+
+The Privacy Policy and Terms of Service, carried over from the previous site, are document resources with the slugs `privacy` and `terms`, served at `/privacy` and `/terms`. Edit them in the admin console under Blog and resources; the publish date is shown as "Last updated". Keep those two slugs, since the URLs depend on them.
+
 ## Documentation versions
 
 In the admin console, Documentation → “Copy to new version” duplicates every page of a version as a draft. Edit the new pages, then set the version to Latest; the previous latest becomes Supported and its pages show a banner linking to the same page in the new version. Pages live at `/docs/<product>/<version>/<page>`.

@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { MarketingHeader, SiteFooter, CtaBand, Social } from "@/components/site";
-import { publishedResources, resourceBySlug } from "@/lib/content";
+import { LEGAL_PAGES, publishedResources, resourceBySlug, resourceHref } from "@/lib/content";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCurrentUser } from "@/lib/users";
 import { fmtDate } from "@/lib/format";
@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ResourcePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (LEGAL_PAGES[slug]) permanentRedirect(LEGAL_PAGES[slug]);
   const r = await resourceBySlug(slug);
   const user = await getCurrentUser();
   if (!r || (r.status !== "published" && user?.role !== "admin")) notFound();
@@ -72,7 +73,7 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
           <div className="eyebrow">Keep reading</div>
           <h2>More on building what customers need</h2>
           <div className="grid3 mt">{related.map((x) => (
-            <Link key={x.id} className="post link-card" href={`/resources/${x.slug}`}>
+            <Link key={x.id} className="post link-card" href={resourceHref(x)}>
               <div className={`th${x.heroImage ? " img" : ""}`}>{x.heroImage && <img src={x.heroImage} alt="" />}<span>{(x.category ?? label).split("·")[0].trim().toUpperCase()}</span></div>
               <div className="b"><h4>{x.title}</h4><p>{x.summary}</p><div className="meta">{fmtDate(x.publishedAt)}</div></div>
             </Link>

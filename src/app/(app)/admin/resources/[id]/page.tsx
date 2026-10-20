@@ -4,6 +4,7 @@ import { asc, eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
 import { Flash } from "@/components/site";
 import { deleteResource, saveResource } from "@/lib/actions/admin";
+import { resourceHref } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Edit resource" };
@@ -24,7 +25,7 @@ export default async function EditResource({ params, searchParams }: { params: P
       <div className="crumb2"><Link href="/admin">Admin</Link> / <Link href="/admin/resources">Blog and resources</Link> / <b>{isNew ? "New" : r!.title.slice(0, 40)}</b></div>
       {sp.error && <Flash err={ERR[sp.error] ?? "Couldn’t save."} />}
       <div className="ahead"><div><div className="eyebrow">Admin</div><h1>{isNew ? `New ${type === "blog" ? "blog post" : type}` : "Edit resource"}</h1></div>
-        {r && <div className="ahead-act"><Link className="btn btn-ghost2" href={`/resources/${r.slug}`}>{r.status === "published" ? "View live" : "Preview draft"}</Link></div>}</div>
+        {r && <div className="ahead-act"><Link className="btn btn-ghost2" href={resourceHref(r)}>{r.status === "published" ? "View live" : "Preview draft"}</Link></div>}</div>
       <form action={saveResource} className="panel">
         {r && <input type="hidden" name="id" value={r.id} />}
         <div className="formgrid">

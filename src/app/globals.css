@@ -1134,3 +1134,8 @@ a.agent:hover{background:rgba(36,0,167,.14)}
 }
 #problem h2,#approach h2{font-size:40px}
 @media (max-width:760px){ #problem h2,#approach h2{font-size:30px} }
+.legalnote{font-size:14.5px;color:#4A6273;line-height:1.5;margin-top:6px}
+.legalnote a{color:var(--violet);font-weight:700}
+.lbox{padding:22px;border-radius:16px;border:1px solid #E1E9F0;margin-top:16px}
+.legal a,.fine a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@media (max-width:760px){ .legaldoc .prose h2{font-size:26px} }

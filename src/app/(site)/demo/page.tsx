@@ -49,7 +49,7 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
                   <label className="fld full"><span className="flbl">Anything else we should know? (optional)</span><textarea className="textarea" name="message" style={{ minHeight: 90 }} /></label>
                 </div>
                 <button className="btn" type="submit">Book my demo &nbsp;→</button>
-                <p className="fine">By submitting, you agree to be contacted by IC5 Labs about this request. See our privacy policy.</p>
+                <p className="fine">By submitting, you agree to be contacted by IC5 Labs about this request. See our <Link href="/privacy">privacy policy</Link>.</p>
               </>
             )}
           </form>

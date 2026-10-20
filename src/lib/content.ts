@@ -56,3 +56,11 @@ export async function searchDocs(q: string, productSlug?: string, version?: stri
     })
     .sort((a, b) => compareVersions(b.version, a.version));
 }
+
+/** Legal documents live at their own short URLs, as they did on the previous site. */
+export const LEGAL_PAGES: Record<string, string> = { privacy: "/privacy", terms: "/terms" };
+
+/** Public URL for a resource. */
+export function resourceHref(r: { slug: string }) {
+  return LEGAL_PAGES[r.slug] ?? `/resources/${r.slug}`;
+}
