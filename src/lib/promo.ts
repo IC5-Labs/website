@@ -11,12 +11,18 @@ export type Promo = {
   demoHref: string;
 };
 
-const DEMO_INTEREST: Record<string, string> = {
+export const DEMO_INTEREST: Record<string, string> = {
   "customer-signals": "Customer Signals",
   "customer-signals-agent": "Customer Signals",
   "product-model": "Product Model",
   "release-intelligence": "Release Intelligence",
 };
+
+/** Demo form link with the matching interest ticked. */
+export function demoHref(slug: string | null | undefined) {
+  const interest = slug ? DEMO_INTEREST[slug] : undefined;
+  return interest ? `/demo?interest=${encodeURIComponent(interest)}` : "/demo";
+}
 
 export function productPromo(p: Product | null | undefined): Promo {
   if (!p) {
@@ -38,7 +44,7 @@ export function productPromo(p: Product | null | undefined): Promo {
     blurb: p.tagline ?? p.description ?? "",
     ctaText: p.description ?? p.tagline ?? "",
     ctaLabel: `Explore ${p.name}`,
-    href: p.slug === "customer-signals-agent" ? "/agents#csa" : store ? "/agents" : `/products#${p.slug}`,
+    href: store ? `/agents/${p.slug}` : `/products/${p.slug}`,
     demoHref: interest ? `/demo?interest=${encodeURIComponent(interest)}` : "/demo",
   };
 }

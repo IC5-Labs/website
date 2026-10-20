@@ -23,8 +23,8 @@ Defined in `src/db/schema.ts`; migrations in `drizzle/`.
 - `account`: company account; many users belong to one account
 - `invite`: pending email invitation to join an account
 - `resource`: blog post, document, or insight (Markdown body, draft or published); a blog post's featured product sets its call to action and sidebar promo, or the full product suite when none is set
-- `product`: products and plans for sale
-- `agent`: AI agents for sale, linked to a product
+- `product`: products and plans for sale; `page` holds the detail page copy (problem, approach, capabilities) shown at `/products/<slug>`
+- `agent`: AI agents for sale, linked to a product; `page` holds the copy for `/agents/<slug>`
 - `documentation`: versioned product docs, one row per page per version; each version is `latest`, `supported`, `deprecated`, or `draft`
 - `case` and `case_comment`: customer support cases and their conversation, including support-only internal notes
 - `request`: demo requests, information requests, license change requests, and newsletter signups
@@ -55,6 +55,10 @@ Each provider button appears once its two environment variables are set. Registe
 | Slack | api.slack.com/apps → your app → OAuth and Permissions (Sign in with Slack, OpenID scopes `openid`, `email`, `profile`) | `https://website-ic5labs.replit.app/api/auth/callback/slack` | `AUTH_SLACK_ID`, `AUTH_SLACK_SECRET` |
 
 Also set `AUTH_SECRET` (generate with `openssl rand -base64 32`) and `AUTH_URL` (the public site URL).
+
+## Product and agent pages
+
+Copy for `/products/<slug>` and `/agents/<slug>` lives in `content/catalog/products.json` and `content/catalog/agents.json`, written from the product strategy, design, and Store documents. The seed writes it to the database once per version: after editing either file, bump `catalog-pages-v1` in `scripts/seed.ts` so the next deploy applies the new copy. Product mockups in the page hero come from the matching section of the products page markup.
 
 ## Documentation versions
 

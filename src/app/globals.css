@@ -1065,3 +1065,72 @@ details.dd summary::-webkit-details-marker{display:none}
   .ahead>div{min-width:0;max-width:100%}
   .ahead h1{overflow-wrap:anywhere}
 }
+
+/* product and agent detail pages */
+.cathero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:64px;align-items:center;margin-top:56px;position:relative}
+.cathero h1{font-size:56px;margin:18px 0 22px}
+.cathero .crumbs a{color:var(--muted)}
+.cathero .crumbs a:hover{color:#fff}
+.dvis .vis{box-shadow:0 40px 100px rgba(0,0,0,.35)}
+.flowvis h6{font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-weight:700;margin:4px 0 10px}
+.flowvis .fitems{display:grid;gap:8px}
+.flowvis .fitem{font-size:14.5px;line-height:1.4;padding:11px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#D5E3EE}
+.flowvis .fitem.out{background:rgba(98,208,255,.08);border-color:rgba(98,208,255,.28);color:#fff}
+.flowvis .fcore{margin:18px 0;padding:16px 18px;border-radius:12px;border:1.5px dashed rgba(255,255,255,.45);background:linear-gradient(140deg,rgba(36,0,167,.75),rgba(0,47,167,.45));display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;position:relative}
+.flowvis .fcore::before,.flowvis .fcore::after{content:"";position:absolute;left:50%;width:2px;height:18px;background:linear-gradient(180deg,#62D0FF,#7B61FF)}
+.flowvis .fcore::before{top:-19px}
+.flowvis .fcore::after{bottom:-19px}
+.flowvis .fdot{grid-row:span 2;width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#62D0FF,#7B61FF);box-shadow:0 0 14px #62D0FF}
+.flowvis .fcore b{font-size:16px}
+.flowvis .fcore small{font-size:13px;color:#C3D4E1}
+.pstack{display:grid;gap:14px}
+.lcard.prow{display:grid;grid-template-columns:44px 1fr;gap:18px;padding:24px}
+.lcard.prow .ico{margin:0}
+.lcard.prow h3{font-size:19px}
+.lcard.prow p{font-size:15.5px;margin-top:6px}
+.balist ul{list-style:none;margin:0;padding:0}
+.balist li{padding:7px 0 7px 18px;position:relative;border-top:1px solid rgba(0,0,0,.05)}
+.balist li:first-child{border-top:0;padding-top:0}
+.balist li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:2px;background:#9FB3C2}
+.balist li:first-child::before{top:7px}
+.balist .a li::before{background:var(--violet)}
+.outc{border-radius:18px;padding:30px;background:linear-gradient(150deg,#00165E,#2400A7);color:#fff;border:1.5px dashed rgba(255,255,255,.45)}
+.outc h6{font-size:12px;letter-spacing:.16em;color:var(--light);font-weight:700;margin-bottom:6px}
+.outc .orow{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:15px 0;border-top:1px solid rgba(255,255,255,.12);font-size:18px;font-weight:700;line-height:1.35}
+.outc .orow:first-of-type{border-top:0}
+.outc .orow i{font-style:normal;color:var(--light)}
+.capcard{display:flex;flex-direction:column}
+.capcard .tag{align-self:flex-start;font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(98,208,255,.1);border:1px solid rgba(98,208,255,.3)}
+.capcard .lnk{color:var(--light);margin-top:auto;padding-top:16px}
+a.capcard{transition:border-color .15s,transform .15s}
+a.capcard:hover{border-color:rgba(98,208,255,.55);transform:translateY(-2px)}
+.planstrip{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px 40px;align-items:center;padding:22px 26px;border-radius:16px;border:1px solid var(--line);background:rgba(0,57,76,.18)}
+.planstrip .k{display:block;font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:700;margin-bottom:4px}
+.planstrip b{font-size:17px}
+.planstrip b small{font-weight:500;color:var(--muted);font-size:13px}
+.planstrip .wide{flex:1 1 280px}
+.planstrip .btn{margin-left:auto}
+.xcard{display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+.xcard:hover{border-color:rgba(36,0,167,.35);transform:translateY(-2px)}
+.xcard .lnk{margin-top:auto;padding-top:16px}
+a.agent{text-decoration:none;transition:background .15s}
+a.agent:hover{background:rgba(36,0,167,.14)}
+.dlink{margin-top:18px}
+.acard.link-card{transition:border-color .15s,transform .15s;color:inherit}
+.acard.link-card:hover{border-color:rgba(98,208,255,.55);transform:translateY(-2px)}
+.acard .more{display:block;margin-top:14px;font-size:14px;font-weight:700;color:var(--light)}
+@media (max-width:1100px){
+  .cathero{grid-template-columns:1fr;gap:40px}
+  .cathero h1{font-size:46px}
+}
+@media (max-width:760px){
+  .cathero{margin-top:28px}
+  .cathero .ctas{flex-wrap:wrap}
+  .lcard.prow{grid-template-columns:1fr;gap:12px}
+  .outc .orow{font-size:16px}
+  .planstrip{gap:14px 24px}
+  .planstrip .btn{margin-left:0}
+  .req .row{grid-template-columns:1fr;gap:4px}
+}
+#problem h2,#approach h2{font-size:40px}
+@media (max-width:760px){ #problem h2,#approach h2{font-size:30px} }

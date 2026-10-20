@@ -51,6 +51,20 @@ export const invites = pgTable("invite", {
 }, (t) => [uniqueIndex("invite_token_idx").on(t.token), index("invite_email_idx").on(t.email)]);
 
 /** Product for sale (apps and plans). */
+/** Copy for a product or agent detail page: the problem, the approach, and the capabilities. */
+export type CatalogPage = {
+  headline: string;
+  accent: string;
+  lede: string;
+  reads?: string[];
+  produces?: string[];
+  problem: { title: string; body: string; quote?: string; points: { title: string; body: string }[] };
+  approach: { title: string; body: string; before?: string[]; after?: string[]; steps?: { title: string; body: string }[]; outcomes: string[] };
+  capabilitiesTitle: string;
+  capabilities: { title: string; body: string; agent?: string }[];
+  requirements?: [string, string][];
+};
+
 export const products = pgTable("product", {
   id: serial("id").primaryKey(),
   slug: text("slug").notNull(),
@@ -66,6 +80,7 @@ export const products = pgTable("product", {
   hasDocs: boolean("has_docs").default(false).notNull(),
   sortOrder: integer("sort_order").default(0).notNull(),
   active: boolean("active").default(true).notNull(),
+  page: jsonb("page").$type<CatalogPage>(),
 }, (t) => [uniqueIndex("product_slug_idx").on(t.slug)]);
 
 /** AI agent for sale, included with a product plan. */
@@ -79,6 +94,7 @@ export const agents = pgTable("agent", {
   description: text("description").notNull(),
   live: boolean("live").default(false).notNull(),
   sortOrder: integer("sort_order").default(0).notNull(),
+  page: jsonb("page").$type<CatalogPage>(),
 }, (t) => [uniqueIndex("agent_slug_idx").on(t.slug)]);
 
 /** Blog posts, documents, insights and other resources. */

@@ -1,0 +1,131 @@
+{
+  "customer-signals": {
+    "headline": "Capture the voice of the",
+    "accent": "customer.",
+    "lede": "Capture the voice of the customer, identify what matters most, and convert raw conversations into actionable product work inside ServiceNow.",
+    "problem": {
+      "title": "Customer needs are trapped in meeting notes, chats, and conversations.",
+      "body": "Feedback arrives in tickets, surveys, calls, and notes. Nobody sees all of it, the work of turning it into product inputs falls on the people with the least time, and the customer's own words rarely survive the trip to the backlog.",
+      "quote": "We need a reliable way to capture customer evidence and turn it into prioritized customer needs.",
+      "points": [
+        { "title": "Needs are buried", "body": "Customer needs sit inside unstructured conversations, spread across calls, notes, spreadsheets, and email." },
+        { "title": "Feedback becomes busywork", "body": "Product managers spend as much time entering customer feedback as they do talking to the customer." },
+        { "title": "Traceability is lost", "body": "Teams can't follow a shipped feature back to the customer evidence that justified it." }
+      ]
+    },
+    "approach": {
+      "title": "Capture signals automatically, then synthesize them into needs.",
+      "body": "Customer Signals captures, organizes, and makes sense of signals from customers across every interaction. Scattered feedback becomes evidence, evidence becomes prioritized customer needs, and product, service, and platform teams make better-informed decisions about what to build.",
+      "before": [
+        "Product managers spend as much time entering feedback as talking to customers",
+        "Customer needs are buried in unstructured conversations",
+        "No traceability from customer evidence to shipped features"
+      ],
+      "after": [
+        "Builders spend their time talking to customers, building, and releasing",
+        "Everyone has access to the voice of the customer",
+        "Needs are continuously cared for and prioritized, so builders always know what to build next"
+      ],
+      "outcomes": [
+        "Identify more customer needs, in greater detail",
+        "Synthesize signals into needs",
+        "Improve the quality of product inputs",
+        "Connect customer evidence to feature development"
+      ]
+    },
+    "capabilitiesTitle": "Everything between the conversation and the need.",
+    "capabilities": [
+      { "title": "Customer Signals Agent", "agent": "customer-signals-agent", "body": "Logs customer conversations and discovers raw signals in them: candidate needs, pain points, feature opportunities, and personas, with the customer's words as evidence." },
+      { "title": "Signals Discovery Agent", "agent": "signals-discovery-agent", "body": "Finds customer signals across conversations and records, and matches new evidence to the needs that already exist." },
+      { "title": "Signals Priority Agent", "agent": "signals-priority-agent", "body": "Weighs needs by who is asking and how often, so the prioritization conversation starts from evidence." },
+      { "title": "Need Designer", "body": "A workbench for pulling signals together to define a new need or strengthen an existing one, and for deduplicating, splitting, and merging needs." },
+      { "title": "Need Suggester", "body": "Suggests new needs for older evidence that was never mapped, and existing needs for new evidence as it arrives." },
+      { "title": "Customer and persona management", "body": "Define and manage personas, capture them straight from conversations, and see every piece of evidence from a customer in one place." },
+      { "title": "Insights", "body": "Automatic nudges about what changed, such as a new need being created or a customer you haven't spoken to in a while." }
+    ]
+  },
+  "product-model": {
+    "headline": "Know what is being built,",
+    "accent": "and why.",
+    "lede": "Product Model connects customer signals to the complete product definition, from capabilities and features to detailed requirements, while giving product managers a real-time roadmap of what is being built, why it matters, and what comes next.",
+    "problem": {
+      "title": "Features get built on assumptions, not customer needs.",
+      "body": "When the roadmap lives apart from the work and the evidence lives apart from both, every decision needs another review. Stakeholders chase product managers for status, and builders get requirements stripped of the customer statement that motivated them.",
+      "quote": "We need to understand what is being built, why it matters, and when it will be delivered.",
+      "points": [
+        { "title": "Assumptions drive the backlog", "body": "Features are defined from opinions and memory instead of the customer needs and evidence behind them." },
+        { "title": "Manual translation", "body": "Builders and product managers spend hours turning feedback into product work by hand." },
+        { "title": "Strategy and execution drift", "body": "With no real-time connection between the roadmap and the work, decisions slow down and reviews multiply." }
+      ]
+    },
+    "approach": {
+      "title": "One structured model, from initiative to requirement.",
+      "body": "Product Model gives you a structured view of products, initiatives, features, releases, dependencies, and priorities. Teams align stakeholders around priorities, communicate product direction, and adjust plans as customer needs change, moving from raw customer input to release-ready product work.",
+      "before": [
+        "Roadmaps go stale the moment they're shared",
+        "Status lives in a product manager's head",
+        "Requirements start from a blank page"
+      ],
+      "after": [
+        "Live roadmaps connected to the work",
+        "Everyone sees the same plan and the reason behind it",
+        "Requirements generated from features, needs, and evidence"
+      ],
+      "outcomes": [
+        "Manage cross-product strategies",
+        "Build and share live roadmaps",
+        "Turn customer needs into feature specifications"
+      ]
+    },
+    "capabilitiesTitle": "Plan it, specify it, and keep everyone on the same page.",
+    "capabilities": [
+      { "title": "Roadmap", "body": "Product managers collaborate to build the right things in the right order, based on initiatives from leadership." },
+      { "title": "Feature Builder", "body": "Stakeholders and product managers shape features together, with the linked customer needs and evidence in view." },
+      { "title": "Connect", "body": "Keeps product managers, leadership, product teams, and internal stakeholders aligned with roadmaps that are connected to the work." },
+      { "title": "Inform", "body": "Insights are generated automatically to let people know what is new or noteworthy." },
+      { "title": "Requirements Generation Agent", "agent": "requirements-generation-agent", "body": "Generates requirements from feature definitions, customer needs, and customer evidence." },
+      { "title": "Build Orchestration Agent", "agent": "build-orchestration-agent", "body": "Takes the generated requirements and supervises the build using ServiceNow Build Agent." }
+    ]
+  },
+  "release-intelligence": {
+    "headline": "Release with evidence,",
+    "accent": "not guesswork.",
+    "lede": "Improve release quality with phase-gate release management. Connect every release to the customer needs it addresses, close the loop with the customers who asked, and always know the state of a release.",
+    "problem": {
+      "title": "Release is an afterthought.",
+      "body": "Release communication is disconnected from the customer evidence and product decisions behind the work. Customers have to pull release information and hunt for what they care about, and the loop never closes.",
+      "points": [
+        { "title": "Changes are hard to find", "body": "There's no reliable way to automatically identify what changed in a release." },
+        { "title": "The why goes missing", "body": "Release notes say what shipped, but not why it matters or to whom." },
+        { "title": "The loop stays open", "body": "Customers and internal users who asked for the work rarely hear that it was delivered." }
+      ]
+    },
+    "approach": {
+      "title": "Gate every phase. Connect every release to its reasons.",
+      "body": "Release Intelligence connects releases to the customer needs, personas, and feature decisions behind them. Releases move through phases only when their gates pass, release notes are generated from the evidence, and the people who asked for the work are told it shipped.",
+      "before": [
+        "Release notes merely tell teams what is shipping",
+        "Little rigor or visibility around releases",
+        "Writing release notes is a chore that never reaches customers"
+      ],
+      "after": [
+        "Release scope connects back to the needs, requests, personas, and evidence that justified the work",
+        "Phase gates keep quality high and the state of every release visible",
+        "Customers hear about the features they care about"
+      ],
+      "outcomes": [
+        "Release with evidence, not guesswork",
+        "Show the why behind every release",
+        "Turn shipped features into customer value"
+      ]
+    },
+    "capabilitiesTitle": "Control the release. Close the loop.",
+    "capabilities": [
+      { "title": "Phase-gate release management", "body": "Every release follows the phases you define. Gates check conditions before a release can advance, and only release managers can promote a phase or override a failed gate, with a recorded reason." },
+      { "title": "Release Workbench", "body": "One view of a release: the current phase, days left, the latest gate results, a timeline of phases and milestones, and the release notes." },
+      { "title": "Release Calendar", "body": "Phases and milestones for every active release on one calendar, filtered to the releases you care about." },
+      { "title": "Release Notes Agent", "agent": "release-notes-agent", "body": "Connects release scope back to the customer needs, feature requests, personas, and evidence behind it, and writes release notes from them." },
+      { "title": "Release Manager Agent", "agent": "release-manager-agent", "body": "Tracks phase gates and release state, and flags a release in jeopardy before it slips." }
+    ]
+  }
+}

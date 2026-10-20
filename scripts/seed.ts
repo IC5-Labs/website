@@ -84,6 +84,17 @@ async function main() {
     if (!found) await db.insert(s.agents).values(a);
   }
 
+  // Detail page copy for products and agents. Bump the version when content/catalog changes
+  // so the new copy is written once; nothing in the admin console edits these fields.
+  const catalogPages = "catalog-pages-v1";
+  if (!(await db.query.seedRuns.findFirst({ where: eq(s.seedRuns.name, catalogPages) }))) {
+    const productPages = JSON.parse(readFileSync("content/catalog/products.json", "utf8")) as Record<string, s.CatalogPage>;
+    const agentPages = JSON.parse(readFileSync("content/catalog/agents.json", "utf8")) as Record<string, s.CatalogPage>;
+    for (const [slug, page] of Object.entries(productPages)) await db.update(s.products).set({ page }).where(eq(s.products.slug, slug));
+    for (const [slug, page] of Object.entries(agentPages)) await db.update(s.agents).set({ page }).where(eq(s.agents.slug, slug));
+    await db.insert(s.seedRuns).values({ name: catalogPages }).onConflictDoNothing();
+  }
+
   const admin = await db.query.users.findFirst({ where: eq(s.users.email, ADMIN_EMAIL) });
 
   // Blog post

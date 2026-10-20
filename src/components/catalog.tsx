@@ -39,12 +39,13 @@ export async function AgentGrid() {
   return (
     <div className="grid3 mt">
       {agents.map((a) => (
-        <div key={a.id} className={`acard${a.live ? " live" : ""}`}>
+        <Link key={a.id} href={`/agents/${a.slug}`} className={`acard link-card${a.live ? " live" : ""}`}>
           <span className="tier">{a.live ? "Live on the Store" : a.tier}</span>
           <div className="app">{a.appName.toUpperCase()}</div>
           <h3>{a.name}</h3>
           <p>{a.description}</p>
-        </div>
+          <span className="more">Explore the agent →</span>
+        </Link>
       ))}
       <div className="acard" style={{ gridColumn: "span 2", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
         <div><div className="app">ALL AGENTS</div><h3>Built on ServiceNow AI Agent Studio and Now Assist Skill Kit</h3><p>Agents run in your instance, use the model provider your administrator approved, and stage every suggestion for human review.</p></div>

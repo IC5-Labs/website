@@ -15,6 +15,13 @@
       "when": 1792449931462,
       "tag": "0001_blog_product",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792460355437,
+      "tag": "0002_catalog_pages",
+      "breakpoints": true
     }
   ]
 }

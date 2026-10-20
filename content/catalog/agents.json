@@ -1,0 +1,245 @@
+{
+  "customer-signals-agent": {
+    "headline": "Transcript in.",
+    "accent": "Evidence-backed needs out.",
+    "lede": "Customer Signals Agent reads your customer meeting transcripts and turns them into structured, evidence-backed customer needs, pain points, and personas, with the customer's own comments kept as evidence for the people building the solution.",
+    "reads": ["Meeting transcript (plain text)", "Conversation details: customer, date, owner, and primary contact", "The customer needs you already have"],
+    "produces": ["Candidate customer needs", "Pain points and feature opportunities", "Personas", "Evidence: quotes and sentiment, attached to the right need"],
+    "problem": {
+      "title": "The constraint is no longer building software. It's deciding what to build.",
+      "body": "AI-assisted delivery has pushed the effective product-manager-to-engineer ratio from roughly 1:8 to 1:20, and the evidence needed to decide is scattered and unstructured. When a release ships, nobody can reliably say which customer asked for it, in which conversation, and in what words.",
+      "quote": "I don't have the time after a customer meeting to synthesize the call into a crisply defined customer need. I'm left with notes, recordings, and a hope that I'll remember what the customer said.",
+      "points": [
+        { "title": "Needs are buried", "body": "Customer needs live in call recordings, meeting notes, chat threads, enhancement requests, and spreadsheets." },
+        { "title": "Re-keying feedback", "body": "Product managers spend as much time re-keying feedback into systems as they do talking to customers." },
+        { "title": "Context gets stripped", "body": "Builders receive requirements without the customer statement that motivated them, so they ask the product manager or go without." }
+      ]
+    },
+    "approach": {
+      "title": "Conversations become structured product inputs, automatically.",
+      "body": "Create a conversation record, add the transcript, and select Analyze. The agent reads the entire conversation, not just the parts someone wrote down, and proposes candidate needs. Every need carries its verbatim evidence, and evidence that matches an existing need strengthens it instead of creating a duplicate. Product managers then review, prioritize, and relate needs to work items.",
+      "steps": [
+        { "title": "Create a conversation", "body": "Track the customer, date, owner, and primary contact for the meeting." },
+        { "title": "Add the transcript", "body": "Paste or attach the plain-text transcript from your meeting recording." },
+        { "title": "Select Analyze", "body": "The agent extracts personas, needs, and evidence with sentiment and timestamps." },
+        { "title": "Review and confirm", "body": "Confirm or reject each suggestion, then relate needs to work items." }
+      ],
+      "outcomes": [
+        "Capture more customer needs",
+        "Capture the details of each need automatically",
+        "Connect customer evidence to work items so builders understand the need"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Transcript to structured signal", "body": "Proposes candidate customer needs, pain points, feature opportunities, and personas from the whole conversation." },
+      { "title": "Evidence in the customer's words", "body": "Actual customer quotes or close paraphrases are captured as evidence, with sentiment, and attached to the need they support." },
+      { "title": "Matches existing needs", "body": "When a need already exists, new evidence is added to it, strengthening the case instead of creating a duplicate." },
+      { "title": "Traceability through build and release", "body": "Evidence keeps its extraction run, prompt version, model provider, and source. When someone asks why a feature was built, the answer is one click away." },
+      { "title": "Human review by design", "body": "Every suggestion is staged for a person to confirm or reject before it becomes a need." },
+      { "title": "Built on ServiceNow AI", "body": "Runs on ServiceNow AI Agent Studio and Now Assist Skill Kit in your instance, using the model provider your administrator approved." }
+    ],
+    "requirements": [
+      ["ServiceNow Platform", "Australia Patch 5+ or Zurich Patch 12+"],
+      ["ServiceNow Otto for Platform", "12.2.0+"],
+      ["License", "A licensed ServiceNow Otto product, such as Platform, ITSM, or App Creator"],
+      ["LLM provider", "An approved provider configured by your instance administrator: Azure OpenAI, AWS Claude, or Google Gemini"],
+      ["Interface", "ServiceNow Otto (Now Assist) Panel enabled"],
+      ["Roles", "now_assist_panel_user · x_ic5l_csa.user"]
+    ]
+  },
+  "signals-discovery-agent": {
+    "headline": "Every signal,",
+    "accent": "matched to a need.",
+    "lede": "Signals Discovery Agent finds customer signals across conversations and records, and matches new evidence to the customer needs that already exist.",
+    "reads": ["Customer conversations", "Related records, such as tickets, cases, and survey responses", "Existing customer needs"],
+    "produces": ["New evidence linked to its source record", "Suggested needs for evidence that was never mapped", "Suggested matches between new evidence and existing needs"],
+    "problem": {
+      "title": "Signal is scattered.",
+      "body": "Customer feedback lives in tickets, surveys, calls, and notes. Nobody sees all of it, older evidence sits unmapped, and new feedback rarely finds its way to the need it supports.",
+      "points": [
+        { "title": "Too many places to look", "body": "Signals are spread across conversations and records that no one reviews together." },
+        { "title": "Evidence goes unmapped", "body": "Feedback that never got linked to a need quietly drops out of every prioritization conversation." },
+        { "title": "Duplicates pile up", "body": "Without matching, the same need gets logged again and again in different words." }
+      ]
+    },
+    "approach": {
+      "title": "Find the signal, suggest the need, let a person confirm.",
+      "body": "The agent looks across conversations and the records your team already keeps, and links each piece of evidence to its source. It suggests a need for evidence that was never mapped and an existing need for evidence that just arrived. Suggestions stay separate from confirmed links until someone on your team accepts them.",
+      "outcomes": [
+        "More customer needs identified, in greater detail",
+        "Every piece of evidence connected to a need",
+        "Fewer duplicate needs"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Signal discovery", "body": "Finds customer signals across conversations and records, not just the transcripts someone remembered to upload." },
+      { "title": "Linked to the source", "body": "Each piece of evidence points back to the record it came from, such as the ticket, case, or survey response." },
+      { "title": "Suggests needs for old evidence", "body": "Proposes new needs for evidence that was captured but never mapped." },
+      { "title": "Matches new evidence", "body": "Proposes the existing need that new evidence most likely supports." },
+      { "title": "You confirm", "body": "Suggested links are kept separate from confirmed ones until a person accepts them." }
+    ]
+  },
+  "signals-priority-agent": {
+    "headline": "Prioritize from",
+    "accent": "evidence, not volume.",
+    "lede": "Signals Priority Agent weighs customer needs by who is asking and how often, so the prioritization conversation starts from evidence.",
+    "reads": ["Customer needs and their evidence", "The customers behind each need, including annual contract value", "Personas"],
+    "produces": ["A suggested priority for each need", "The evidence behind each ranking"],
+    "problem": {
+      "title": "The loudest voice wins the roadmap.",
+      "body": "Without a shared view of the evidence, priorities get set by whoever asked most recently or most forcefully. Nobody can defend a priority with the data, so every decision gets relitigated.",
+      "quote": "We need a reliable way to capture customer evidence and turn it into prioritized customer needs.",
+      "points": [
+        { "title": "Opinion over evidence", "body": "Stakeholder opinions get weighed against each other instead of against what customers said." },
+        { "title": "Volume hides value", "body": "A need raised often by a few customers can outrank one that matters to your most important ones." },
+        { "title": "Hard to defend", "body": "When a priority is challenged, there's no record of why it was set." }
+      ]
+    },
+    "approach": {
+      "title": "Weigh who's asking and how often.",
+      "body": "The agent looks at how much evidence supports each need, which customers it comes from, and which personas it serves, and suggests a priority with the reasons attached. Your team makes the call, starting from evidence instead of anecdotes.",
+      "outcomes": [
+        "Customer needs continuously prioritized",
+        "Builders always know what should be built next",
+        "Priorities you can explain"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Frequency of evidence", "body": "Counts how often a need comes up, and across how many customers." },
+      { "title": "Who is asking", "body": "Weighs needs by the customers and personas behind them, including each customer's annual contract value." },
+      { "title": "A ranked list", "body": "Gives you a suggested order of customer needs to start the prioritization conversation." },
+      { "title": "Reasons attached", "body": "Each suggested priority shows the evidence that produced it." },
+      { "title": "People decide", "body": "Suggestions are recommendations; your team sets the final priority." }
+    ]
+  },
+  "requirements-generation-agent": {
+    "headline": "From feature to requirements,",
+    "accent": "with the evidence attached.",
+    "lede": "Requirements Generation Agent drafts requirements and acceptance criteria from a feature definition, its linked customer needs, and the evidence behind them.",
+    "reads": ["The feature definition", "Customer needs linked to the feature", "The customer evidence behind those needs"],
+    "produces": ["Draft requirements", "Acceptance criteria", "Links back to the needs and evidence"],
+    "problem": {
+      "title": "A roadmap item isn't enough to build from.",
+      "body": "\"Improve customer onboarding\" is useful for planning, not for building. Turning a feature into structured requirements takes time a small team never has, and the customer context usually gets lost along the way.",
+      "points": [
+        { "title": "The blank page", "body": "Every feature's requirements start from scratch." },
+        { "title": "Context gets stripped", "body": "Builders receive requirements without the customer statement that motivated them." },
+        { "title": "Product managers are the bottleneck", "body": "With AI-assisted engineers shipping faster, requirements can't be written fast enough by hand." }
+      ]
+    },
+    "approach": {
+      "title": "Start from what customers said, not a blank page.",
+      "body": "The agent uses the customer context you've already captured: the feature definition, the needs linked to it, and the evidence behind them. It drafts requirements and acceptance criteria as a starting point. The product owner keeps the decisions; the agent removes the blank page.",
+      "outcomes": [
+        "Product work is created faster",
+        "Every requirement has a clear reason",
+        "Builders know what to build and for whom"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Requirements from evidence", "body": "Generates requirements from the feature definition, its customer needs, and their evidence." },
+      { "title": "Acceptance criteria", "body": "Drafts acceptance criteria alongside each requirement." },
+      { "title": "Traceable", "body": "Requirements stay connected to the needs and evidence that justified them." },
+      { "title": "Reviewed before build", "body": "Drafts are reviewed and approved by your team before anything is built." }
+    ]
+  },
+  "build-orchestration-agent": {
+    "headline": "Approved requirements in,",
+    "accent": "a supervised build out.",
+    "lede": "Build Orchestration Agent takes approved requirements and supervises the build using ServiceNow Build Agent.",
+    "reads": ["Approved requirements", "The feature and customer needs they belong to"],
+    "produces": ["A build supervised through ServiceNow Build Agent", "Work that stays tied to its feature and needs"],
+    "problem": {
+      "title": "AI can write most of the app. It can't tell you what to build.",
+      "body": "ServiceNow Build Agent can create workflows, automate logic, and build interfaces at speed. Without direction, that speed just builds the wrong thing faster.",
+      "points": [
+        { "title": "Speed without direction", "body": "Fast development accelerates wrong decisions when the requirements aren't grounded in customer needs." },
+        { "title": "Hand-offs break", "body": "Requirements and the build live in different places, and the link between them is lost." },
+        { "title": "Builders lose the why", "body": "The people and agents doing the work rarely see the customer need behind it." }
+      ]
+    },
+    "approach": {
+      "title": "Direction from requirements. Speed from Build Agent.",
+      "body": "Once requirements are approved, the agent hands them to ServiceNow Build Agent and supervises the build, keeping the work connected to the feature and the customer needs behind it.",
+      "outcomes": [
+        "Builders know what to build next",
+        "Product work is created faster",
+        "Every feature has a clear reason"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Starts from approved requirements", "body": "Only requirements your team has approved move into the build." },
+      { "title": "Supervises ServiceNow Build Agent", "body": "Directs and supervises the build using ServiceNow's own Build Agent." },
+      { "title": "Keeps the thread", "body": "The build stays connected to its feature, its requirements, and the customer needs behind them." }
+    ]
+  },
+  "release-notes-agent": {
+    "headline": "Release notes that",
+    "accent": "close the loop.",
+    "lede": "Release Notes Agent writes evidence-backed release notes, identifies impacted users, and summarizes customer value.",
+    "reads": ["The features in a release", "The customer needs, feature requests, and personas behind them", "The customer evidence that justified the work"],
+    "produces": ["Evidence-backed release notes", "The users and customers impacted", "A summary of customer value"],
+    "problem": {
+      "title": "Release notes merely tell teams what is shipping.",
+      "body": "Writing release notes is a chore, and the result rarely explains why a change matters or to whom. The customers who asked for the work have to go looking for it.",
+      "points": [
+        { "title": "Disconnected from the reasons", "body": "Release communication is separated from the customer evidence and product decisions behind it." },
+        { "title": "Who cares about this?", "body": "Nobody can easily say which users or customers a change affects." },
+        { "title": "The loop stays open", "body": "Customers who asked for a feature rarely hear that it shipped." }
+      ]
+    },
+    "approach": {
+      "title": "Write from the evidence. Tell the people who asked.",
+      "body": "The agent connects release scope back to the customer needs, feature requests, personas, and evidence that justified the work, and writes the release notes from them. In the Release Workbench you can regenerate the notes, compare the new draft with the current version, and choose which to keep.",
+      "outcomes": [
+        "Show the why behind every release",
+        "Turn shipped features into customer value",
+        "Close the loop with customers"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Evidence-backed notes", "body": "Release notes are written from the needs and evidence behind each change." },
+      { "title": "Impacted users", "body": "Identifies the users, personas, and customers a release affects." },
+      { "title": "Customer value summary", "body": "Explains what each change means for the people who asked for it." },
+      { "title": "Regenerate and compare", "body": "Regenerate the notes and compare them side by side with the current version before accepting." }
+    ]
+  },
+  "release-manager-agent": {
+    "headline": "Always know",
+    "accent": "the state of a release.",
+    "lede": "Release Manager Agent tracks phase gates and release state, and flags a release in jeopardy before it slips.",
+    "reads": ["Release phases and their dates", "Gates and the latest gate checks", "Milestones"],
+    "produces": ["The current state of each release", "Early warnings when a release is in jeopardy"],
+    "problem": {
+      "title": "Quick decisions require accurate status.",
+      "body": "Assessing whether a release is in jeopardy is one more job on a product manager's day. By the time a slip is obvious, it's too late to do much about it.",
+      "points": [
+        { "title": "Status by meeting", "body": "Release state lives in people's heads and status meetings, not in the system." },
+        { "title": "Gates get skipped", "body": "Without a consistent check, quality gates are easy to miss under deadline pressure." },
+        { "title": "Late surprises", "body": "Risks surface at the end of a phase instead of while there's still time to act." }
+      ]
+    },
+    "approach": {
+      "title": "Watch the gates, so release managers can make the call.",
+      "body": "The agent follows each release through its phases: which gates have passed, failed, or been overridden, how much time is left in the current phase, and which milestones are coming up. When a release starts to slip, it says so early. Release managers stay in control of promoting phases and overriding gates.",
+      "outcomes": [
+        "Always know the state of a release",
+        "Quality releases with phase-gate management",
+        "Fewer late surprises"
+      ]
+    },
+    "capabilitiesTitle": "What the agent does for you.",
+    "capabilities": [
+      { "title": "Gate tracking", "body": "Follows the latest gate checks for the current phase: passed, failed, and overridden." },
+      { "title": "Phase timing", "body": "Watches the days left in the current phase and the milestones ahead." },
+      { "title": "Jeopardy flags", "body": "Flags a release that is at risk before it slips." },
+      { "title": "Release managers decide", "body": "Only release managers promote a release to the next phase or override a failed gate, with a recorded reason." }
+    ]
+  }
+}
