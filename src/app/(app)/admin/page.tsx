@@ -33,7 +33,7 @@ export default async function AdminHome() {
       </div>
       <section className="panel"><div className="phead"><div><h2>Open cases</h2><p>Across all customers, most severe first</p></div><Link className="lnk" href="/admin/cases">All cases →</Link></div><CaseTable rows={cases} base="/admin/cases" showAccount /></section>
       <section className="panel panel-tight"><div style={{ padding: "24px 28px 8px", display: "flex", justifyContent: "space-between" }}><h2 style={{ fontSize: 22, fontWeight: 800, color: "var(--dark)" }}>Latest requests</h2><Link className="lnk" href="/admin/requests">All requests →</Link></div>
-        {reqs.length ? <div className="tblscroll"><table className="dtable"><tbody>{reqs.map((r) => <tr key={r.id}><td style={{ whiteSpace: "nowrap" }}>{fmtDate(r.createdAt)}</td><td><b>{r.type}</b></td><td>{r.name ?? ""} {r.email}</td><td>{r.company}</td><td>{r.status}</td></tr>)}</tbody></table></div> : <div style={{ padding: 28 }}><div className="empty">No requests yet.</div></div>}
+        {reqs.length ? <div className="tblscroll"><table className="dtable"><tbody>{reqs.map((r) => <tr key={r.id}><td style={{ whiteSpace: "nowrap" }}>{fmtDate(r.createdAt)}</td><td><b>{r.type === "idea" ? "Idea" : r.type[0].toUpperCase() + r.type.slice(1)}</b></td><td>{r.name ?? ""} {r.email}</td><td>{r.company}</td><td>{r.status}</td></tr>)}</tbody></table></div> : <div style={{ padding: 28 }}><div className="empty">No requests yet.</div></div>}
       </section>
     </>
   );

@@ -27,7 +27,7 @@ Defined in `src/db/schema.ts`; migrations in `drizzle/`.
 - `agent`: AI agents for sale, linked to a product; `page` holds the copy for `/agents/<slug>`
 - `documentation`: versioned product docs, one row per page per version; each version is `latest`, `supported`, `deprecated`, or `draft`
 - `case` and `case_comment`: customer support cases and their conversation, including support-only internal notes
-- `request`: demo requests, information requests, license change requests, and newsletter signups
+- `request`: demo requests, information requests, license change requests, ideas for features or experiences, and newsletter signups
 - `license`: a license for an account to use a product (plan, seats, instance, version, term, status)
 - `seed_run`: one-time data steps the seed has applied, so they never overwrite later admin edits
 

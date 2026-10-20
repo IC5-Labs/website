@@ -107,23 +107,33 @@ export async function updateLicenseInstance(formData: FormData) {
   redirect("/account/licenses?ok=instance");
 }
 
-/** Requests from signed-in customers: license changes and information requests. */
+/** Requests from signed-in customers: license changes, information requests, and ideas. */
 export async function createAccountRequest(formData: FormData) {
   const { user, account } = await requireAccountUser("/account/requests");
-  const type = formData.get("type") === "license" ? "license" : "information";
+  const raw = formData.get("type");
+  const type = raw === "license" ? "license" : raw === "idea" ? "idea" : "information";
   const message = z.string().trim().min(3).max(4000).safeParse(formData.get("message"));
   const back = String(formData.get("back") ?? "/account/requests");
-  if (!message.success) redirect(`${back}?error=message`);
+  if (!message.success) redirect(`${back}?error=${type === "idea" ? "idea" : "message"}`);
   const details: Record<string, unknown> = {};
-  for (const k of ["topic", "licenseId", "productId", "change"]) {
-    const v = formData.get(k);
-    if (v) details[k] = String(v);
+  for (const k of ["topic", "licenseId", "productId", "change", "title", "kind", "impact"]) {
+    const v = String(formData.get(k) ?? "").trim().slice(0, 500);
+    if (v) details[k] = v;
+  }
+  if (type === "idea") {
+    if (!details.title) redirect(`${back}?error=idea`);
+    details.kind = details.kind === "experience" ? "experience" : "feature";
+    // Keep the product's name with the idea so it reads correctly even if the product is renamed or retired.
+    const pid = Number(details.productId);
+    const product = pid ? await db.query.products.findFirst({ where: eq(s.products.id, pid) }) : null;
+    if (product) details.product = product.name;
+    else delete details.productId;
   }
   await db.insert(s.requests).values({
     type, email: user.email, name: user.name, company: account.name, message: message.data, details, accountId: account.id, userId: user.id,
   });
   revalidatePath("/account/requests");
-  redirect("/account/requests?ok=sent");
+  redirect(`/account/requests?ok=${type === "idea" ? "idea" : "sent"}`);
 }
 
 export async function updateProfile(formData: FormData) {
