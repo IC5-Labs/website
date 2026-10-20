@@ -22,7 +22,7 @@ export async function LegalPage({ slug }: { slug: string }) {
           {r.status !== "published" && <div className="flash info" style={{ marginBottom: 18 }}>Draft preview. Only admins can see this page.</div>}
           <div className="eyebrow">Legal</div>
           <h1 style={{ fontSize: 54, lineHeight: 1.06 }}>{r.title}</h1>
-          {r.publishedAt && <p className="lede">Last updated {fmtDate(r.publishedAt, { month: "long", day: "numeric", year: "numeric" })}</p>}
+          {r.publishedAt && <p className="lede">Effective {fmtDate(r.publishedAt, { month: "long", day: "numeric", year: "numeric" })}</p>}
         </div>
       </MarketingHeader>
       <section className="artwrap legaldoc"><div className="wrap">

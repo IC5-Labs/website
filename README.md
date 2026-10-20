@@ -62,7 +62,7 @@ Copy for `/products/<slug>` and `/agents/<slug>` lives in `content/catalog/produ
 
 ## Legal pages
 
-The Privacy Policy and Terms of Service, carried over from the previous site, are document resources with the slugs `privacy` and `terms`, served at `/privacy` and `/terms`. Edit them in the admin console under Blog and resources; the publish date is shown as "Last updated". Keep those two slugs, since the URLs depend on them.
+The Privacy Policy and Terms of Service, carried over from the previous site, are document resources with the slugs `privacy` and `terms`, served at `/privacy` and `/terms`. Edit them in the admin console under Blog and resources; the publish date is shown as the effective date. Keep those two slugs, since the URLs depend on them.
 
 ## Documentation versions
 

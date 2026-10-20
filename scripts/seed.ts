@@ -129,15 +129,26 @@ async function main() {
 
   // Legal documents carried over from the previous ic5labs.com/privacy and /terms
   const legal = [
-    { slug: "privacy", title: "Privacy Policy", summary: "How we collect, use, disclose, and safeguard your information when you use our website and products." },
+    { slug: "privacy", title: "Privacy Policy", summary: "How we collect, use, share, and protect personal information when you use our website, accounts, and support." },
     { slug: "terms", title: "Terms of Service", summary: "The terms that apply when you use the IC5 Labs website, products, and services." },
   ];
   for (const l of legal) {
     if (await db.query.resources.findFirst({ where: eq(s.resources.slug, l.slug) })) continue;
     await db.insert(s.resources).values({
       type: "document", slug: l.slug, status: "published", title: l.title, summary: l.summary, category: "Legal",
-      body: readFileSync(`content/legal/${l.slug}.md`, "utf8"), publishedAt: new Date("2026-05-18T12:00:00Z"), createdById: admin?.id,
+      body: readFileSync(`content/legal/${l.slug}.md`, "utf8"), publishedAt: new Date("2026-05-01T12:00:00Z"), createdById: admin?.id,
     });
+  }
+  // One-time: replace the carried-over legal text with the approved versions effective May 1, 2026.
+  const legalV2 = "legal-v2";
+  if (!(await db.query.seedRuns.findFirst({ where: eq(s.seedRuns.name, legalV2) }))) {
+    for (const l of legal) {
+      await db.update(s.resources).set({
+        summary: l.summary, body: readFileSync(`content/legal/${l.slug}.md`, "utf8"),
+        publishedAt: new Date("2026-05-01T12:00:00Z"), updatedAt: new Date(),
+      }).where(eq(s.resources.slug, l.slug));
+    }
+    await db.insert(s.seedRuns).values({ name: legalV2 }).onConflictDoNothing();
   }
 
   // One-time: link existing blog posts to the product their call to action promotes.
