@@ -6,6 +6,7 @@ import { renderMarkdown } from "@/lib/markdown";
 import { getCurrentUser } from "@/lib/users";
 import { fmtDate } from "@/lib/format";
 import { productPromo } from "@/lib/promo";
+import { TocLinks } from "@/components/toc";
 import { eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
 
@@ -58,7 +59,7 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
             </article>
             <aside className="side">
               {h2.length > 1 && (
-                <div className="toc"><h6>IN THIS ARTICLE</h6>{h2.map((t, i) => <a key={t.id} href={`#${t.id}`} className={i === 0 ? "on" : undefined}>{t.text}</a>)}</div>
+                <div className="toc"><h6>IN THIS ARTICLE</h6><TocLinks items={h2.map((t) => ({ id: t.id, text: t.text }))} /></div>
               )}
               <div className="promo"><div className="eyebrow">{promo.eyebrow}</div><h4>{promo.name}</h4><p>{promo.blurb}</p><Link className="btn btn-primary" href={promo.demoHref}>Book a demo</Link></div>
               <div className="share"><h6>SHARE</h6><Social /></div>

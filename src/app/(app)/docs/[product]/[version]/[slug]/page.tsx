@@ -7,6 +7,7 @@ import { docsCatalog } from "@/lib/content";
 import { renderMarkdown } from "@/lib/markdown";
 import { fmtDate } from "@/lib/format";
 import { getCurrentUser } from "@/lib/users";
+import { TocLinks } from "@/components/toc";
 
 export const dynamic = "force-dynamic";
 
@@ -122,7 +123,7 @@ export default async function DocPage({ params }: P) {
 
         <aside className="dtoc">
           <h6>ON THIS PAGE</h6>
-          {toc.filter((t) => t.level <= 2).map((t, i) => <a key={t.id} href={`#${t.id}`} className={`${t.level === 2 ? "l2" : ""}${i === 0 ? " on" : ""}`}>{t.text}</a>)}
+          <TocLinks offset={140} items={toc.filter((t) => t.level <= 2).map((t) => ({ id: t.id, text: t.text, className: t.level === 2 ? "l2" : undefined }))} />
           <div className="vbox"><h6>THIS PAGE IN OTHER VERSIONS</h6>
             {entry.versions.filter((v) => otherVersionHas(v.version)).map((v) => (
               <Link key={v.version} href={verHref(v.version)} className={v.version === version ? "on" : ""}>v{v.version} <span className={`vtag ${v.status === "latest" ? "lt" : ""}`}>{vlabel(v.status)}</span></Link>

@@ -2,6 +2,13 @@ import "server-only";
 import { Marked } from "marked";
 import { slugify } from "./format";
 
+const ENTITIES: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: "\u00a0" };
+/** Heading text comes back HTML-escaped; the table of contents renders it as plain text. */
+function decodeEntities(t: string) {
+  return t.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e: string) =>
+    e[0] === "#" ? String.fromCodePoint(e[1].toLowerCase() === "x" ? parseInt(e.slice(2), 16) : Number(e.slice(1))) : ENTITIES[e.toLowerCase()] ?? m);
+}
+
 export type TocItem = { level: number; text: string; id: string };
 
 /** Render trusted (admin-authored) markdown to HTML and collect a table of contents. */
@@ -14,7 +21,7 @@ export function renderMarkdown(md: string, opts: { shiftHeadings?: number } = {}
     renderer: {
       heading({ tokens, depth }) {
         const text = this.parser.parseInline(tokens);
-        const plain = text.replace(/<[^>]+>/g, "");
+        const plain = decodeEntities(text.replace(/<[^>]+>/g, ""));
         let id = slugify(plain) || "section";
         const n = used.get(id) ?? 0;
         used.set(id, n + 1);
