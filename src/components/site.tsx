@@ -109,7 +109,9 @@ export function Social() {
   );
 }
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const { linkableProducts, productHref } = await import("@/lib/catalog");
+  const products = await linkableProducts();
   const col = (title: string, items: [string, string][]) => (
     <div className="fcol"><h6>{title}</h6>{items.map(([href, label]) => <Link key={label} href={href}>{label}</Link>)}</div>
   );
@@ -121,7 +123,7 @@ export function SiteFooter() {
             <div className="brand"><img src="/assets/logo-rev.png" alt="IC5 Labs" /></div>
             <p className="ftag">Built by customer-focused product builders with deep ServiceNow experience in a culture of continuous care for products, people, and customers.</p>
           </div>
-          {col("PRODUCTS", [["/agents/customer-signals-agent", "Customer Signals Agent"], ["/products/customer-signals", "Customer Signals"], ["/products/product-model", "Product Model"], ["/products/release-intelligence", "Release Intelligence"]])}
+          {col("PRODUCTS", products.map((p) => [productHref(p), p.name] as [string, string]))}
           {col("RESOURCES", [["/resources", "Blog"], ["/resources#insights", "State of Product insights"], ["/docs", "Documentation"], ["/pricing#support", "Service Level Agreement"]])}
           {col("COMPANY", [["/company", "About"], ["/company#leadership", "Leadership"], ["/company#partners", "Partners"], ["/company#contact", "Contact"]])}
           {col("TRUST", [["/privacy", "Privacy policy"], ["/terms", "Terms of service"]])}

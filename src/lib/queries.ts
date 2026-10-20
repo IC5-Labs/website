@@ -1,5 +1,5 @@
 import "server-only";
-import { and, asc, desc, eq, inArray, type SQL } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, or, type SQL } from "drizzle-orm";
 import { db, schema as s } from "@/db";
 
 export const OPEN_STATUSES = ["new", "in_progress", "awaiting_customer"] as const;
@@ -46,4 +46,12 @@ export async function accountMembers(accountId: number) {
 
 export async function allProducts() {
   return db.select().from(s.products).orderBy(asc(s.products.sortOrder));
+}
+
+/** Products for dropdowns: active ones, plus any already selected so existing records keep their value. */
+export async function selectableProducts(keep: (number | null | undefined)[] = []) {
+  const ids = keep.filter((x): x is number => typeof x === "number");
+  return db.select().from(s.products)
+    .where(ids.length ? or(eq(s.products.active, true), inArray(s.products.id, ids)) : eq(s.products.active, true))
+    .orderBy(asc(s.products.sortOrder));
 }

@@ -56,32 +56,30 @@ async function main() {
       features: ["Transcript analysis", "Evidence creation", "Persona and need suggestion", "Dashboard overview"],
     },
   ];
-  for (const p of productSeed) {
-    const found = await db.query.products.findFirst({ where: eq(s.products.slug, p.slug!) });
-    if (!found) await db.insert(s.products).values(p);
-  }
+  // Products and agents are managed in the admin console, so they're only seeded into an empty
+  // database; renaming or retiring one there must not bring the original back on the next deploy.
+  if (!(await db.query.products.findFirst())) await db.insert(s.products).values(productSeed);
   const prod = Object.fromEntries((await db.select().from(s.products)).map((p) => [p.slug, p]));
 
   // Agents
+  if (!(await db.query.agents.findFirst())) {
   const agentSeed: (typeof s.agents.$inferInsert)[] = [
-    { slug: "customer-signals-agent", name: "Customer Signals Agent", appName: "Customer Signals", productId: prod["customer-signals-agent"].id, tier: null, live: true, sortOrder: 1,
+    { slug: "customer-signals-agent", name: "Customer Signals Agent", appName: "Customer Signals", productId: prod["customer-signals-agent"]?.id ?? null, tier: null, live: true, sortOrder: 1,
       description: "Reads meeting transcripts and proposes candidate needs, pain points, feature opportunities, and personas, with customer quotes attached as evidence." },
-    { slug: "signals-discovery-agent", name: "Signals Discovery Agent", appName: "Customer Signals", productId: prod["customer-signals"].id, tier: "Team", sortOrder: 2,
+    { slug: "signals-discovery-agent", name: "Signals Discovery Agent", appName: "Customer Signals", productId: prod["customer-signals"]?.id ?? null, tier: "Team", sortOrder: 2,
       description: "Finds customer signals across conversations and records, and matches new evidence to the needs that already exist." },
-    { slug: "signals-priority-agent", name: "Signals Priority Agent", appName: "Customer Signals", productId: prod["customer-signals"].id, tier: "Team", sortOrder: 3,
+    { slug: "signals-priority-agent", name: "Signals Priority Agent", appName: "Customer Signals", productId: prod["customer-signals"]?.id ?? null, tier: "Team", sortOrder: 3,
       description: "Weighs needs by who is asking and how often, so the prioritization conversation starts from evidence." },
-    { slug: "requirements-generation-agent", name: "Requirements Generation Agent", appName: "Product Model", productId: prod["product-model"].id, tier: "Pro", sortOrder: 4,
+    { slug: "requirements-generation-agent", name: "Requirements Generation Agent", appName: "Product Model", productId: prod["product-model"]?.id ?? null, tier: "Pro", sortOrder: 4,
       description: "Drafts requirements and acceptance criteria from a feature definition, its linked customer needs, and the evidence behind them." },
-    { slug: "build-orchestration-agent", name: "Build Orchestration Agent", appName: "Product Model", productId: prod["product-model"].id, tier: "Pro", sortOrder: 5,
+    { slug: "build-orchestration-agent", name: "Build Orchestration Agent", appName: "Product Model", productId: prod["product-model"]?.id ?? null, tier: "Pro", sortOrder: 5,
       description: "Takes approved requirements and supervises the build using ServiceNow Build Agent." },
-    { slug: "release-notes-agent", name: "Release Notes Agent", appName: "Release Intelligence", productId: prod["release-intelligence"].id, tier: "Max", sortOrder: 6,
+    { slug: "release-notes-agent", name: "Release Notes Agent", appName: "Release Intelligence", productId: prod["release-intelligence"]?.id ?? null, tier: "Max", sortOrder: 6,
       description: "Writes evidence-backed release notes, identifies impacted users, and summarizes customer value." },
-    { slug: "release-manager-agent", name: "Release Manager Agent", appName: "Release Intelligence", productId: prod["release-intelligence"].id, tier: "Max", sortOrder: 7,
+    { slug: "release-manager-agent", name: "Release Manager Agent", appName: "Release Intelligence", productId: prod["release-intelligence"]?.id ?? null, tier: "Max", sortOrder: 7,
       description: "Tracks phase gates and release state, and flags a release in jeopardy before it slips." },
   ];
-  for (const a of agentSeed) {
-    const found = await db.query.agents.findFirst({ where: eq(s.agents.slug, a.slug!) });
-    if (!found) await db.insert(s.agents).values(a);
+  await db.insert(s.agents).values(agentSeed);
   }
 
   // Detail page copy for products and agents. Bump the version when content/catalog changes
@@ -183,6 +181,7 @@ async function main() {
 
   // Documentation: Customer Signals Agent installation guide, v1.0 and v1.1
   const csa = prod["customer-signals-agent"];
+  if (csa) {
   const installBody = readFileSync("content/docs/csa-installation.md", "utf8");
   for (const [version, versionStatus] of [["1.1", "latest"], ["1.0", "supported"]] as const) {
     const found = await db.query.documentation.findFirst({
@@ -195,6 +194,7 @@ async function main() {
         summary: "Install Customer Signals Agent from the ServiceNow Store, connect your approved model provider, apply guardrails, and confirm the agent can analyze a transcript.",
       });
     }
+  }
   }
 
   console.log("Seed complete");

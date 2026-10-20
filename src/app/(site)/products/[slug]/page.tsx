@@ -7,6 +7,7 @@ import { CatalogDetail, postsForProducts } from "@/components/catalog-page";
 import { productVisual } from "@/lib/fragments";
 import { demoHref } from "@/lib/promo";
 import { money } from "@/lib/format";
+import { linkableProducts } from "@/lib/catalog";
 
 export const dynamic = "force-dynamic";
 
@@ -25,8 +26,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (p?.kind === "store_app") permanentRedirect(`/agents/${p.slug}`);
   if (!p || !p.page) notFound();
 
-  const agents = await db.select().from(s.agents).where(eq(s.agents.appName, p.name)).orderBy(asc(s.agents.sortOrder));
-  const others = await db.select().from(s.products).where(and(eq(s.products.active, true), ne(s.products.id, p.id))).orderBy(asc(s.products.sortOrder));
+  const agents = await db.select().from(s.agents).where(and(eq(s.agents.appName, p.name), eq(s.agents.active, true))).orderBy(asc(s.agents.sortOrder));
+  const others = (await linkableProducts()).filter((o) => o.id !== p.id).sort((a, b) => a.sortOrder - b.sortOrder);
   const posts = await postsForProducts([p.id, ...agents.map((a) => a.productId).filter((x): x is number => !!x)]);
   const visual = productVisual(p.slug);
   const included = agents.filter((a) => a.productId === p.id).map((a) => a.name);
@@ -41,7 +42,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       visual={visual ? <Html html={visual} /> : null}
       demoHref={demoHref(p.slug)}
       secondary={{ href: "/pricing", label: "See pricing" }}
-      agentLinks={Object.fromEntries(agents.map((a) => [a.slug, `/agents/${a.slug}`]))}
+      agentLinks={Object.fromEntries(agents.filter((a) => a.page).map((a) => [a.slug, `/agents/${a.slug}`]))}
       planStrip={p.plan && (
         <div className="planstrip">
           <div><span className="k">PLAN</span><b>{p.plan}</b></div>

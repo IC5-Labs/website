@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { asc, eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
+import { selectableProducts } from "@/lib/queries";
 import { Flash } from "@/components/site";
 import { deleteResource, saveResource } from "@/lib/actions/admin";
 import { resourceHref } from "@/lib/content";
@@ -18,7 +19,7 @@ export default async function EditResource({ params, searchParams }: { params: P
   const r = isNew ? null : await db.query.resources.findFirst({ where: eq(s.resources.id, Number(id)) });
   if (!isNew && !r) notFound();
   const type = r?.type ?? (sp.type === "document" || sp.type === "insight" ? sp.type : "blog");
-  const products = await db.select().from(s.products).where(eq(s.products.active, true)).orderBy(asc(s.products.sortOrder));
+  const products = await selectableProducts([r?.productId]);
   const pub = r?.publishedAt ? new Date(r.publishedAt).toISOString().slice(0, 10) : "";
   return (
     <>

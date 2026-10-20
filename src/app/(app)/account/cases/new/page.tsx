@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Flash } from "@/components/site";
 import { requireAccountUser } from "@/lib/users";
-import { accountLicenses, allProducts } from "@/lib/queries";
+import { accountLicenses, selectableProducts } from "@/lib/queries";
 import { createCase } from "@/lib/actions/cases";
 import { SEVERITY } from "@/lib/format";
 
@@ -11,7 +11,7 @@ export const metadata = { title: "Open a case" };
 export default async function NewCase({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const sp = await searchParams;
   const { account } = await requireAccountUser("/account/cases/new");
-  const [lics, products] = await Promise.all([accountLicenses(account.id), allProducts()]);
+  const [lics, products] = await Promise.all([accountLicenses(account.id), selectableProducts()]);
   const licensedIds = new Set(lics.map((l) => l.product.id));
   const ordered = [...products.filter((p) => licensedIds.has(p.id)), ...products.filter((p) => !licensedIds.has(p.id))];
   const defaultProduct = sp.product ?? String(ordered[0]?.id ?? "");

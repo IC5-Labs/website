@@ -25,7 +25,7 @@ export function demoHref(slug: string | null | undefined) {
 }
 
 export function productPromo(p: Product | null | undefined): Promo {
-  if (!p) {
+  if (!p || !p.active) {
     return {
       eyebrow: "Built for ServiceNow",
       name: "Product Builder Experience",
@@ -44,7 +44,7 @@ export function productPromo(p: Product | null | undefined): Promo {
     blurb: p.tagline ?? p.description ?? "",
     ctaText: p.description ?? p.tagline ?? "",
     ctaLabel: `Explore ${p.name}`,
-    href: store ? `/agents/${p.slug}` : `/products/${p.slug}`,
+    href: p.page ? (store ? `/agents/${p.slug}` : `/products/${p.slug}`) : "/products",
     demoHref: interest ? `/demo?interest=${encodeURIComponent(interest)}` : "/demo",
   };
 }

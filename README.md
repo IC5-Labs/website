@@ -11,7 +11,7 @@ Built with Next.js (App Router), PostgreSQL through Drizzle ORM, and Auth.js for
 | Visitor | Not signed in | Read marketing pages, blog posts, documents, insights, and product docs; subscribe to the newsletter; request a demo |
 | Member | Joins a company account by invitation | See and manage their company’s licenses, requests, and support cases; open cases and reply |
 | Account admin | First person from a company to sign up, or promoted by another account admin | Everything a member can, plus invite teammates by email, promote or demote account admins, remove members, set license instances |
-| Admin | `kit@ic5labs.com` is seeded as admin; admins can grant it to others | Manage all cases (replies, internal notes, status, severity, assignee), blog posts, documents, insights, versioned docs, users, accounts, licenses, and requests |
+| Admin | `kit@ic5labs.com` is seeded as admin; admins can grant it to others | Manage all cases (replies, internal notes, status, severity, assignee), products and agents, blog posts, documents, insights, versioned docs, users, accounts, licenses, and requests |
 
 Company accounts are matched by work email domain. A second person from the same domain without an invitation is asked to request one from their account admin. Personal email domains (Gmail, Outlook and similar) get single-person accounts.
 
@@ -56,9 +56,11 @@ Each provider button appears once its two environment variables are set. Registe
 
 Also set `AUTH_SECRET` (generate with `openssl rand -base64 32`) and `AUTH_URL` (the public site URL).
 
-## Product and agent pages
+## Products and agents
 
-Copy for `/products/<slug>` and `/agents/<slug>` lives in `content/catalog/products.json` and `content/catalog/agents.json`, written from the product strategy, design, and Store documents. The seed writes it to the database once per version: after editing either file, bump `catalog-pages-v1` in `scripts/seed.ts` so the next deploy applies the new copy. Product mockups in the page hero come from the matching section of the products page markup.
+Admins manage products and AI agents in the admin console under Products and agents: details, pricing, plan features, the detail page copy shown at `/products/<slug>` and `/agents/<slug>`, and whether each one is active. Inactive products and agents are hidden everywhere on the site (pages, listings, pricing, the footer, the homepage and products page sections, docs, and blog promos) and left out of dropdowns, while existing licenses, cases, and docs keep their links.
+
+`content/catalog/products.json` and `content/catalog/agents.json` hold the original page copy, written from the product strategy, design, and Store documents. The seed only adds products and agents to an empty database, so edits made in the admin console are never overwritten. Product mockups in the page hero come from the matching section of the products page markup.
 
 ## Legal pages
 

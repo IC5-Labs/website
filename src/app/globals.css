@@ -1142,3 +1142,6 @@ a.agent:hover{background:rgba(36,0,167,.14)}
 
 /* long inline code (table names, roles) wraps instead of widening the page on phones */
 .docprose :not(pre)>code{overflow-wrap:anywhere}
+/* admin: products and agents */
+.ptitle{font-size:20px;font-weight:800;color:var(--dark);letter-spacing:-.01em}
+.panel-tight>.phead{padding:22px 22px 0;margin-bottom:14px}

@@ -13,7 +13,7 @@ export async function resourceBySlug(slug: string) {
 
 /** Products that have documentation, each with its versions (latest first). */
 export async function docsCatalog() {
-  const products = await db.select().from(s.products).orderBy(asc(s.products.sortOrder));
+  const products = await db.select().from(s.products).where(eq(s.products.active, true)).orderBy(asc(s.products.sortOrder));
   const docs = await db.select({
     productId: s.documentation.productId, version: s.documentation.version, versionStatus: s.documentation.versionStatus,
     slug: s.documentation.slug, title: s.documentation.title, section: s.documentation.section, sortOrder: s.documentation.sortOrder,
@@ -45,7 +45,7 @@ export async function searchDocs(q: string, productSlug?: string, version?: stri
     title: s.documentation.title, body: s.documentation.body, version: s.documentation.version, slug: s.documentation.slug,
     status: s.documentation.versionStatus, product: s.products.name, productSlug: s.products.slug,
   }).from(s.documentation).innerJoin(s.products, eq(s.products.id, s.documentation.productId))
-    .where(or(ilike(s.documentation.title, `%${term}%`), ilike(s.documentation.body, `%${term}%`)));
+    .where(and(eq(s.products.active, true), or(ilike(s.documentation.title, `%${term}%`), ilike(s.documentation.body, `%${term}%`))));
   return rows
     .filter((r) => r.status !== "draft" && (!productSlug || r.productSlug === productSlug) && (!version || r.version === version))
     .map((r) => {

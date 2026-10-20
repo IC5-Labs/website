@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
 import { Flash } from "@/components/site";
 import { CaseTable } from "@/components/cases";
-import { accountLicenses, accountMembers, allProducts, listCases } from "@/lib/queries";
+import { accountLicenses, accountMembers, listCases, selectableProducts } from "@/lib/queries";
 import { deleteLicense, saveLicense } from "@/lib/actions/admin";
 import { initials } from "@/lib/users";
 import { fmtDate } from "@/lib/format";
@@ -19,7 +19,8 @@ export default async function AdminAccount({ params, searchParams }: { params: P
   const sp = await searchParams;
   const account = await db.query.accounts.findFirst({ where: eq(s.accounts.id, id) });
   if (!account) notFound();
-  const [members, lics, products, cases] = await Promise.all([accountMembers(id), accountLicenses(id), allProducts(), listCases({ accountId: id, filter: "all" })]);
+  const [members, lics, cases] = await Promise.all([accountMembers(id), accountLicenses(id), listCases({ accountId: id, filter: "all" })]);
+  const products = await selectableProducts(lics.map((l) => l.product.id));
   const today = new Date(); const yearOut = new Date(today); yearOut.setFullYear(today.getFullYear() + 1);
   const LicenseForm = ({ l }: { l?: (typeof lics)[number]["license"] }) => (
     <form action={saveLicense} className="formgrid" style={{ gridTemplateColumns: "repeat(4,1fr)", alignItems: "end" }}>

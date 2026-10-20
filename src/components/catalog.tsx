@@ -9,7 +9,7 @@ export async function getPlans() {
 
 export async function PricingTiers({ withButtons }: { withButtons?: boolean }) {
   const plans = (await getPlans()).filter((p) => p.active);
-  const agents = await db.select().from(s.agents).orderBy(asc(s.agents.sortOrder));
+  const agents = await db.select().from(s.agents).where(eq(s.agents.active, true)).orderBy(asc(s.agents.sortOrder));
   return (
     <div className="tiers">
       {plans.map((p, i) => {
@@ -35,7 +35,7 @@ export async function PricingTiers({ withButtons }: { withButtons?: boolean }) {
 }
 
 export async function AgentGrid() {
-  const agents = await db.select().from(s.agents).orderBy(asc(s.agents.sortOrder));
+  const agents = await db.select().from(s.agents).where(eq(s.agents.active, true)).orderBy(asc(s.agents.sortOrder));
   return (
     <div className="grid3 mt">
       {agents.map((a) => (

@@ -15,7 +15,7 @@ type P = { params: Promise<{ product: string; version: string; slug: string }> }
 
 export async function generateMetadata({ params }: P) {
   const { product, version, slug } = await params;
-  const p = await db.query.products.findFirst({ where: eq(s.products.slug, product) });
+  const p = await db.query.products.findFirst({ where: and(eq(s.products.slug, product), eq(s.products.active, true)) });
   if (!p) return {};
   const d = await db.query.documentation.findFirst({ where: and(eq(s.documentation.productId, p.id), eq(s.documentation.version, version), eq(s.documentation.slug, slug)) });
   return d ? { title: `${d.title} · ${p.name} v${version} docs` } : {};

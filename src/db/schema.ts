@@ -94,6 +94,7 @@ export const agents = pgTable("agent", {
   description: text("description").notNull(),
   live: boolean("live").default(false).notNull(),
   sortOrder: integer("sort_order").default(0).notNull(),
+  active: boolean("active").default(true).notNull(),
   page: jsonb("page").$type<CatalogPage>(),
 }, (t) => [uniqueIndex("agent_slug_idx").on(t.slug)]);
 

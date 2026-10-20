@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { asc, eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
+import { selectableProducts } from "@/lib/queries";
 import { Flash } from "@/components/site";
 import { deleteDoc, saveDoc } from "@/lib/actions/admin";
 
@@ -14,7 +15,7 @@ export default async function EditDoc({ params, searchParams }: { params: Promis
   const isNew = id === "new";
   const d = isNew ? null : await db.query.documentation.findFirst({ where: eq(s.documentation.id, Number(id)) });
   if (!isNew && !d) notFound();
-  const products = await db.select().from(s.products).orderBy(asc(s.products.sortOrder));
+  const products = await selectableProducts([d?.productId]);
   const product = d?.productId ?? (Number(sp.product) || products.find((p) => p.hasDocs)?.id);
   return (
     <>
