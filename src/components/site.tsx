@@ -132,12 +132,6 @@ export function SiteFooter() {
   );
 }
 
-export function AppFooter() {
-  return (
-    <footer className="appfoot"><div className="wrap"><span>© 2026 IC5 Labs, Inc.</span><span><Link href="/docs">Documentation</Link><Link href="/pricing#support">Service level agreements</Link><Link href="/privacy">Privacy policy</Link><Link href="/terms">Terms of service</Link><Link href="/company#contact">Contact</Link></span></div></footer>
-  );
-}
-
 export function CtaBand({ title, text }: { title: string; text: string }) {
   return (
     <section className="final" style={{ paddingTop: 110 }}><div className="wrap"><div className="cta-box">

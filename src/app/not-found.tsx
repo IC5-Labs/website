@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AppHeader, AppFooter } from "@/components/site";
+import { AppHeader, SiteFooter } from "@/components/site";
 
 export default function NotFound() {
   return (
@@ -11,7 +11,7 @@ export default function NotFound() {
         <p className="s" style={{ marginTop: 12 }}>It may have moved, or you may not have access to it.</p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 28 }}><Link className="btn btn-violet" href="/">Go home</Link><Link className="btn btn-light" href="/docs">Documentation</Link></div>
       </main>
-      <AppFooter />
+      <SiteFooter />
     </div>
   );
 }
