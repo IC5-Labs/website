@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { asc, eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
-import { money } from "@/lib/format";
 
 export async function getPlans() {
   return db.select().from(s.products).where(eq(s.products.kind, "app")).orderBy(asc(s.products.sortOrder));
@@ -20,7 +19,6 @@ export async function PricingTiers({ withButtons }: { withButtons?: boolean }) {
         return (
           <div key={p.id} className={`tier${featured ? " feat" : ""}`}>
             <div className="nm">{(p.plan ?? p.name).toUpperCase()}</div>
-            <div className="pr">{money(p.priceAnnual)} <small>/ year / instance</small></div>
             <div className="us">{users}{prev}</div>
             <ul>{p.features.map((f) => <li key={f}>{f}</li>)}</ul>
             {ag && <div className="ag">{ag}</div>}

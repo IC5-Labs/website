@@ -6,7 +6,6 @@ import { Html } from "@/components/site";
 import { CatalogDetail, postsForProducts } from "@/components/catalog-page";
 import { productVisual } from "@/lib/fragments";
 import { demoHref } from "@/lib/promo";
-import { money } from "@/lib/format";
 import { linkableProducts } from "@/lib/catalog";
 
 export const dynamic = "force-dynamic";
@@ -46,7 +45,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       planStrip={p.plan && (
         <div className="planstrip">
           <div><span className="k">PLAN</span><b>{p.plan}</b></div>
-          <div><span className="k">PRICE</span><b>{money(p.priceAnnual)} <small>/ year / instance</small></b></div>
+          <div><span className="k">PRICING</span><b>Per instance, per year</b></div>
           <div><span className="k">USERS</span><b>{p.userLimit ? `Up to ${p.userLimit}` : "Unlimited"}</b></div>
           {included.length > 0 && <div className="wide"><span className="k">AI AGENTS INCLUDED</span><b>{included.join(" · ")}</b></div>}
           <Link className="btn btn-ghost" href="/pricing">Compare plans</Link>
