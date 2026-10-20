@@ -122,7 +122,7 @@ export function SiteFooter() {
             <p className="ftag">Built by customer-focused product builders with deep ServiceNow experience in a culture of continuous care for products, people, and customers.</p>
           </div>
           {col("PRODUCTS", [["/products/customer-signals", "Customer Signals"], ["/products/product-model", "Product Model"], ["/products/release-intelligence", "Release Intelligence"], ["/agents/customer-signals-agent", "Customer Signals Agent"]])}
-          {col("RESOURCES", [["/resources", "Blog"], ["/resources#insights", "State of Product insights"], ["/docs", "Documentation"], ["/docs/customer-signals-agent", "Installation guide"]])}
+          {col("RESOURCES", [["/resources", "Blog"], ["/resources#insights", "State of Product insights"], ["/docs", "Documentation"], ["/pricing#support", "Service Level Agreement"]])}
           {col("COMPANY", [["/company", "About"], ["/company#leadership", "Leadership"], ["/company#partners", "Partners"], ["/company#contact", "Contact"]])}
           {col("TRUST", [["/resources#docs", "Privacy policy"], ["/pricing#support", "Service level agreements"], ["/agents#governance", "Security"]])}
         </div>
