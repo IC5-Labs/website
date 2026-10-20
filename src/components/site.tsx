@@ -103,8 +103,8 @@ const YouTube = () => (
 export function Social() {
   return (
     <span className="social">
-      <a aria-label="LinkedIn" href="https://www.linkedin.com/in/kitcorry/" target="_blank" rel="noreferrer"><LinkedIn /></a>
-      <a aria-label="YouTube" href="#" ><YouTube /></a>
+      <a aria-label="IC5 Labs on LinkedIn" href="https://www.linkedin.com/company/ic5labs/" target="_blank" rel="noreferrer"><LinkedIn /></a>
+      <a aria-label="IC5 Labs on YouTube" href="https://www.youtube.com/@IC5Labs" target="_blank" rel="noreferrer"><YouTube /></a>
     </span>
   );
 }
