@@ -9,7 +9,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: { default: "IC5 Labs", template: "%s · IC5 Labs" },
   description: "Product Builder Experience: AI-assisted product management native to ServiceNow. Turn customer signals into evidence-backed needs, live roadmaps, and releases that close the loop.",
-  icons: { icon: "/assets/logo-rev.png" },
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#00165E" };
 
