@@ -30,7 +30,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
       {sp.error && <Flash err={ERR[sp.error] ?? "Something went wrong."} />}
       {sp.ok && <Flash ok={OK[sp.ok] ?? "Saved."} />}
       {just && (
-        <div className="flash ok"><b>Invitation created for {just.email}.</b> Send them this link. They’ll sign in with that email and join {account.name} automatically.
+        <div className="flash ok"><b>{sp.mail === "sent" ? `Invitation emailed to ${just.email}.` : `Invitation created for ${just.email}.`}</b> {sp.mail === "sent" ? "You can also share this link with them." : "Send them this link."} They’ll sign in with that email and join {account.name} automatically.
           <div className="copybox" style={{ marginTop: 10 }}>{origin}/invite/{just.token}</div></div>
       )}
       <div className="ahead"><div><div className="eyebrow">Account</div><h1>Team members</h1><p className="s">Everyone here can see and manage {account.name}’s licenses, requests, and support cases.</p></div></div>

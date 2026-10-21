@@ -1,5 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
+import { sendEmail, siteOrigin } from "@/lib/email";
+import { accountCreatedEmail } from "@/lib/email-templates";
 import { revalidatePath } from "next/cache";
 import { and, eq, ne } from "drizzle-orm";
 import { z } from "zod";
@@ -154,18 +156,25 @@ export async function adminUpdateUser(formData: FormData) {
 }
 
 export async function adminInviteUser(formData: FormData) {
-  await requireAdmin("/admin/users");
+  const me = await requireAdmin("/admin/users");
   const email = z.string().trim().toLowerCase().email().safeParse(formData.get("email"));
   if (!email.success) redirect("/admin/users?error=email");
   const exists = await db.query.users.findFirst({ where: eq(s.users.email, email.data) });
   if (exists) redirect("/admin/users?error=exists");
   const accountId = Number(formData.get("accountId")) || null;
-  await db.insert(s.users).values({
+  const [created] = await db.insert(s.users).values({
     email: email.data, name: opt(formData.get("name")), role: formData.get("role") === "admin" ? "admin" : "user",
     accountId, accountRole: accountId ? (formData.get("accountRole") === "account_admin" ? "account_admin" : "member") : null,
+  }).returning();
+  // Tell the new user about their account and who set it up.
+  const account = accountId ? await db.query.accounts.findFirst({ where: eq(s.accounts.id, accountId) }) : null;
+  const mail = accountCreatedEmail({
+    origin: await siteOrigin(), to: created, by: me,
+    accountName: account?.name, accountRole: created.accountRole, siteAdmin: created.role === "admin",
   });
+  const sent = await sendEmail({ to: created.email, replyTo: me.email, ...mail });
   revalidatePath("/admin/users");
-  redirect("/admin/users?ok=created");
+  redirect(`/admin/users?ok=created&mail=${sent}`);
 }
 
 /* ---------- accounts and licenses ---------- */

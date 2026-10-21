@@ -10,6 +10,12 @@ export const metadata = { title: "Users" };
 
 const ERR: Record<string, string> = { self: "You can’t remove your own admin role.", email: "Enter a valid email.", exists: "A user with that email already exists." };
 
+const MAIL: Record<string, string> = {
+  sent: "We emailed them to let them know.",
+  off: "Email isn’t set up yet, so no welcome email was sent.",
+  failed: "The welcome email couldn’t be sent.",
+};
+
 export default async function AdminUsers({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const sp = await searchParams;
   const [users, accounts] = await Promise.all([
@@ -21,7 +27,7 @@ export default async function AdminUsers({ searchParams }: { searchParams: Promi
   const accountOptions = <><option value="">No company account</option>{accounts.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</>;
   return (
     <>
-      {sp.ok && <Flash ok={sp.ok === "created" ? "User added. They’ll get access when they first sign in with that email." : "User updated."} />}
+      {sp.ok && <Flash ok={sp.ok === "created" ? `User added. ${MAIL[sp.mail ?? ""] ?? ""} They’ll get access when they first sign in with that email.` : "User updated."} />}
       {sp.error && <Flash err={ERR[sp.error] ?? "Couldn’t save."} />}
       <div className="ahead"><div><div className="eyebrow">Admin</div><h1>Users</h1><p className="s">Set platform roles and company membership. Admins can manage all content, cases, and users.</p></div></div>
       <section className="panel">

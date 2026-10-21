@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { and, eq, ne } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema as s } from "@/db";
+import { sendEmail, siteOrigin } from "@/lib/email";
+import { teamInviteEmail } from "@/lib/email-templates";
 import { acceptPendingInvite, emailDomain, isPublicDomain, requireAccountUser, requireUser } from "@/lib/users";
 
 const emailSchema = z.string().trim().toLowerCase().email().max(200);
@@ -50,13 +52,19 @@ export async function inviteMember(formData: FormData) {
   const pending = await db.query.invites.findFirst({
     where: and(eq(s.invites.accountId, account.id), eq(s.invites.email, email.data), eq(s.invites.status, "pending")),
   });
+  let token: string;
   if (pending) {
     await db.update(s.invites).set({ accountRole: role }).where(eq(s.invites.id, pending.id));
+    token = pending.token;
   } else {
-    await db.insert(s.invites).values({ token: randomBytes(24).toString("base64url"), accountId: account.id, email: email.data, accountRole: role, invitedById: user.id });
+    token = randomBytes(24).toString("base64url");
+    await db.insert(s.invites).values({ token, accountId: account.id, email: email.data, accountRole: role, invitedById: user.id });
   }
+  // Email the invitation; sending again for a pending invite works as a resend.
+  const mail = teamInviteEmail({ origin: await siteOrigin(), to: email.data, by: user, accountName: account.name, accountRole: role, token });
+  const sent = await sendEmail({ to: email.data, replyTo: user.email, ...mail });
   revalidatePath("/account/team");
-  redirect(`/account/team?invited=${encodeURIComponent(email.data)}`);
+  redirect(`/account/team?invited=${encodeURIComponent(email.data)}&mail=${sent}`);
 }
 
 export async function revokeInvite(formData: FormData) {
