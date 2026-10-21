@@ -5,12 +5,12 @@ import { db, schema as s } from "@/db";
 import { selectableProducts } from "@/lib/queries";
 import { Flash } from "@/components/site";
 import { deleteResource, saveResource } from "@/lib/actions/admin";
-import { resourceHref } from "@/lib/content";
+import { fileHref, fileLabel, resourceFileMeta, resourceHref } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Edit resource" };
 
-const ERR: Record<string, string> = { invalid: "Add a title (3+ characters) and choose a type and status.", slug: "Another resource already uses that URL slug." };
+const ERR: Record<string, string> = { filesize: "Files can be up to 25 MB.", filetype: "Upload a PDF, Word, Excel, PowerPoint, CSV, text, ZIP, or image file.", invalid: "Add a title (3+ characters) and choose a type and status.", slug: "Another resource already uses that URL slug." };
 
 export default async function EditResource({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | undefined>> }) {
   const { id } = await params;
@@ -20,6 +20,7 @@ export default async function EditResource({ params, searchParams }: { params: P
   if (!isNew && !r) notFound();
   const type = r?.type ?? (sp.type === "document" || sp.type === "insight" ? sp.type : "blog");
   const products = await selectableProducts([r?.productId]);
+  const file = r ? (await resourceFileMeta([r.id])).get(r.id) : undefined;
   const pub = r?.publishedAt ? new Date(r.publishedAt).toISOString().slice(0, 10) : "";
   return (
     <>
@@ -40,6 +41,11 @@ export default async function EditResource({ params, searchParams }: { params: P
           <label className="field full"><span>Featured product</span><select className="select" name="productId" defaultValue={r?.productId ?? ""}><option value="">None: promote the full product suite</option>{products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select><small>Sets the “Ready to see it in action?” call to action and the sidebar promo.</small></label>
           <label className="field"><span>Author name</span><input className="input" name="authorName" defaultValue={r?.authorName ?? "Kit Corry"} /></label>
           <label className="field"><span>Author title</span><input className="input" name="authorTitle" defaultValue={r?.authorTitle ?? "Founder & CEO, IC5 Labs"} /></label>
+          <div className="field full"><span>Download file</span>
+            {file && <div className="filerow"><a className="lnk" href={fileHref(file)}>{file.filename}</a><small>{fileLabel(file)}</small><label className="check-row"><input type="checkbox" name="removeFile" />Remove</label></div>}
+            <input className="input" type="file" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.md,.zip,.png,.jpg,.jpeg" />
+            <small>{file ? "Choose a file to replace the current one." : "For documents: visitors download this file. Up to 25 MB."} If a document has a file and no body, its card on the Resources page downloads the file directly.</small>
+          </div>
           <label className="field full"><span>Summary</span><textarea className="textarea" name="summary" defaultValue={r?.summary ?? ""} style={{ minHeight: 80 }} /><small>Shown on cards and as the article lead.</small></label>
           <label className="field full"><span>Body (Markdown)</span><textarea className="textarea code" name="body" defaultValue={r?.body ?? ""} /><small>Use ## for section headings; they build the article’s table of contents.</small></label>
         </div>

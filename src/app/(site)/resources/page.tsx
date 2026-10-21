@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MarketingHeader, SiteFooter, Flash } from "@/components/site";
-import { publishedResources, docsCatalog, resourceHref } from "@/lib/content";
+import { publishedResources, docsCatalog, fileHref, fileLabel, resourceFileMeta, resourceHref } from "@/lib/content";
 import { subscribeNewsletter } from "@/lib/actions/public";
 import { fmtDate } from "@/lib/format";
 
@@ -13,6 +13,7 @@ export default async function ResourcesPage({ searchParams }: { searchParams: Pr
     publishedResources("blog"), publishedResources("insight"), publishedResources("document"), docsCatalog(),
   ]);
   const [featured, ...rest] = blogs;
+  const files = await resourceFileMeta(documents.map((d) => d.id));
   const docProducts = catalog.filter((c) => c.versions.length);
   return (
     <>
@@ -68,9 +69,15 @@ export default async function ResourcesPage({ searchParams }: { searchParams: Pr
           {docProducts.map((c) => (
             <Link key={c.product.id} className="doc" href={`/docs/${c.product.slug}`}><div className="ico">↓</div><div><h4>{c.product.name} documentation</h4><p>Installation and configuration, versions {c.versions.map((v) => "v" + v.version).join(", ")}.</p></div></Link>
           ))}
-          {documents.map((d) => (
-            <Link key={d.id} className="doc" href={resourceHref(d)}><div className="ico">≡</div><div><h4>{d.title}</h4><p>{d.summary}</p></div></Link>
-          ))}
+          {documents.map((d) => {
+            const f = files.get(d.id);
+            // A document that is just a file downloads straight from its card.
+            const direct = f && !(d.body ?? "").trim();
+            const inner = <><div className="ico">{f ? "↓" : "≡"}</div><div><h4>{d.title}</h4><p>{d.summary}</p>{f && <span className="dl">{direct ? "Download" : "Read or download"} · {fileLabel(f)}</span>}</div></>;
+            return direct
+              ? <a key={d.id} className="doc" href={fileHref(f)} download>{inner}</a>
+              : <Link key={d.id} className="doc" href={resourceHref(d)}>{inner}</Link>;
+          })}
           <Link className="doc" href="/pricing#support"><div className="ico">⏱</div><div><h4>Service level agreements</h4><p>Severity definitions, response targets, and how to reach support.</p></div></Link>
         </div>
       </div></section>

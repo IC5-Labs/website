@@ -22,7 +22,7 @@ Defined in `src/db/schema.ts`; migrations in `drizzle/`.
 - `user`: individual person, unique by email; platform role (`admin` or `user`), company account, and account role (`account_admin` or `member`)
 - `account`: company account; many users belong to one account
 - `invite`: pending email invitation to join an account
-- `resource`: blog post, document, or insight (Markdown body, draft or published); a blog post's featured product sets its call to action and sidebar promo, or the full product suite when none is set
+- `resource`: blog post, document, or insight (Markdown body, draft or published); documents can carry a downloadable file in `resource_file`, served at `/files/<id>/<name>`; a blog post's featured product sets its call to action and sidebar promo, or the full product suite when none is set
 - `product`: products and plans for sale; `page` holds the detail page copy (problem, approach, capabilities) shown at `/products/<slug>`
 - `agent`: AI agents for sale, linked to a product; `page` holds the copy for `/agents/<slug>`
 - `documentation`: versioned product docs, one row per page per version; each version is `latest`, `supported`, `deprecated`, or `draft`

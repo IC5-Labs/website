@@ -1,4 +1,5 @@
 import {
+  customType,
   pgTable, pgEnum, serial, integer, text, timestamp, boolean, jsonb, uniqueIndex, index,
 } from "drizzle-orm/pg-core";
 
@@ -117,6 +118,19 @@ export const resources = pgTable("resource", {
   createdById: integer("created_by_id").references(() => users.id, { onDelete: "set null" }),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 }, (t) => [uniqueIndex("resource_slug_idx").on(t.slug)]);
+
+const bytea = customType<{ data: Buffer; driverData: Buffer }>({ dataType: () => "bytea" });
+
+/** A downloadable file (for example a PDF) attached to a resource, stored in the database. */
+export const resourceFiles = pgTable("resource_file", {
+  id: serial("id").primaryKey(),
+  resourceId: integer("resource_id").references(() => resources.id, { onDelete: "cascade" }).notNull(),
+  filename: text("filename").notNull(),
+  contentType: text("content_type").notNull(),
+  size: integer("size").notNull(),
+  data: bytea("data").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+}, (t) => [uniqueIndex("resource_file_resource_idx").on(t.resourceId)]);
 
 /** Versioned product documentation pages. */
 export const documentation = pgTable("documentation", {

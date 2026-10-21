@@ -64,3 +64,22 @@ export const LEGAL_PAGES: Record<string, string> = { privacy: "/privacy", terms:
 export function resourceHref(r: { slug: string }) {
   return LEGAL_PAGES[r.slug] ?? `/resources/${r.slug}`;
 }
+
+export type FileMeta = { id: number; resourceId: number; filename: string; contentType: string; size: number };
+
+/** Attached file details (without the bytes) for the given resources, keyed by resource id. */
+export async function resourceFileMeta(resourceIds: number[]): Promise<Map<number, FileMeta>> {
+  if (!resourceIds.length) return new Map();
+  const { inArray } = await import("drizzle-orm");
+  const rows = await db.select({ id: s.resourceFiles.id, resourceId: s.resourceFiles.resourceId, filename: s.resourceFiles.filename, contentType: s.resourceFiles.contentType, size: s.resourceFiles.size })
+    .from(s.resourceFiles).where(inArray(s.resourceFiles.resourceId, resourceIds));
+  return new Map(rows.map((r) => [r.resourceId, r]));
+}
+
+export const fileHref = (f: FileMeta) => `/files/${f.id}/${encodeURIComponent(f.filename)}`;
+
+export function fileLabel(f: FileMeta) {
+  const ext = f.filename.split(".").pop()?.toUpperCase() ?? "FILE";
+  const mb = f.size / 1024 / 1024;
+  return `${ext} · ${mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.max(1, Math.round(f.size / 1024))} KB`}`;
+}

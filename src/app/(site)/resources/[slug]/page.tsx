@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { MarketingHeader, SiteFooter, CtaBand, Social } from "@/components/site";
-import { LEGAL_PAGES, publishedResources, resourceBySlug, resourceHref } from "@/lib/content";
+import { LEGAL_PAGES, fileHref, fileLabel, publishedResources, resourceBySlug, resourceFileMeta, resourceHref } from "@/lib/content";
 import { renderMarkdown } from "@/lib/markdown";
 import { getCurrentUser } from "@/lib/users";
 import { fmtDate } from "@/lib/format";
@@ -28,6 +28,8 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
   const words = (r.body ?? "").split(/\s+/).length;
   const related = (await publishedResources(r.type)).filter((x) => x.id !== r.id).slice(0, 3);
   const isBlog = r.type === "blog";
+  const file = (await resourceFileMeta([r.id])).get(r.id);
+  const hasBody = !!(r.body ?? "").trim();
   const promo = productPromo(r.productId ? await db.query.products.findFirst({ where: eq(s.products.id, r.productId) }) : null);
   const label = r.type === "blog" ? "Blog" : r.type === "insight" ? "Insights" : "Documents";
   return (
@@ -42,7 +44,7 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
             {r.authorName === "Kit Corry" && <img src="/assets/kit-corry.jpg" alt="" />}
             {r.authorName && <div><b>{r.authorName}</b>{r.authorTitle && <span>{r.authorTitle}</span>}</div>}
             {r.publishedAt && <><i /><span>{fmtDate(r.publishedAt, { month: "long", day: "numeric", year: "numeric" })}</span></>}
-            <i /><span>{Math.max(1, Math.round(words / 230))} min read</span>
+            {hasBody && <><i /><span>{Math.max(1, Math.round(words / 230))} min read</span></>}
           </div>
         </div>
       </MarketingHeader>
@@ -54,7 +56,10 @@ export default async function ResourcePage({ params }: { params: Promise<{ slug:
           <div className="artgrid">
             <article className="prose">
               {!isBlog && r.heroImage && <img className="insight-hero" src={r.heroImage} alt={r.title} />}
-              {r.summary && isBlog && <p className="lead">{r.summary}</p>}
+              {r.summary && (isBlog || (file && !hasBody)) && <p className="lead">{r.summary}</p>}
+              {file && (
+                <div className="dlbox"><div className="ico">↓</div><div><b>{file.filename}</b><span>{fileLabel(file)}</span></div><a className="btn btn-violet" href={fileHref(file)} download>Download &nbsp;↓</a></div>
+              )}
               <div dangerouslySetInnerHTML={{ __html: html }} />
               <div className="inlinecta"><div><b>Ready to see it in action?</b><span>{promo.ctaText}</span></div><Link className="btn btn-primary" href={promo.href}>{promo.ctaLabel} &nbsp;→</Link></div>
             </article>

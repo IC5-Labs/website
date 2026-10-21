@@ -165,6 +165,19 @@ async function main() {
   await db.update(s.resources).set({ authorTitle: "Founder & CEO, IC5 Labs" })
     .where(and(eq(s.resources.authorName, "Kit Corry"), eq(s.resources.authorTitle, "CEO, IC5 Labs")));
 
+  // Customer Signals Agent product brief: a document that downloads its PDF.
+  const briefSlug = "customer-signals-agent-product-brief";
+  if (!(await db.query.resources.findFirst({ where: eq(s.resources.slug, briefSlug) }))) {
+    const [doc] = await db.insert(s.resources).values({
+      type: "document", slug: briefSlug, status: "published", title: "Customer Signals Agent Product Brief",
+      summary: "A one-page overview of Customer Signals Agent: the challenge, how it works, key capabilities, outcomes, and requirements.",
+      category: "Product brief", body: "", productId: prod["customer-signals-agent"]?.id ?? null,
+      publishedAt: new Date("2026-10-21T12:00:00Z"), createdById: admin?.id,
+    }).returning({ id: s.resources.id });
+    const pdf = readFileSync(`content/documents/${briefSlug}.pdf`);
+    await db.insert(s.resourceFiles).values({ resourceId: doc.id, filename: "Customer Signals Agent - Product Brief.pdf", contentType: "application/pdf", size: pdf.length, data: pdf });
+  }
+
   // State of Product insights
   const insights = JSON.parse(readFileSync("content/insights/state-of-product-2027.json", "utf8")) as { title: string; image: string | null; body: string }[];
   for (const [i, it] of insights.entries()) {

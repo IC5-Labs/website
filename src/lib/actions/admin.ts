@@ -13,6 +13,9 @@ const opt = (v: FormDataEntryValue | null) => {
 };
 
 /* ---------- resources: blog posts, documents, insights ---------- */
+const MAX_FILE_BYTES = 25 * 1024 * 1024;
+/** Document formats admins can attach for download. */
+const ALLOWED_FILE = /\.(pdf|docx?|xlsx?|pptx?|csv|txt|md|zip|png|jpe?g)$/i;
 const resourceSchema = z.object({
   type: z.enum(["blog", "document", "insight"]),
   title: z.string().trim().min(3).max(300),
@@ -38,8 +41,22 @@ export async function saveResource(formData: FormData) {
     publishedAt: pub ? new Date(pub) : d.status === "published" ? existing?.publishedAt ?? new Date() : existing?.publishedAt ?? null,
     updatedAt: new Date(),
   };
+  const upload = formData.get("file");
+  const file = upload instanceof File && upload.size > 0 ? upload : null;
+  if (file) {
+    if (file.size > MAX_FILE_BYTES) redirect(`/admin/resources/${id ?? "new"}?error=filesize`);
+    if (!ALLOWED_FILE.test(file.name)) redirect(`/admin/resources/${id ?? "new"}?error=filetype`);
+  }
+  let resourceId = id;
   if (id) await db.update(s.resources).set(values).where(eq(s.resources.id, id));
-  else await db.insert(s.resources).values({ ...values, createdById: admin.id });
+  else resourceId = (await db.insert(s.resources).values({ ...values, createdById: admin.id }).returning({ id: s.resources.id }))[0].id;
+  if (file) {
+    const row = { filename: file.name.replace(/[\\/\r\n"]/g, "_").slice(0, 200), contentType: file.type || "application/octet-stream", size: file.size, data: Buffer.from(await file.arrayBuffer()), createdAt: new Date() };
+    await db.insert(s.resourceFiles).values({ resourceId: resourceId!, ...row })
+      .onConflictDoUpdate({ target: s.resourceFiles.resourceId, set: row });
+  } else if (formData.get("removeFile") === "on" && resourceId) {
+    await db.delete(s.resourceFiles).where(eq(s.resourceFiles.resourceId, resourceId));
+  }
   revalidatePath("/resources");
   redirect(`/admin/resources?ok=saved`);
 }

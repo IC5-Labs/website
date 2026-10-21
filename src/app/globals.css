@@ -1145,3 +1145,12 @@ a.agent:hover{background:rgba(36,0,167,.14)}
 /* admin: products and agents */
 .ptitle{font-size:20px;font-weight:800;color:var(--dark);letter-spacing:-.01em}
 .panel-tight>.phead{padding:22px 22px 0;margin-bottom:14px}
+/* downloadable documents */
+.dlbox{display:grid;grid-template-columns:48px 1fr auto;gap:16px;align-items:center;padding:20px 22px;border-radius:16px;border:1.5px dashed rgba(36,0,167,.35);background:rgba(36,0,167,.04);margin:0 0 30px}
+.dlbox .ico{margin:0;background:rgba(36,0,167,.08);color:var(--violet);border-color:rgba(36,0,167,.35)}
+.dlbox b{display:block;color:var(--dark);font-size:16px;overflow-wrap:anywhere}
+.dlbox span{display:block;font-size:13.5px;color:#6F899C;margin-top:2px}
+.doc .dl{display:block;margin-top:8px;font-size:13px;font-weight:700;color:var(--violet)}
+.filerow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.filerow small{color:#7A90A0;font-size:12.5px}
+@media (max-width:760px){ .dlbox{grid-template-columns:40px 1fr}.dlbox .btn{grid-column:1/-1;justify-content:center} }
