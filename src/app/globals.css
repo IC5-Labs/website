@@ -1154,3 +1154,7 @@ a.agent:hover{background:rgba(36,0,167,.14)}
 .filerow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
 .filerow small{color:#7A90A0;font-size:12.5px}
 @media (max-width:760px){ .dlbox{grid-template-columns:40px 1fr}.dlbox .btn{grid-column:1/-1;justify-content:center} }
+/* buttons inside article text keep button colors instead of the violet link style */
+.prose a.btn{border-bottom:0}
+.prose a.btn-violet,.dlbox a.btn-violet{color:#fff}
+.prose a.btn-violet:hover,.dlbox a.btn-violet:hover{color:#fff}
