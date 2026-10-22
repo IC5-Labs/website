@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["pg"],
   // Admins upload document files (PDFs and similar) through a server action.
-  experimental: { serverActions: { bodySizeLimit: "26mb" } },
+  experimental: { serverActions: { bodySizeLimit: "100mb" } },
   // Keep links to the previous ic5labs.com blog working.
   async redirects() {
     return [

@@ -132,6 +132,22 @@ export const resourceFiles = pgTable("resource_file", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 }, (t) => [uniqueIndex("resource_file_resource_idx").on(t.resourceId)]);
 
+/** Shared media library: images and documents admins upload once and reuse across resources. */
+export const assets = pgTable("asset", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  filename: text("filename").notNull(),
+  alt: text("alt"),
+  contentType: text("content_type").notNull(),
+  size: integer("size").notNull(),
+  width: integer("width"),
+  height: integer("height"),
+  data: bytea("data").notNull(),
+  createdById: integer("created_by_id").references(() => users.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+}, (t) => [index("asset_created_idx").on(t.createdAt)]);
+
 /** Versioned product documentation pages. */
 export const documentation = pgTable("documentation", {
   id: serial("id").primaryKey(),
@@ -214,6 +230,7 @@ export type Account = typeof accounts.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type Agent = typeof agents.$inferSelect;
 export type Resource = typeof resources.$inferSelect;
+export type Asset = typeof assets.$inferSelect;
 export type Doc = typeof documentation.$inferSelect;
 export type Case = typeof cases.$inferSelect;
 export type License = typeof licenses.$inferSelect;

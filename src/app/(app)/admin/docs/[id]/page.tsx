@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { InsertAsset } from "@/components/asset-tools";
+import { pickerAssets } from "@/lib/assets";
 import { notFound } from "next/navigation";
 import { asc, eq } from "drizzle-orm";
 import { db, schema as s } from "@/db";
@@ -16,6 +18,7 @@ export default async function EditDoc({ params, searchParams }: { params: Promis
   const d = isNew ? null : await db.query.documentation.findFirst({ where: eq(s.documentation.id, Number(id)) });
   if (!isNew && !d) notFound();
   const products = await selectableProducts([d?.productId]);
+  const library = await pickerAssets();
   const product = d?.productId ?? (Number(sp.product) || products.find((p) => p.hasDocs)?.id);
   return (
     <>
@@ -35,6 +38,7 @@ export default async function EditDoc({ params, searchParams }: { params: Promis
           <label className="field"><span>Order</span><input className="input" type="number" name="sortOrder" defaultValue={d?.sortOrder ?? 0} /></label>
           <label className="field full"><span>Summary</span><input className="input" name="summary" defaultValue={d?.summary ?? ""} /></label>
           <label className="field full"><span>Body (Markdown)</span><textarea className="textarea code" name="body" defaultValue={d?.body ?? ""} required /><small># headings become sections in the navigation; ## headings appear in “On this page”.</small></label>
+          <div className="field full" style={{ marginTop: -6 }}><InsertAsset assets={library} target="body" /></div>
         </div>
         <div style={{ display: "flex", gap: 10, marginTop: 20 }}><button className="btn btn-violet" type="submit">Save page</button><Link className="btn btn-light" href="/admin/docs">Cancel</Link></div>
       </form>

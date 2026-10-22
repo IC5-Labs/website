@@ -6,6 +6,8 @@ import { selectableProducts } from "@/lib/queries";
 import { Flash } from "@/components/site";
 import { deleteResource, saveResource } from "@/lib/actions/admin";
 import { fileHref, fileLabel, resourceFileMeta, resourceHref } from "@/lib/content";
+import { HeroPicker, InsertAsset } from "@/components/asset-tools";
+import { pickerAssets } from "@/lib/assets";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Edit resource" };
@@ -21,6 +23,7 @@ export default async function EditResource({ params, searchParams }: { params: P
   const type = r?.type ?? (sp.type === "document" || sp.type === "insight" ? sp.type : "blog");
   const products = await selectableProducts([r?.productId]);
   const file = r ? (await resourceFileMeta([r.id])).get(r.id) : undefined;
+  const library = await pickerAssets();
   const pub = r?.publishedAt ? new Date(r.publishedAt).toISOString().slice(0, 10) : "";
   return (
     <>
@@ -37,7 +40,7 @@ export default async function EditResource({ params, searchParams }: { params: P
           <label className="field"><span>URL slug</span><input className="input" name="slug" defaultValue={r?.slug} placeholder="Generated from the title" /><small>Shown at /resources/your-slug</small></label>
           <label className="field"><span>Publish date</span><input className="input" type="date" name="publishedAt" defaultValue={pub} /><small>Leave empty to use today when published.</small></label>
           <label className="field"><span>Category</span><input className="input" name="category" defaultValue={r?.category ?? ""} placeholder="Product Management · AI · ServiceNow" /></label>
-          <label className="field"><span>Hero image URL</span><input className="input" name="heroImage" defaultValue={r?.heroImage ?? ""} placeholder="/assets/blog-new-product-bottleneck.jpg" /></label>
+          <div className="field"><span>Hero image</span><HeroPicker assets={library} name="heroImage" defaultValue={r?.heroImage ?? ""} /></div>
           <label className="field full"><span>Featured product</span><select className="select" name="productId" defaultValue={r?.productId ?? ""}><option value="">None: promote the full product suite</option>{products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select><small>Sets the “Ready to see it in action?” call to action and the sidebar promo.</small></label>
           <label className="field"><span>Author name</span><input className="input" name="authorName" defaultValue={r?.authorName ?? "Kit Corry"} /></label>
           <label className="field"><span>Author title</span><input className="input" name="authorTitle" defaultValue={r?.authorTitle ?? "Founder & CEO, IC5 Labs"} /></label>
@@ -48,6 +51,7 @@ export default async function EditResource({ params, searchParams }: { params: P
           </div>
           <label className="field full"><span>Summary</span><textarea className="textarea" name="summary" defaultValue={r?.summary ?? ""} style={{ minHeight: 80 }} /><small>Shown on cards and as the article lead.</small></label>
           <label className="field full"><span>Body (Markdown)</span><textarea className="textarea code" name="body" defaultValue={r?.body ?? ""} /><small>Use ## for section headings; they build the article’s table of contents.</small></label>
+          <div className="field full" style={{ marginTop: -6 }}><InsertAsset assets={library} target="body" /></div>
         </div>
         <div style={{ display: "flex", gap: 10, marginTop: 20 }}><button className="btn btn-violet" type="submit">Save</button><Link className="btn btn-light" href="/admin/resources">Cancel</Link></div>
       </form>
