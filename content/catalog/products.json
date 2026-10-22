@@ -36,8 +36,6 @@
     "capabilitiesTitle": "Everything between the conversation and the need.",
     "capabilities": [
       { "title": "Customer Signals Agent", "agent": "customer-signals-agent", "body": "Logs customer conversations and discovers raw signals in them: candidate needs, pain points, feature opportunities, and personas, with the customer's words as evidence." },
-      { "title": "Signals Discovery Agent", "agent": "signals-discovery-agent", "body": "Finds customer signals across conversations and records, and matches new evidence to the needs that already exist." },
-      { "title": "Signals Priority Agent", "agent": "signals-priority-agent", "body": "Weighs needs by who is asking and how often, so the prioritization conversation starts from evidence." },
       { "title": "Need Designer", "body": "A workbench for pulling signals together to define a new need or strengthen an existing one, and for deduplicating, splitting, and merging needs." },
       { "title": "Need Suggester", "body": "Suggests new needs for older evidence that was never mapped, and existing needs for new evidence as it arrives." },
       { "title": "Customer and persona management", "body": "Define and manage personas, capture them straight from conversations, and see every piece of evidence from a customer in one place." },

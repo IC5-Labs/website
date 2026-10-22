@@ -93,6 +93,19 @@ async function main() {
     await db.insert(s.seedRuns).values({ name: catalogPages }).onConflictDoNothing();
   }
 
+  // Remove the Signals Discovery and Signals Priority cards from Customer Signals' capabilities,
+  // leaving any other admin edits to that page as they are.
+  const csCaps = "customer-signals-caps-v1";
+  if (!(await db.query.seedRuns.findFirst({ where: eq(s.seedRuns.name, csCaps) }))) {
+    const cs = await db.query.products.findFirst({ where: eq(s.products.slug, "customer-signals") });
+    if (cs?.page) {
+      const drop = new Set(["signals-discovery-agent", "signals-priority-agent"]);
+      const capabilities = cs.page.capabilities.filter((c) => !c.agent || !drop.has(c.agent));
+      await db.update(s.products).set({ page: { ...cs.page, capabilities } }).where(eq(s.products.id, cs.id));
+    }
+    await db.insert(s.seedRuns).values({ name: csCaps }).onConflictDoNothing();
+  }
+
   const admin = await db.query.users.findFirst({ where: eq(s.users.email, ADMIN_EMAIL) });
 
   // Blog post
