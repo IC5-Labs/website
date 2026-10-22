@@ -2,6 +2,7 @@
 import { redirect } from "next/navigation";
 import { sendEmail, siteOrigin } from "@/lib/email";
 import { accountCreatedEmail } from "@/lib/email-templates";
+import { saveCompanyDetails } from "@/lib/company";
 import { revalidatePath } from "next/cache";
 import { and, eq, ne } from "drizzle-orm";
 import { z } from "zod";
@@ -196,6 +197,15 @@ export async function adminDeleteUser(formData: FormData) {
 }
 
 /* ---------- accounts and licenses ---------- */
+export async function adminUpdateCompany(formData: FormData) {
+  await requireAdmin("/admin/accounts");
+  const id = Number(formData.get("accountId"));
+  const error = await saveCompanyDetails(id, formData);
+  if (error) redirect(`/admin/accounts/${id}?error=company-${error}`);
+  revalidatePath("/admin/accounts");
+  redirect(`/admin/accounts/${id}?ok=company`);
+}
+
 export async function adminCreateAccount(formData: FormData) {
   await requireAdmin("/admin/accounts");
   const name = z.string().trim().min(2).max(120).safeParse(formData.get("name"));

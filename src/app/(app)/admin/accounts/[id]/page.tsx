@@ -5,7 +5,9 @@ import { db, schema as s } from "@/db";
 import { Flash } from "@/components/site";
 import { CaseTable } from "@/components/cases";
 import { accountLicenses, accountMembers, listCases, selectableProducts } from "@/lib/queries";
-import { deleteLicense, saveLicense } from "@/lib/actions/admin";
+import { adminUpdateCompany, deleteLicense, saveLicense } from "@/lib/actions/admin";
+import { CompanyForm, CompanyMark } from "@/components/company-form";
+import { COMPANY_ERRORS } from "@/lib/company";
 import { initials } from "@/lib/users";
 import { fmtDate } from "@/lib/format";
 
@@ -39,9 +41,13 @@ export default async function AdminAccount({ params, searchParams }: { params: P
   return (
     <>
       <div className="crumb2"><Link href="/admin">Admin</Link> / <Link href="/admin/accounts">Accounts</Link> / <b>{account.name}</b></div>
-      {sp.ok && <Flash ok={sp.ok === "created" ? "Account created. Add licenses and users below." : sp.ok === "deleted" ? "License deleted." : "License saved."} />}
-      {sp.error && <Flash err="Check the license fields: product, status, and both dates are required." />}
-      <div className="ahead"><div><div className="eyebrow">Account</div><h1>{account.name}</h1><p className="s">{account.domain.startsWith("personal:") ? "Personal account" : account.domain} · Created {fmtDate(account.createdAt)}</p></div></div>
+      {sp.ok && <Flash ok={sp.ok === "created" ? "Account created. Add licenses and users below." : sp.ok === "deleted" ? "License deleted." : sp.ok === "company" ? "Company details saved." : "License saved."} />}
+      {sp.error && <Flash err={sp.error.startsWith("company-") ? COMPANY_ERRORS[sp.error.slice(8)] ?? "Couldn’t save the company details." : "Check the license fields: product, status, and both dates are required."} />}
+      <div className="ahead"><div style={{ display: "flex", gap: 18, alignItems: "center" }}><CompanyMark account={account} size={64} /><div><div className="eyebrow">Account</div><h1>{account.name}</h1><p className="s">{[account.domain.startsWith("personal:") ? "Personal account" : account.domain, account.industry, account.companySize && `${account.companySize} employees`, account.location].filter(Boolean).join(" · ")} · Created {fmtDate(account.createdAt)}</p></div></div></div>
+      <details className="lic" style={{ marginTop: 18 }} open={sp.error?.startsWith("company-")}>
+        <summary style={{ cursor: "pointer" }}><b style={{ color: "var(--dark)" }}>Company details</b> <span className="muted">· website, logo, billing contact{account.updatedAt ? ` · updated ${fmtDate(account.updatedAt)}` : ""}</span></summary>
+        <div style={{ marginTop: 14 }}><CompanyForm account={account} action={adminUpdateCompany} hidden={{ accountId: account.id }} /></div>
+      </details>
       <section className="panel">
         <div className="phead"><div><h2>Licenses</h2><p>What {account.name} can use</p></div></div>
         {lics.map(({ license: l, product: p }) => (

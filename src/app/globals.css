@@ -1230,3 +1230,13 @@ a.agent:hover{background:rgba(36,0,167,.14)}
 .aact{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .aact .btn{padding:7px 11px;font-size:13px}
 .adrop input{margin-top:8px}
+/* company details */
+.orgmark{flex:0 0 auto}
+.orgmark.logo{background:#fff;border:1px solid #DCE5EE;overflow:hidden;padding:4px}
+.orgmark.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.logoedit{display:flex;gap:20px;align-items:center}
+.input.ro{background:#F4F7FB;color:#4A6273;display:flex;align-items:center}
+.cdl{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 28px;margin-top:22px}
+.cdl dt{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5A7385}
+.cdl dd{font-size:15.5px;color:var(--dark);margin-top:4px;overflow-wrap:anywhere}
+@media (max-width:700px){.cdl{grid-template-columns:1fr}.logoedit{align-items:flex-start}}

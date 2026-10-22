@@ -7,6 +7,7 @@ import { z } from "zod";
 import { db, schema as s } from "@/db";
 import { sendEmail, siteOrigin } from "@/lib/email";
 import { teamInviteEmail } from "@/lib/email-templates";
+import { saveCompanyDetails } from "@/lib/company";
 import { acceptPendingInvite, emailDomain, isPublicDomain, requireAccountUser, requireUser } from "@/lib/users";
 
 const emailSchema = z.string().trim().toLowerCase().email().max(200);
@@ -151,4 +152,13 @@ export async function updateProfile(formData: FormData) {
   await db.update(s.users).set({ name: name.data }).where(eq(s.users.id, user.id));
   revalidatePath("/account");
   redirect("/account/profile?ok=1");
+}
+
+/** Account admins keep their company's details up to date. */
+export async function updateCompany(formData: FormData) {
+  const { account } = await requireAccountAdmin();
+  const error = await saveCompanyDetails(account.id, formData);
+  if (error) redirect(`/account/company?error=${error}`);
+  revalidatePath("/account", "layout");
+  redirect("/account/company?ok=saved");
 }

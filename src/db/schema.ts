@@ -3,6 +3,8 @@ import {
   pgTable, pgEnum, serial, integer, text, timestamp, boolean, jsonb, uniqueIndex, index,
 } from "drizzle-orm/pg-core";
 
+const bytea = customType<{ data: Buffer; driverData: Buffer }>({ dataType: () => "bytea" });
+
 export const userRole = pgEnum("user_role", ["admin", "user"]);
 export const accountRole = pgEnum("account_role", ["account_admin", "member"]);
 export const resourceType = pgEnum("resource_type", ["blog", "document", "insight"]);
@@ -20,9 +22,27 @@ export const accounts = pgTable("account", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   domain: text("domain").notNull(),
+  // Company details that account admins keep up to date.
+  website: text("website"),
+  industry: text("industry"),
+  companySize: text("company_size"),
+  location: text("location"),
+  phone: text("phone"),
+  billingEmail: text("billing_email"),
+  // Set when a logo is uploaded (the image lives in account_logo); also busts the image cache.
+  logoUpdatedAt: timestamp("logo_updated_at", { withTimezone: true }),
   createdById: integer("created_by_id"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
 }, (t) => [uniqueIndex("account_domain_idx").on(t.domain)]);
+
+/** Company logo, kept apart from the account row so everyday account reads stay small. */
+export const accountLogos = pgTable("account_logo", {
+  accountId: integer("account_id").primaryKey().references(() => accounts.id, { onDelete: "cascade" }),
+  contentType: text("content_type").notNull(),
+  data: bytea("data").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
 
 /** Individual person, identified by email. */
 export const users = pgTable("user", {
@@ -119,7 +139,6 @@ export const resources = pgTable("resource", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 }, (t) => [uniqueIndex("resource_slug_idx").on(t.slug)]);
 
-const bytea = customType<{ data: Buffer; driverData: Buffer }>({ dataType: () => "bytea" });
 
 /** A downloadable file (for example a PDF) attached to a resource, stored in the database. */
 export const resourceFiles = pgTable("resource_file", {
