@@ -4,7 +4,7 @@ import { signInWith } from "@/lib/actions/auth";
 import { Flash } from "@/components/site";
 
 const LABEL: Record<string, string> = { google: "Google", github: "GitHub", slack: "Slack" };
-const MARK: Record<string, string> = { google: "G", github: "GH", slack: "S" };
+const ICON = new Set(["google", "github", "slack"]);
 
 const ERRORS: Record<string, string> = {
   NoEmail: "Your provider didn’t share an email address. Make your email visible to the app and try again.",
@@ -16,7 +16,7 @@ const ERRORS: Record<string, string> = {
 
 export function AuthCard({ mode, callbackUrl, error, notice }: { mode: "signin" | "register"; callbackUrl: string; error?: string; notice?: string }) {
   const signin = mode === "signin";
-  const oauth = enabledProviders.filter((p) => p.id !== "dev");
+  const oauth = enabledProviders.filter((p) => p.id !== "dev" && p.id !== "credentials");
   const q = callbackUrl !== "/account" ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : "";
   return (
     <main className="authwrap">
@@ -48,7 +48,7 @@ export function AuthCard({ mode, callbackUrl, error, notice }: { mode: "signin" 
               <form key={p.id} action={signInWith}>
                 <input type="hidden" name="provider" value={p.id} />
                 <input type="hidden" name="callbackUrl" value={callbackUrl} />
-                <button className="oauth" type="submit" style={{ width: "100%" }}><span className="pmark">{MARK[p.id] ?? p.name[0]}</span>Continue with {LABEL[p.id] ?? p.name}</button>
+                <button className="oauth" type="submit" style={{ width: "100%" }}>{ICON.has(p.id) ? <img className="picon" src={`/assets/providers/${p.id}.svg`} alt="" width={24} height={24} /> : <span className="pmark">{p.name[0]}</span>}Continue with {LABEL[p.id] ?? p.name}</button>
               </form>
             ))}
             {!oauth.length && <Flash info="Google, GitHub, and Slack sign-in will appear here once they’re configured." />}

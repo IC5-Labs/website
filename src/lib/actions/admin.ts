@@ -177,6 +177,24 @@ export async function adminInviteUser(formData: FormData) {
   redirect(`/admin/users?ok=created&mail=${sent}`);
 }
 
+/** Permanently remove a user. Their cases, comments and requests stay, with no author shown. */
+export async function adminDeleteUser(formData: FormData) {
+  const me = await requireAdmin("/admin/users");
+  const id = Number(formData.get("id"));
+  if (id === me.id) redirect("/admin/users?error=deleteself");
+  const target = await db.query.users.findFirst({ where: eq(s.users.id, id) });
+  if (!target) redirect("/admin/users?error=notfound");
+  // Don't leave a company with members but no one who can manage it.
+  if (target.accountId && target.accountRole === "account_admin") {
+    const others = await db.select({ id: s.users.id, role: s.users.accountRole }).from(s.users)
+      .where(and(eq(s.users.accountId, target.accountId), ne(s.users.id, target.id)));
+    if (others.length && !others.some((o) => o.role === "account_admin")) redirect("/admin/users?error=lastadmin");
+  }
+  await db.delete(s.users).where(eq(s.users.id, target.id));
+  revalidatePath("/admin/users");
+  redirect(`/admin/users?ok=deleted&who=${encodeURIComponent(target.email)}`);
+}
+
 /* ---------- accounts and licenses ---------- */
 export async function adminCreateAccount(formData: FormData) {
   await requireAdmin("/admin/accounts");

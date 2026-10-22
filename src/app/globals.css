@@ -292,8 +292,12 @@ a{color:inherit;text-decoration:none}
 .tli h3{font-size:28px;font-weight:800;letter-spacing:-.02em}
 .tli .k{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--light)}
 .tli p{font-size:16.5px;line-height:1.6;color:#B4C7D6;margin-top:10px}
-.tli .out{border-radius:14px;padding:18px 20px;background:rgba(0,57,76,.28);border:1px solid var(--line);font-size:15px;color:#D5E3EE;line-height:1.55}
-.tli .out h6{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+.tli .out{position:relative;align-self:start;border-radius:16px;padding:22px 24px 22px 26px;background:linear-gradient(140deg,#2400A7 0%,#14108A 55%,#002FA7 100%);border:1px solid rgba(98,208,255,.35);box-shadow:0 18px 40px -18px rgba(36,0,167,.9),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden;font-size:15px;color:#D5E3EE;line-height:1.55}
+.tli .out::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:linear-gradient(180deg,#62D0FF,#0082A7)}
+.tli .out h6{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--light);margin-bottom:10px}
+.tli .out h6::after{content:"→";font-size:14px;letter-spacing:0}
+.tli .out strong{display:block;font-size:22px;line-height:1.22;font-weight:800;letter-spacing:-.015em;color:#fff}
+.tli .out span{display:block;margin-top:8px;font-size:15px;line-height:1.5;color:#C9D8F2}
 
 .persona{border-radius:16px;padding:26px;background:#fff;border:1px solid #DCE5EE}
 .persona h4{font-size:18px;font-weight:800;color:var(--dark)}
@@ -494,6 +498,7 @@ a{color:inherit;text-decoration:none}
 .authcard .s{font-size:16px;line-height:1.55;color:#4A6273;margin-top:10px}
 .oauths{display:grid;gap:12px;margin-top:30px}
 .oauth{display:flex;align-items:center;gap:16px;padding:15px 18px;border-radius:12px;border:1.5px solid #CBD7E2;font-size:16.5px;font-weight:700;color:var(--dark);background:#fff}
+.picon{width:24px;height:24px;flex:0 0 24px;display:block;object-fit:contain;margin:0 3px}
 .pmark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:800;border:1.5px dashed #9DB0BF;color:#4A6273;background:#F4F7FB}
 .or{display:flex;align-items:center;gap:14px;margin:28px 0 14px;font-size:12.5px;color:#7A90A0;letter-spacing:.08em}
 .or::before,.or::after{content:"";flex:1;height:1px;background:#E1E9F0}
@@ -1158,3 +1163,17 @@ a.agent:hover{background:rgba(36,0,167,.14)}
 .prose a.btn{border-bottom:0}
 .prose a.btn-violet,.dlbox a.btn-violet{color:#fff}
 .prose a.btn-violet:hover,.dlbox a.btn-violet:hover{color:#fff}
+/* admin users: delete with an inline confirmation (inline so the table's scroll area can't clip it) */
+.urow{display:flex;align-items:center;gap:10px;padding:14px}
+.udel{flex:0 0 auto}
+.udel[open]{display:flex;flex-direction:row-reverse;align-items:center;gap:10px;flex:1}
+.urow:has(.udel[open]) > form{display:none!important}
+.udel summary{list-style:none;cursor:pointer;background:#FDE7E7;color:#A61B1B}
+.udel summary::-webkit-details-marker{display:none}
+.udel summary .on,.udel[open] summary .off{display:none}
+.udel[open] summary .on{display:inline}
+.udel[open] summary{background:#fff;color:var(--dark);border:1.5px solid #CBD7E2}
+.udel-pop,.dtable .udel-pop{flex:1;justify-content:space-between;display:flex;align-items:center;gap:10px;padding:6px 6px 6px 12px;border-radius:10px;background:#FFF4F4;border:1px solid #F3C9C9}
+.udel-pop p{font-size:13.5px;line-height:1.4;color:#7A3B3B}
+.udel-pop p b{color:#A61B1B;margin-right:6px}
+.udel-pop .btn-danger{background:#C62828;color:#fff}
