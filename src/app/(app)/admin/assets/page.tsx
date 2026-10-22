@@ -42,7 +42,7 @@ export default async function AdminAssets({ searchParams }: { searchParams: Prom
       {shown.length ? (
         <div className="agrid">
           {shown.map((a) => (
-            <div className="acard" key={a.id}>
+            <div className="assetcard" key={a.id}>
               <Link href={`/admin/assets/${a.id}`} className="athumb">{isImage(a) ? <img src={assetHref(a)} alt={a.alt ?? ""} loading="lazy" /> : <span className="adoc">{a.filename.split(".").pop()?.toUpperCase()}</span>}</Link>
               <div className="abody">
                 <Link href={`/admin/assets/${a.id}`} className="aname">{a.name}</Link>

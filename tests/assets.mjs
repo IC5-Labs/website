@@ -22,7 +22,7 @@ await p.setInputFiles('input[name="files"]', [
 await p.click('button:has-text("Upload")');
 await p.waitForURL(/ok=uploaded/);
 console.log("upload:", (await p.locator(".flash").first().innerText()).trim());
-const cards = await p.locator(".acard .aname").allInnerTexts();
+const cards = await p.locator(".assetcard .aname").allInnerTexts();
 console.log("cards:", cards);
 assert.equal(cards.length, 3);
 await p.screenshot({ path: `${OUT}/assets-library.png`, fullPage: true });
@@ -35,7 +35,7 @@ console.log("svg rejected:", (await p.locator(".flash").first().innerText()).sli
 
 // copy markdown
 await p.goto(`${BASE}/admin/assets`);
-const heroCard = p.locator(".acard", { hasText: "Blog new product bottleneck" });
+const heroCard = p.locator(".assetcard", { hasText: "Blog new product bottleneck" });
 await heroCard.locator('button:has-text("Copy Markdown")').click();
 console.log("clipboard:", await p.evaluate(() => navigator.clipboard.readText()));
 
@@ -95,7 +95,7 @@ console.log("delete warning:", (await p.locator(".adel-body p").innerText()).tri
 await p.screenshot({ path: `${OUT}/assets-delete.png`, fullPage: true });
 await p.click('button:has-text("Delete permanently")');
 await p.waitForURL(/ok=deleted/);
-console.log("after delete:", await p.locator(".acard").count(), "cards; image 404:", (await anon.request.get(`${BASE}/media/${heroId}/x.jpg`)).status());
+console.log("after delete:", await p.locator(".assetcard").count(), "cards; image 404:", (await anon.request.get(`${BASE}/media/${heroId}/x.jpg`)).status());
 
 // phone width
 await p.setViewportSize({ width: 390, height: 844 });
